@@ -43,46 +43,13 @@ public class Main {
         // Connect Floor Plan
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
+        FloorPlan floorPlan = new FloorPlan(floorPlanLength, floorPlanWidth);
+        Tile[][] floorPlanArr = floorPlan.createFloorPlan();
+        floorPlan.connectFloorPlan();
+        floorPlan.addDirt();
+        floorPlan.printFloorPlan(floorPlanLength, floorPlanWidth, floorPlanArr);
 
-                // Connect Next Right
-                if((floorPlan[i+1][j]) != null) {
-                    //System.out.println("test");
-                    floorPlan[i][j].setRightNext(floorPlan[i+1][j]);
-
-                    // Connect Next Left
-                    if (floorPlan[i][j].getRight().xPos - 1 == floorPlan[i][j].xPos) {
-                        //    System.out.println("test");
-                        floorPlan[i+1][j].setLeftNext(floorPlan[i][j]);
-                    }
-                }
-
-                // Connect Next Bottom
-                if((floorPlan[i][j+1]) != null) {
-                    //    System.out.println("test");
-                    floorPlan[i][j].setBottomNext(floorPlan[i][j+1]);
-
-                    // Connect Next Top
-                    if (floorPlan[i][j].getBottom().yPos - 1 == floorPlan[i][j].yPos) {
-                        //            System.out.println("test");
-                        floorPlan[i][j+1].setTopNext(floorPlan[i][j]);
-                    }
-                }
-            }
-        }
-
-        // Add Dirt to Floor Plan
-        for (int i = 0; i < floorPlanLength; i++) {
-            for (int j = 0; j < floorPlanWidth; j++) {
-                int dirtAmount = randomDirtAmount.nextInt(15);
-                floorPlan[i][j].setDirtAmount(dirtAmount);
-            }
-        }
-
-        //System.out.println(floorPlan[0][0]);
-
-        printFloorPlan(floorPlanLength, floorPlanWidth, floorPlan);
-
-        CleanSweep cleanSweep = new CleanSweep(startXTilePos,startYTilePos,false,floorPlan[startXTilePos][startYTilePos]);
+        CleanSweep cleanSweep = new CleanSweep(startXTilePos,startYTilePos,false,floorPlanArr[startXTilePos][startYTilePos]);
 
         // Startup
         cleanSweep.startUp();
@@ -208,7 +175,7 @@ public class Main {
         }
     }    */
 
-    
+
     public static void printFloorPlan(int floorPlanLength, int floorPlanWidth, Tile[][] floorPlan) {
         // Print Floor Plan
         for (int i = 0; i < floorPlanLength; i++) {
