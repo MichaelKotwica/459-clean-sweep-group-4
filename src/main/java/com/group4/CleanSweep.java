@@ -9,6 +9,9 @@ public class CleanSweep {
     private Tile currentTile;
 
     private double batterypercentage;
+    private int dirtCapacity;
+    private final int MAX_CAPACITY = 50; // Max dirt capacity
+
 
     // Use a Stack to track traversals?
 
@@ -17,6 +20,8 @@ public class CleanSweep {
         this.yPos = yPos;
         this.powerOn = powerOn;
         this.currentTile = currentTile;
+        this.dirtCapacity = 0; // Start with an empty dirt container
+
     }
 
     public boolean traverseLeft(Tile tile) {
@@ -56,7 +61,31 @@ public class CleanSweep {
     }
 
     public boolean clean(Tile tile) {
-        if (!tile.cleanTile) {
+        if (dirtCapacity < MAX_CAPACITY) {
+            int dirtAmount = tile.getDirtAmount();
+            if (dirtAmount > 0) {
+                // Calculate how much dirt can be picked up
+                int dirtToCollect = Math.min(MAX_CAPACITY - dirtCapacity, dirtAmount);
+                while (dirtToCollect > 0) {
+                    dirtCapacity += 1;
+                    tile.setDirtAmount(dirtAmount - 1);
+                    dirtToCollect -= 1;
+                    System.out.println("Cleaned 1 dirt. Current Capacity: " + dirtCapacity + "/" + MAX_CAPACITY);
+                }
+            }
+            // If tile is fully clean
+            if (tile.getDirtAmount() == 0) {
+                tile.cleanTile = true;
+                System.out.println("Tile fully cleaned.");
+                return true;
+            }
+        } else {
+            System.out.println("Dirt container is full! Cannot clean more until emptied.");
+            return false;
+        }
+
+
+        /*if (!tile.cleanTile) {
             tile.setDirtAmount(tile.getDirtAmount() - 1); // Clean 1 unit of dirt
 
             if (tile.getDirtAmount() <= 0) {
@@ -69,6 +98,9 @@ public class CleanSweep {
             }
         }
         System.out.println("Already Clean! :D");
+
+         */
+
         return true;
     }
 
@@ -97,4 +129,15 @@ public class CleanSweep {
     public void printPos() {
         System.out.println("(" + getXPos() + ", " + getYPos() + ")");
     }
+
+    public int getDirtCapacity() {
+
+        return dirtCapacity;
+    }
+
+    public void emptyDirtContainer() {
+        dirtCapacity = 0;
+        System.out.println("Dirt container emptied.");
+    }
+
 }
