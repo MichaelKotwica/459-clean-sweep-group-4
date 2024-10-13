@@ -77,10 +77,10 @@ public class Main {
         // Check dirt per tile
         System.out.println("Tile Dirt Amount Before Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
-        while(!cleanSweep.getCurrentTile().cleanTile) {
+        /*while(!cleanSweep.getCurrentTile().cleanTile) {
             cleanSweep.clean(cleanSweep.getCurrentTile());
-        }
-
+        }*/
+        cleanSweep.clean(cleanSweep.getCurrentTile());
         System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
         cleanSweep.shutDown();
