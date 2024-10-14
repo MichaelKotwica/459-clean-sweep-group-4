@@ -9,8 +9,9 @@ public class CleanSweep {
     private Tile currentTile;
 
     private double batterypercentage;
+
     private int dirtCapacity;
-    private final int MAX_CAPACITY = 50; // Max dirt capacity
+    private final int MAX_CAPACITY; // Max dirt capacity
 
 
     // Use a Stack to track traversals?
@@ -18,10 +19,13 @@ public class CleanSweep {
     public CleanSweep(int xPos, int yPos, boolean powerOn, Tile currentTile) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.powerOn = powerOn;
-        this.currentTile = currentTile;
-        this.dirtCapacity = 0; // Start with an empty dirt container
 
+        this.powerOn = powerOn;
+
+        this.currentTile = currentTile;
+
+        this.dirtCapacity = 0; // Start with an empty dirt container
+        MAX_CAPACITY = 50;
     }
 
     public boolean traverseLeft(Tile tile) {
@@ -60,7 +64,9 @@ public class CleanSweep {
         return currentTile;
     }
 
-    public boolean clean(Tile tile) {
+    public void clean(Tile tile) {
+
+        /*
         if (dirtCapacity < MAX_CAPACITY) {
             int dirtAmount = tile.getDirtAmount();
             if (dirtAmount > 0) {
@@ -82,7 +88,7 @@ public class CleanSweep {
         } else {
             System.out.println("Dirt container is full! Cannot clean more until emptied.");
             return false;
-        }
+        }*/
 
 
         /*if (!tile.cleanTile) {
@@ -98,10 +104,31 @@ public class CleanSweep {
             }
         }
         System.out.println("Already Clean! :D");
-
+            return true;
          */
+        if (dirtCapacity < MAX_CAPACITY) { // If there is room in the clean sweep
+            if (!tile.cleanTile) {
+                int dirtToCollect = Math.min(MAX_CAPACITY - dirtCapacity, tile.getDirtAmount());
+                while (dirtToCollect > 0) {
+                    dirtCapacity++;
+                    tile.setDirtAmount(tile.getDirtAmount() - 1); // Subtract 1 unit of dirt
+                    System.out.println("Cleaned 1 dirt. Current Capacity: " + dirtCapacity + "/" + MAX_CAPACITY);
+                    dirtToCollect--;
+                }
+                if (tile.getDirtAmount() == 0) {
+                    tile.cleanTile = true;
+                } else {
+                    System.out.println("Dirt container is full! Cannot clean more until emptied.");
+                }
 
-        return true;
+            } else {
+                System.out.println("This is a clean tile.");
+            }
+
+        } else {
+            System.out.println("Dirt container is full! Cannot clean more until emptied.");
+        }
+
     }
 
 
@@ -109,12 +136,12 @@ public class CleanSweep {
         System.out.println("Battery Percentage: " + batterypercentage + "%");
     }
     public void shutDown() {
-        System.out.println("Shutting Down...");
+        System.out.println("Shutting Down...\n");
         powerOn = false;
     }
 
     public void startUp() {
-        System.out.println("Powering on...");
+        System.out.println("\nPowering on...");
         powerOn = true;
     }
 
@@ -127,7 +154,7 @@ public class CleanSweep {
     }
 
     public void printPos() {
-        System.out.println("(" + getXPos() + ", " + getYPos() + ")");
+        System.out.println("Current Position: (" + getXPos() + ", " + getYPos() + ")");
     }
 
     public int getDirtCapacity() {
