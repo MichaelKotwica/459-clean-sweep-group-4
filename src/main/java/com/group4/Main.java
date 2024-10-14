@@ -13,6 +13,8 @@ public class Main {
 
         Random randomDirtAmount = new Random();
 
+        int fixedDirtAmount = 25;
+
         Tile[][] floorPlan = new Tile[floorPlanLength+1][floorPlanWidth+1];
 
         // Create Empty Floor Plan
@@ -59,7 +61,7 @@ public class Main {
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
                 int dirtAmount = randomDirtAmount.nextInt(10);
-                floorPlan[i][j].setDirtAmount(dirtAmount);
+                floorPlan[i][j].setDirtAmount(fixedDirtAmount);
             }
         }
 
@@ -77,22 +79,28 @@ public class Main {
         // Check dirt per tile
         System.out.println("Tile Dirt Amount Before Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
-        /*while(!cleanSweep.getCurrentTile().cleanTile) {
-            cleanSweep.clean(cleanSweep.getCurrentTile());
-        }*/
+
         cleanSweep.clean(cleanSweep.getCurrentTile());
+        //System.out.println(cleanSweep.getCurrentTile().cleanTile);
+
         System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
-        cleanSweep.shutDown();
+        //cleanSweep.shutDown();
 
         // Traverse Left (2,2) -> (1,2)
         System.out.println("Traversing Left...");
         cleanSweep.traverseLeft(floorPlan[cleanSweep.getXPos()-1][cleanSweep.getYPos()]);
         cleanSweep.printPos();
         cleanSweep.showBatteryPercentage();
+
         // Check dirt per tile
         System.out.println("Tile Dirt Amount Before Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
+        //System.out.println(cleanSweep.getCurrentTile().cleanTile);
 
+        cleanSweep.clean(cleanSweep.getCurrentTile());
+        //System.out.println(cleanSweep.getCurrentTile().cleanTile);
+
+        System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
         // Traverse Left (1,2) -> (0,2)
         System.out.println("Traversing Left...");
@@ -101,6 +109,13 @@ public class Main {
         cleanSweep.showBatteryPercentage();
         // Check dirt per tile
         System.out.println("Tile Dirt Amount Before Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
+
+        cleanSweep.clean(cleanSweep.getCurrentTile());
+        //System.out.println(cleanSweep.getCurrentTile().cleanTile);
+
+        System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
+
+        /*
 
         // Traverse Right (0,2) -> (1,2)
         System.out.println("Traversing Right...");
@@ -150,7 +165,7 @@ public class Main {
         cleanSweep.showBatteryPercentage();
         // Check dirt per tile
         System.out.println("Tile Dirt Amount Before Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
-
+*/
     }
 
     public static void printFloorPlan(int floorPlanLength, int floorPlanWidth, Tile[][] floorPlan) {

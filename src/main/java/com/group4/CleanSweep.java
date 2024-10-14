@@ -9,6 +9,7 @@ public class CleanSweep {
     private Tile currentTile;
 
     private double batterypercentage;
+
     private int dirtCapacity;
     private final int MAX_CAPACITY = 50; // Max dirt capacity
 
@@ -21,7 +22,6 @@ public class CleanSweep {
         this.powerOn = powerOn;
         this.currentTile = currentTile;
         this.dirtCapacity = 0; // Start with an empty dirt container
-
     }
 
     public boolean traverseLeft(Tile tile) {
@@ -60,7 +60,9 @@ public class CleanSweep {
         return currentTile;
     }
 
-    public boolean clean(Tile tile) {
+    public void clean(Tile tile) {
+
+        /*
         if (dirtCapacity < MAX_CAPACITY) {
             int dirtAmount = tile.getDirtAmount();
             if (dirtAmount > 0) {
@@ -82,7 +84,7 @@ public class CleanSweep {
         } else {
             System.out.println("Dirt container is full! Cannot clean more until emptied.");
             return false;
-        }
+        }*/
 
 
         /*if (!tile.cleanTile) {
@@ -98,10 +100,33 @@ public class CleanSweep {
             }
         }
         System.out.println("Already Clean! :D");
-
+            return true;
          */
+        if (dirtCapacity < MAX_CAPACITY) {
+            if (!tile.cleanTile) {
+                int dirtToCollect = Math.min(MAX_CAPACITY - dirtCapacity, tile.getDirtAmount());
+                while (dirtToCollect > 0) {
+                    //System.out.println("before set:" + tile.getDirtAmount());
+                    dirtCapacity++;
+                    tile.setDirtAmount(tile.getDirtAmount() - 1);
+                    System.out.println("Cleaned 1 dirt. Current Capacity: " + dirtCapacity + "/" + MAX_CAPACITY);
+                    dirtToCollect--;
+                    //System.out.println("after set:" + tile.getDirtAmount());
+                }
+                if (tile.getDirtAmount() == 0) {
+                    tile.cleanTile = true;
+                } else {
+                    System.out.println("Dirt container is full! Cannot clean more until emptied.");
+                }
 
-        return true;
+            } else {
+                System.out.println("This is a clean tile.");
+            }
+
+        } else {
+            System.out.println("Dirt container is full! Cannot clean more until emptied.");
+        }
+
     }
 
 
