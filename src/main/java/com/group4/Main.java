@@ -106,13 +106,6 @@ public class Main {
         cleanSweep.clean(cleanSweep.getCurrentTile());
         System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
-        cleanSweep.clean(cleanSweep.getCurrentTile());
-        //System.out.println(cleanSweep.getCurrentTile().cleanTile);
-
-        System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
-
-
-
         // Traverse Right (0,2) -> (1,2)
         System.out.println("\nTraversing Right...");
         cleanSweep.traverseRight(floorPlan[cleanSweep.getXPos()+1][cleanSweep.getYPos()]);
