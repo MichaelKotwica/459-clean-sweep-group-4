@@ -106,14 +106,16 @@ public class CleanSweep {
         System.out.println("Already Clean! :D");
             return true;
          */
-        if (dirtCapacity < MAX_CAPACITY) { // If there is room in the clean sweep
+        if (dirtCapacity < MAX_CAPACITY) {
             if (!tile.cleanTile) {
                 int dirtToCollect = Math.min(MAX_CAPACITY - dirtCapacity, tile.getDirtAmount());
                 while (dirtToCollect > 0) {
+                    //System.out.println("before set:" + tile.getDirtAmount());
                     dirtCapacity++;
-                    tile.setDirtAmount(tile.getDirtAmount() - 1); // Subtract 1 unit of dirt
+                    tile.setDirtAmount(tile.getDirtAmount() - 1);
                     System.out.println("Cleaned 1 dirt. Current Capacity: " + dirtCapacity + "/" + MAX_CAPACITY);
                     dirtToCollect--;
+                    //System.out.println("after set:" + tile.getDirtAmount());
                 }
                 if (tile.getDirtAmount() == 0) {
                     tile.cleanTile = true;
