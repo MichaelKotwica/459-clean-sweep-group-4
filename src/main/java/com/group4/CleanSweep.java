@@ -60,6 +60,32 @@ public class CleanSweep {
         return currentTile;
     }
 
+
+    /*
+        public boolean clean(Tile tile) {
+        if (dirtCapacity >= MAX_CAPACITY) {
+            System.out.println("Dirt container is full! Returning to the charging station.");
+            returnToChargingStation();
+            return false;
+        }
+    
+        int dirtAmount = tile.getDirtAmount();
+        if (dirtAmount > 0) {
+            int dirtToCollect = Math.min(MAX_CAPACITY - dirtCapacity, dirtAmount);
+            dirtCapacity += dirtToCollect;
+            tile.setDirtAmount(dirtAmount - dirtToCollect);
+            System.out.println("Cleaned " + dirtToCollect + " dirt. Current Capacity: " + dirtCapacity + "/" + MAX_CAPACITY);
+        }
+        
+        if (tile.getDirtAmount() == 0) {
+            tile.cleanTile = true;
+            System.out.println("Tile fully cleaned.");
+        }
+    
+        return true;
+    }
+*/
+    
     public boolean clean(Tile tile) {
         if (dirtCapacity < MAX_CAPACITY) {
             int dirtAmount = tile.getDirtAmount();
