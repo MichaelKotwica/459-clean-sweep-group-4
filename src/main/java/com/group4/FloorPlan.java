@@ -6,6 +6,9 @@ public class FloorPlan {
 
     Tile[][] floorPlan;
     Random randomDirtAmount = new Random();
+    Random randomTileType = new Random();
+
+    int fixedDirtAmount = 25;
 
     int floorPlanLength;
     int floorPlanWidth;
@@ -23,9 +26,17 @@ public class FloorPlan {
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
                 //System.out.println(i + ", " + j);
-                floorPlan[i][j] = new Tile(null, null, null, null, i, j);
 
-                //System.out.println(floorPlan[i][j].toString());
+                int tileType = randomTileType.nextInt(3);
+                //System.out.println(tileType);
+
+                if (tileType == 0) {
+                    floorPlan[i][j] = new BareFloorTile(null, null, null, null, i, j);
+                } else if (tileType == 1) {
+                    floorPlan[i][j] = new LowPileTile(null, null, null, null, i, j);
+                } else {
+                    floorPlan[i][j] = new HighPileTile(null, null, null, null, i, j);
+                }
             }
         }
         return floorPlan;
