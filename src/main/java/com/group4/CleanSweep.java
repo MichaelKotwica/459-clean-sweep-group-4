@@ -29,7 +29,7 @@ public class CleanSweep {
     }
 
     public boolean traverseLeft(Tile tile) {
-        if (currentTile.getLeft() == tile) {
+        if (currentTile.getLeft() == tile && tile.traversible()) {
             this.currentTile = tile;
             this.xPos--;
             return true;
@@ -37,7 +37,7 @@ public class CleanSweep {
     }
 
     public boolean traverseRight(Tile tile) {
-        if (currentTile.getRight() == tile) {
+        if (currentTile.getRight() == tile && tile.traversible()) {
             this.currentTile = tile;
             this.xPos++;
             return true;
@@ -45,7 +45,7 @@ public class CleanSweep {
     }
 
     public boolean traverseUp(Tile tile) {
-        if (currentTile.getTop() == tile) {
+        if (currentTile.getTop() == tile && tile.traversible()) {
             this.currentTile = tile;
             this.yPos--;
             return true;
@@ -53,7 +53,7 @@ public class CleanSweep {
     }
 
     public boolean traverseDown(Tile tile) {
-        if (currentTile.getBottom() == tile) {
+        if (currentTile.getBottom() == tile && tile.traversible()) {
             this.currentTile = tile;
             this.yPos++;
             return true;

@@ -1,10 +1,9 @@
 package com.group4;
 
-public class LowPileTile extends Tile {
-    public LowPileTile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
+public class Obstacle extends Tile{
+    public Obstacle(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
         super(leftNext, rightNext, topNext, bottomNext, xPos, yPos);
     }
-
     @Override
     public String toString() {
         return "Tile {\n" +
@@ -13,21 +12,20 @@ public class LowPileTile extends Tile {
                 "\tDirt Amount: " + getDirtAmount() + "\n" +
                 "}";
     }
-
-
     @Override
     public void setDirtAmount(int dirtAmount) {
-        this.dirtAmount = dirtAmount;
-        this.cleanTile = this.dirtAmount <= 0;
+        return;
     }
     public void removeDirt(){
-        this.dirtAmount -= 2;
-        if (this.dirtAmount<0) this.dirtAmount = 0;
+        return;
+    }
+    @Override
+    public Boolean traversible(){
+        return false;
     }
 
     @Override
     public String getTypeStr() {
-        return "Low Pile Tile";
+        return ("Obstacle");
     }
-
 }

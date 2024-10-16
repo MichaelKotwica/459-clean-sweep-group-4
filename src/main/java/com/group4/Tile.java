@@ -1,14 +1,10 @@
 package com.group4;
 
 public abstract class Tile {
-    private Tile leftNext;
-    private Tile rightNext;
-    private Tile topNext;
-    private Tile bottomNext;
-
-    public Tile surfaceType;
-
-    protected String typeStr;
+    protected Tile leftNext;
+    protected Tile rightNext;
+    protected Tile topNext;
+    protected Tile bottomNext;
 
     public int xPos;
     public int yPos;
@@ -32,6 +28,10 @@ public abstract class Tile {
     public abstract String getTypeStr();
 
     public abstract void removeDirt();
+
+    public Boolean traversible(){
+        return true;
+    }
 
     public int getDirtAmount() {
         return dirtAmount;

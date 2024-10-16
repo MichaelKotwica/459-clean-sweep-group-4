@@ -3,8 +3,9 @@ package com.group4;
 public class HighPileTile extends Tile {
     public HighPileTile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
         super(leftNext, rightNext, topNext, bottomNext, xPos, yPos);
-        this.surfaceType = this;
     }
+
+
 
     @Override
     public String toString() {

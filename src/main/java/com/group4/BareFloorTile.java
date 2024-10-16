@@ -4,8 +4,6 @@ public class BareFloorTile extends Tile {
 
     public BareFloorTile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
         super(leftNext, rightNext, topNext, bottomNext, xPos, yPos);
-        this.surfaceType = this;
-        setTypeStr();
     }
 
     @Override
@@ -29,12 +27,8 @@ public class BareFloorTile extends Tile {
 
     @Override
     public String getTypeStr() {
-        return this.typeStr;
+        return "Bare Floor";
     }
 
-    @Override
-    public void setTypeStr() {
-        this.typeStr = "Bare Floor";
-    }
 
 }
