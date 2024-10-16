@@ -178,6 +178,24 @@ public class Main {
         printFloorPlan(floorPlanLength, floorPlanWidth, floorPlan);
     }
 
+   /*     public void returnToChargingStation() {
+        System.out.println("Returning to starting charging station...");
+        moveToPosition(0, 0); // Assuming (0, 0) is the charging station position
+        emptyDirtContainer();
+        System.out.println("Reached charging station. Dirt container emptied.");
+    }
+
+    private void moveToPosition(int targetX, int targetY) {
+        // Simplified movement logic: moves to target position step-by-step.
+        while (xPos != targetX || yPos != targetY) {
+            if (xPos < targetX) traverseRight(floorPlan[xPos + 1][yPos]);
+            else if (xPos > targetX) traverseLeft(floorPlan[xPos - 1][yPos]);
+            if (yPos < targetY) traverseDown(floorPlan[xPos][yPos + 1]);
+            else if (yPos > targetY) traverseUp(floorPlan[xPos][yPos - 1]);
+        }
+    }    */
+
+    
     public static void printFloorPlan(int floorPlanLength, int floorPlanWidth, Tile[][] floorPlan) {
         // Print Floor Plan
         for (int i = 0; i < floorPlanLength; i++) {
