@@ -27,15 +27,17 @@ public class FloorPlan {
             for (int j = 0; j < floorPlanWidth; j++) {
                 //System.out.println(i + ", " + j);
 
-                int tileType = randomTileType.nextInt(3);
+                int tileType = randomTileType.nextInt(4);
                 //System.out.println(tileType);
 
                 if (tileType == 0) {
                     floorPlan[i][j] = new BareFloorTile(null, null, null, null, i, j);
                 } else if (tileType == 1) {
                     floorPlan[i][j] = new LowPileTile(null, null, null, null, i, j);
-                } else {
+                } else if (tileType == 2) {
                     floorPlan[i][j] = new HighPileTile(null, null, null, null, i, j);
+                } else {
+                    floorPlan[i][j] = new ObstacleTile(null, null, null, null, i, j);
                 }
             }
         }

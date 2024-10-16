@@ -174,6 +174,11 @@ public class CleanSweep {
     public void showBatteryPercentage() {
         System.out.println("Battery Percentage: " + batterypercentage + "%");
     }
+
+    public void showTileType() {
+        System.out.println("Current Tile Type: " + getCurrentTile().typeStr);
+    }
+
     public void shutDown() {
         System.out.println("Shutting Down...\n");
         powerOn = false;
@@ -197,7 +202,6 @@ public class CleanSweep {
     }
 
     public int getDirtCapacity() {
-
         return dirtCapacity;
     }
 
