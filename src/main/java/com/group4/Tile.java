@@ -1,19 +1,15 @@
 package com.group4;
 
 public abstract class Tile {
-    private Tile leftNext;
-    private Tile rightNext;
-    private Tile topNext;
-    private Tile bottomNext;
-
-    public Tile surfaceType;
-
+    protected Tile leftNext;
+    protected Tile rightNext;
+    protected Tile topNext;
+    protected Tile bottomNext;
     protected String typeStr;
 
-    public int xPos;
-    public int yPos;
-    public int dirtAmount;
-    public boolean cleanTile;
+    protected int xPos;
+    protected int yPos;
+    protected int dirtAmount;
 
     public Tile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
         this.leftNext = leftNext;
@@ -31,11 +27,15 @@ public abstract class Tile {
 
     public abstract String getTypeStr();
 
-    public abstract void setTypeStr();
+    //removed setting type str
 
     public int getDirtAmount() {
         return dirtAmount;
     }
+    public Boolean tileClean(){
+        if(this.dirtAmount == 0) return True;
+    }
+
 
     public Tile getLeft() {
         return leftNext;
