@@ -33,6 +33,8 @@ public abstract class Tile {
 
     public abstract void setTypeStr();
 
+    public abstract void removeDirt();
+
     public int getDirtAmount() {
         return dirtAmount;
     }
