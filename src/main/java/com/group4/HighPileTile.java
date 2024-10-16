@@ -26,8 +26,4 @@ public class HighPileTile extends Tile {
         return ("HighPileTile");
     }
 
-    @Override
-    public void setTypeStr() {
-        this.typeStr = "High Pile Carpet";
-    }
 }
