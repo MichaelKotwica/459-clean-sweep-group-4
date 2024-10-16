@@ -23,12 +23,12 @@ public class Tile {
     @Override
     public String toString() {
         return "Tile {\n" +
-                "\t(" + xPos +"," + yPos + ")" +/*
+                "\tTile Location: (" + xPos +"," + yPos + ")\n" +/*
                 "\n\tRightNext = " + rightNext +
                 ",\n\trightNext = " + rightNext +
                 ",\n\ttopNext = " + topNext +
                 ",\n\tbottomNext = " + bottomNext +*/
-                "Dirt Amount: " + getDirtAmount() +
+                "\tDirt Amount: " + getDirtAmount() +
                 "\n}";
     }
 
