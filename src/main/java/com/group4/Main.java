@@ -108,7 +108,7 @@ public class Main {
         System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
         // Traverse Down (1,0) -> (1,1)
-        System.out.println("\nTraversing Down...");
+        System.out.println("Traversing Down...");
         cleanSweep.traverseDown(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]);
         cleanSweep.printPos();
         cleanSweep.showBatteryPercentage();
