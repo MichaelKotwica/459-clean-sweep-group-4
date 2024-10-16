@@ -4,7 +4,6 @@ public class HighPileTile extends Tile {
     public HighPileTile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
         super(leftNext, rightNext, topNext, bottomNext, xPos, yPos);
         this.surfaceType = this;
-        setTypeStr();
     }
 
     @Override
@@ -24,7 +23,7 @@ public class HighPileTile extends Tile {
 
     @Override
     public String getTypeStr() {
-        return this.typeStr;
+        return ("HighPileTile");
     }
 
     @Override
