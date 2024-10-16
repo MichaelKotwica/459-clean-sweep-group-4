@@ -31,8 +31,6 @@ public abstract class Tile {
 
     public abstract String getTypeStr();
 
-    public abstract void setTypeStr();
-
     public abstract void removeDirt();
 
     public int getDirtAmount() {
