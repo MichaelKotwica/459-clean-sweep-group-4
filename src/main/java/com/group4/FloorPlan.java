@@ -22,7 +22,7 @@ public class FloorPlan {
     public Tile[][] createFloorPlan() {
         this.floorPlan = new Tile[floorPlanLength + 1][floorPlanWidth + 1];
 
-        // Create Empty Floor Plan
+        // Create Floor Plan
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
                 //System.out.println(i + ", " + j);
