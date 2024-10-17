@@ -47,22 +47,22 @@ class CleanSweepTest {
     }
 
     @Test
-    void traverseLeft() {
+    void traverseLeftNoObstacle() {
         assertTrue(cleanSweep.traverseLeft(floorPlanArr[cleanSweep.getXPos()-1][cleanSweep.getYPos()]));
     }
 
     @Test
-    void traverseRight() {
+    void traverseRightNoObstacle() {
         assertTrue(cleanSweep.traverseRight(floorPlanArr[cleanSweep.getXPos()+1][cleanSweep.getYPos()]));
     }
 
     @Test
-    void traverseUp() {
+    void traverseUpObstacle() {
         assertFalse(cleanSweep.traverseUp(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()-1]));
     }
 
     @Test
-    void traverseDown() {
+    void traverseDownNoObstacle() {
         assertTrue(cleanSweep.traverseDown(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]));
     }
 }
