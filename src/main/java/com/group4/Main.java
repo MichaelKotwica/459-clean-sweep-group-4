@@ -27,8 +27,6 @@ public class Main {
         // Clean current tile
         System.out.println("Tile Dirt Amount Before Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
         cleanSweep.clean(cleanSweep.getCurrentTile());
-        //System.out.println(cleanSweep.getCurrentTile().cleanTile);
-
         System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
         // Traverse Left (2,2) -> (1,2)
