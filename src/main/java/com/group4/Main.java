@@ -3,8 +3,8 @@ package com.group4;
 public class Main {
     public static void main(String[] args) {
 
-        int floorPlanLength = 3;
-        int floorPlanWidth = 3;
+        int floorPlanLength = 5;
+        int floorPlanWidth = 5;
 
         int startXTilePos = 2;
         int startYTilePos = 2;
@@ -108,7 +108,7 @@ public class Main {
         System.out.println("Tile Dirt Amount After Cleaning: " + cleanSweep.getCurrentTile().getDirtAmount());
 
         // Traverse Down (1,0) -> (1,1)
-        System.out.println("Traversing Down...");
+        System.out.println("\nTraversing Down...");
         cleanSweep.traverseDown(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]);
         cleanSweep.printPos();
         cleanSweep.showBatteryPercentage();

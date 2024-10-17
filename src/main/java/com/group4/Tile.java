@@ -29,7 +29,7 @@ public abstract class Tile {
 
     public abstract void removeDirt();
 
-    public Boolean traversible(){
+    public Boolean traversable(){
         return true;
     }
 

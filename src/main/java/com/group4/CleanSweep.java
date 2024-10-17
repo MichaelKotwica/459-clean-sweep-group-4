@@ -29,7 +29,7 @@ public class CleanSweep {
     }
 
     public boolean traverseLeft(Tile tile) {
-        if (currentTile.getLeft() == tile && tile.traversible()) {
+        if (currentTile.getLeft() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.xPos--;
             return true;
@@ -37,7 +37,7 @@ public class CleanSweep {
     }
 
     public boolean traverseRight(Tile tile) {
-        if (currentTile.getRight() == tile && tile.traversible()) {
+        if (currentTile.getRight() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.xPos++;
             return true;
@@ -45,7 +45,7 @@ public class CleanSweep {
     }
 
     public boolean traverseUp(Tile tile) {
-        if (currentTile.getTop() == tile && tile.traversible()) {
+        if (currentTile.getTop() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.yPos--;
             return true;
@@ -53,7 +53,7 @@ public class CleanSweep {
     }
 
     public boolean traverseDown(Tile tile) {
-        if (currentTile.getBottom() == tile && tile.traversible()) {
+        if (currentTile.getBottom() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.yPos++;
             return true;
@@ -174,6 +174,7 @@ public class CleanSweep {
     public void showBatteryPercentage() {
         System.out.println("Battery Percentage: " + batterypercentage + "%");
     }
+
     public void shutDown() {
         System.out.println("Shutting Down...\n");
         powerOn = false;

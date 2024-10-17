@@ -12,15 +12,18 @@ public class Obstacle extends Tile{
                 "\tDirt Amount: " + getDirtAmount() + "\n" +
                 "}";
     }
+
     @Override
     public void setDirtAmount(int dirtAmount) {
         return;
     }
+
     public void removeDirt(){
         return;
     }
+
     @Override
-    public Boolean traversible(){
+    public Boolean traversable(){
         return false;
     }
 
@@ -28,4 +31,5 @@ public class Obstacle extends Tile{
     public String getTypeStr() {
         return ("Obstacle");
     }
+
 }
