@@ -27,7 +27,7 @@ public class LowPileTile extends Tile {
 
     @Override
     public String getTypeStr() {
-        return "Low Pile Tile";
+        return "Low Pile";
     }
 
 }

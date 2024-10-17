@@ -21,6 +21,7 @@ public class Main {
         cleanSweep.startUp();
         //System.out.println("Starting Position:");
         cleanSweep.printPos();
+        System.out.println("Current Tile type: " + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
@@ -34,6 +35,7 @@ public class Main {
         System.out.println("\nTraversing Left...");
         cleanSweep.traverseLeft(floorPlanArr[cleanSweep.getXPos()-1][cleanSweep.getYPos()]);
         cleanSweep.printPos();
+        System.out.println("Current Tile type: " + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
@@ -45,6 +47,7 @@ public class Main {
         System.out.println("\nTraversing Left...");
         cleanSweep.traverseLeft(floorPlanArr[cleanSweep.getXPos()-1][cleanSweep.getYPos()]);
         cleanSweep.printPos();
+        System.out.println("Current Tile type: " + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
@@ -56,6 +59,7 @@ public class Main {
         System.out.println("\nTraversing Right...");
         cleanSweep.traverseRight(floorPlanArr[cleanSweep.getXPos()+1][cleanSweep.getYPos()]);
         cleanSweep.printPos();
+        System.out.println("Current Tile type: " + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
@@ -67,6 +71,7 @@ public class Main {
         System.out.println("\nTraversing Right...");
         cleanSweep.traverseRight(floorPlanArr[cleanSweep.getXPos()+1][cleanSweep.getYPos()]);
         cleanSweep.printPos();
+        System.out.println("Current Tile type: " + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
@@ -78,6 +83,7 @@ public class Main {
         System.out.println("\nTraversing Up...");
         cleanSweep.traverseUp(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()-1]);
         cleanSweep.printPos();
+        System.out.println("Current Tile type:" + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
@@ -89,6 +95,7 @@ public class Main {
         System.out.println("\nTraversing Up...");
         cleanSweep.traverseUp(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()-1]);
         cleanSweep.printPos();
+        System.out.println("Current Tile type: " + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
@@ -100,6 +107,7 @@ public class Main {
         System.out.println("\nTraversing Left...");
         cleanSweep.traverseLeft(floorPlanArr[cleanSweep.getXPos()-1][cleanSweep.getYPos()]);
         cleanSweep.printPos();
+        System.out.println("Current Tile type: " + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
@@ -111,6 +119,7 @@ public class Main {
         System.out.println("\nTraversing Down...");
         cleanSweep.traverseDown(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]);
         cleanSweep.printPos();
+        System.out.println("Current Tile type: " + cleanSweep.getCurrentTile().getTypeStr());
         cleanSweep.showBatteryPercentage();
 
         // Clean current tile
