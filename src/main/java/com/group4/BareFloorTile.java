@@ -20,6 +20,7 @@ public class BareFloorTile extends Tile {
         this.dirtAmount = dirtAmount;
         this.cleanTile = this.dirtAmount <= 0;
     }
+
     public void removeDirt(){
         this.dirtAmount -= 3;
         if (this.dirtAmount<0) this.dirtAmount = 0;
@@ -29,6 +30,5 @@ public class BareFloorTile extends Tile {
     public String getTypeStr() {
         return "Bare Floor";
     }
-
 
 }

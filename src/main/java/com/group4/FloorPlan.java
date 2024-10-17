@@ -16,7 +16,6 @@ public class FloorPlan {
     public FloorPlan(int floorPlanLength, int floorPlanWidth) {
         this.floorPlanLength = floorPlanLength;
         this.floorPlanWidth = floorPlanWidth;
-
     }
 
     public Tile[][] createFloorPlan() {
@@ -75,7 +74,6 @@ public class FloorPlan {
                 }
             }
         }
-
     }
 
     public void addDirt() {
@@ -91,9 +89,7 @@ public class FloorPlan {
         // Print Floor Plan
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
-
                 System.out.println(floorPlan[i][j].toString());
-
             }
         }
     }

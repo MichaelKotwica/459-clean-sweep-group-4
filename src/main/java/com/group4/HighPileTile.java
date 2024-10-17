@@ -5,8 +5,6 @@ public class HighPileTile extends Tile {
         super(leftNext, rightNext, topNext, bottomNext, xPos, yPos);
     }
 
-
-
     @Override
     public String toString() {
         return "Tile {\n" +

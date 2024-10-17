@@ -13,7 +13,6 @@ public class CleanSweep {
     private int dirtCapacity;
     private final int MAX_CAPACITY; // Max dirt capacity
 
-
     // Use a Stack to track traversals?
 
     public CleanSweep(int xPos, int yPos, boolean powerOn, Tile currentTile) {
@@ -167,7 +166,6 @@ public class CleanSweep {
         } else {
             System.out.println("Dirt container is full! Cannot clean more until emptied.");
         }
-
     }
 
 
@@ -198,7 +196,6 @@ public class CleanSweep {
     }
 
     public int getDirtCapacity() {
-
         return dirtCapacity;
     }
 
