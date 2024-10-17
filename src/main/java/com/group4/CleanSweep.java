@@ -8,7 +8,7 @@ public class CleanSweep {
 
     private Tile currentTile;
 
-    private double batterypercentage;
+    private double batteryPercentage;
 
     private int dirtCapacity;
     private final int MAX_CAPACITY; // Max dirt capacity
@@ -170,7 +170,7 @@ public class CleanSweep {
 
 
     public void showBatteryPercentage() {
-        System.out.println("Battery Percentage: " + batterypercentage + "%");
+        System.out.println("Battery Percentage: " + batteryPercentage + "%");
     }
 
     public void shutDown() {
