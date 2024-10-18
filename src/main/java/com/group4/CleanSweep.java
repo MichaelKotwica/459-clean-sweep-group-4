@@ -32,7 +32,11 @@ public class CleanSweep {
             this.currentTile = tile;
             this.xPos--;
             return true;
-        } else return false;
+        } else {
+            System.out.println("Left tile not traversable...");
+            avoid();
+            return false;
+        }
     }
 
     public boolean traverseRight(Tile tile) {
@@ -40,7 +44,11 @@ public class CleanSweep {
             this.currentTile = tile;
             this.xPos++;
             return true;
-        } else return false;
+        } else {
+            System.out.println("Right tile not traversable...");
+            avoid();
+            return false;
+        }
     }
 
     public boolean traverseUp(Tile tile) {
@@ -48,7 +56,11 @@ public class CleanSweep {
             this.currentTile = tile;
             this.yPos--;
             return true;
-        } else return false;
+        } else {
+            System.out.println("Above tile not traversable...");
+            avoid();
+            return false;
+        }
     }
 
     public boolean traverseDown(Tile tile) {
@@ -56,7 +68,11 @@ public class CleanSweep {
             this.currentTile = tile;
             this.yPos++;
             return true;
-        } else return false;
+        } else {
+            System.out.println("Below tile not traversable...");
+            avoid();
+            return false;
+        }
     }
 
     public Tile getCurrentTile() {
@@ -168,6 +184,24 @@ public class CleanSweep {
         }
     }
 
+    public void avoid() {
+        if (currentTile.getRight().traversable()) { // Try to traverse right to avoid obstacle
+            System.out.println("Traversing right to avoid obstacle...");
+            traverseRight(currentTile.getRight());
+        } else if (currentTile.getBottom().traversable()) { // Try to traverse down to avoid obstacle
+            System.out.println("Traversing down to avoid obstacle...");
+            traverseDown(currentTile.getBottom());
+         }else if (currentTile.getLeft().traversable()) { // Try to traverse left to avoid obstacle
+            System.out.println("Traversing left to avoid obstacle...");
+            traverseLeft(currentTile.getLeft());
+        } else if (currentTile.getTop().traversable()) { // Try to traverse up to avoid obstacle
+            System.out.println("Traversing up to avoid obstacle...");
+            traverseUp(currentTile.getTop());
+        } else {
+            System.out.println("Cannot avoid obstacle(s)");
+            shutDown();
+        }
+    }
 
     public void showBatteryPercentage() {
         System.out.println("Battery Percentage: " + batteryPercentage + "%");

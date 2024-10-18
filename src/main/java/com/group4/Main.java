@@ -13,7 +13,7 @@ public class Main {
         Tile[][] floorPlanArr = floorPlan.createFloorPlan();
         floorPlan.connectFloorPlan();
         floorPlan.addDirt();
-        floorPlan.printFloorPlan(floorPlanLength, floorPlanWidth, floorPlanArr);
+        floorPlan.printFloorPlan();
 
         CleanSweep cleanSweep = new CleanSweep(startXTilePos,startYTilePos,false,floorPlanArr[startXTilePos][startYTilePos]);
 
@@ -128,7 +128,7 @@ public class Main {
         cleanSweep.shutDown();
 
         System.out.println("Floor after cleaning:");
-        floorPlan.printFloorPlan(floorPlanLength, floorPlanWidth, floorPlanArr);
+        floorPlan.printFloorPlan();
     }
 
    /*     public void returnToChargingStation() {
