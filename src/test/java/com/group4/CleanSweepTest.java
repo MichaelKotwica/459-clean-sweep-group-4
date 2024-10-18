@@ -127,42 +127,50 @@ class CleanSweepTest {
 
     @Test
     void traverseLeftNoObstacle() {
+        System.out.println("\ntraverseLeftNoObstacle()");
         assertTrue(cleanSweep.traverseLeft(bareFloorPlanArr[cleanSweep.getXPos()-1][cleanSweep.getYPos()]));
     }
 
     @Test
     void traverseRightNoObstacle() {
+        System.out.println("\ntraverseRightNoObstacle()");
         assertTrue(cleanSweep.traverseRight(bareFloorPlanArr[cleanSweep.getXPos()+1][cleanSweep.getYPos()]));
     }
 
     @Test
     void traverseUpObstacle() {
+        System.out.println("\ntraverseUpObstacle()");
         assertFalse(cleanSweep.traverseUp(bareFloorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()-1]));
     }
 
     @Test
     void traverseDownNoObstacle() {
+        System.out.println("\ntraverseDownNoObstacle()");
         assertFalse(cleanSweep.traverseDown(bareFloorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]));
     }
 
     @Test
     void traverseDownStairDecline() {
+        System.out.println("\ntraverseDownStairDecline()");
         assertFalse(cleanSweep.traverseDown(bareFloorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]));
     }
 
     @Test
     void stuckShutdown() {
+        System.out.println("\nstuckShutdown()");
         stuckCleanSweep.traverseRight(stuckFloorPlanArr[stuckCleanSweep.getXPos()+1][cleanSweep.getYPos()]);
         assertFalse(stuckCleanSweep.powerOn);
     }
 
     @Test
-    void stairAvoidance(){
+    void stairAvoidance() {
+        System.out.println("\nstairAvoidance()");
         assertFalse(cleanSweep.traverseDown(bareFloorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]));
     }
 
     @Test
     void stairStuckShutdown() {
+        System.out.println("\nstairStuckShutdown()");
         stairStuckCleanSweep.traverseRight(stairStuckFloorPlanArr[stuckCleanSweep.getXPos()+1][cleanSweep.getYPos()]);
         assertFalse(stairStuckCleanSweep.powerOn);
     }
