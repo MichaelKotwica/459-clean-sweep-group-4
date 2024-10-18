@@ -85,7 +85,7 @@ public class FloorPlan {
         }
     }
 
-    public void printFloorPlan(int floorPlanLength, int floorPlanWidth, Tile[][] floorPlan) {
+    public void printFloorPlan() {
         // Print Floor Plan
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {

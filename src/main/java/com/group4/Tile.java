@@ -30,9 +30,7 @@ public abstract class Tile {
 
     public abstract void removeDirt();
 
-    public Boolean traversable(){
-        return true;
-    }
+    public abstract Boolean traversable();
 
     public int getDirtAmount() {
         return dirtAmount;

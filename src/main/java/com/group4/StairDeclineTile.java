@@ -1,8 +1,7 @@
 package com.group4;
 
-public class BareFloorTile extends Tile {
-
-    public BareFloorTile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
+public class StairDeclineTile extends Tile {
+    public StairDeclineTile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
         super(leftNext, rightNext, topNext, bottomNext, xPos, yPos);
     }
 
@@ -17,24 +16,21 @@ public class BareFloorTile extends Tile {
 
     @Override
     public void setDirtAmount(int dirtAmount) {
-        this.dirtAmount = dirtAmount;
-        this.cleanTile = this.dirtAmount <= 0;
-    }
-
-    @Override
-    public void removeDirt(){
-        this.dirtAmount -= 3;
-        if (this.dirtAmount<0) this.dirtAmount = 0;
-    }
-
-    @Override
-    public Boolean traversable() {
-        return true;
+        this.dirtAmount = 0;
     }
 
     @Override
     public String getTypeStr() {
-        return "Bare Floor";
+        return "Stair / Decline";
     }
 
+    @Override
+    public void removeDirt() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Boolean traversable() {
+        return false;
+    }
 }
