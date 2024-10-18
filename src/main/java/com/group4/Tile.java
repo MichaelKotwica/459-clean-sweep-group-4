@@ -1,14 +1,15 @@
 package com.group4;
 
-public class Tile {
-    private Tile leftNext;
-    private Tile rightNext;
-    private Tile topNext;
-    private Tile bottomNext;
+public abstract class Tile {
+    protected Tile leftNext;
+    protected Tile rightNext;
+    protected Tile topNext;
+    protected Tile bottomNext;
 
-    public int xPos;
-    public int yPos;
-    private int dirtAmount;
+    public final int xPos;
+    public final int yPos;
+
+    public int dirtAmount;
     public boolean cleanTile;
 
     public Tile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
@@ -21,20 +22,16 @@ public class Tile {
     }
 
     @Override
-    public String toString() {
-        return "Tile {\n" +
-                "\tTile Location: (" + xPos +"," + yPos + ")\n" +/*
-                "\n\tRightNext = " + rightNext +
-                ",\n\trightNext = " + rightNext +
-                ",\n\ttopNext = " + topNext +
-                ",\n\tbottomNext = " + bottomNext +*/
-                "\tDirt Amount: " + getDirtAmount() +
-                "\n}";
-    }
+    public abstract String toString();
 
-    public void setDirtAmount(int dirtAmount) {
-        this.dirtAmount = dirtAmount;
-        this.cleanTile = this.dirtAmount <= 0;
+    public abstract void setDirtAmount(int dirtAmount);
+
+    public abstract String getTypeStr();
+
+    public abstract void removeDirt();
+
+    public Boolean traversable(){
+        return true;
     }
 
     public int getDirtAmount() {

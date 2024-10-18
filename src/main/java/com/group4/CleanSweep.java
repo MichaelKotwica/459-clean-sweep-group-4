@@ -8,11 +8,10 @@ public class CleanSweep {
 
     private Tile currentTile;
 
-    private double batterypercentage;
+    private double batteryPercentage;
 
     private int dirtCapacity;
     private final int MAX_CAPACITY; // Max dirt capacity
-
 
     // Use a Stack to track traversals?
 
@@ -29,7 +28,7 @@ public class CleanSweep {
     }
 
     public boolean traverseLeft(Tile tile) {
-        if (currentTile.getLeft() == tile) {
+        if (currentTile.getLeft() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.xPos--;
             return true;
@@ -37,7 +36,7 @@ public class CleanSweep {
     }
 
     public boolean traverseRight(Tile tile) {
-        if (currentTile.getRight() == tile) {
+        if (currentTile.getRight() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.xPos++;
             return true;
@@ -45,7 +44,7 @@ public class CleanSweep {
     }
 
     public boolean traverseUp(Tile tile) {
-        if (currentTile.getTop() == tile) {
+        if (currentTile.getTop() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.yPos--;
             return true;
@@ -53,7 +52,7 @@ public class CleanSweep {
     }
 
     public boolean traverseDown(Tile tile) {
-        if (currentTile.getBottom() == tile) {
+        if (currentTile.getBottom() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.yPos++;
             return true;
@@ -167,13 +166,13 @@ public class CleanSweep {
         } else {
             System.out.println("Dirt container is full! Cannot clean more until emptied.");
         }
-
     }
 
 
     public void showBatteryPercentage() {
-        System.out.println("Battery Percentage: " + batterypercentage + "%");
+        System.out.println("Battery Percentage: " + batteryPercentage + "%");
     }
+
     public void shutDown() {
         System.out.println("Shutting Down...\n");
         powerOn = false;
@@ -197,7 +196,6 @@ public class CleanSweep {
     }
 
     public int getDirtCapacity() {
-
         return dirtCapacity;
     }
 
