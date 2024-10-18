@@ -5,13 +5,13 @@ import java.util.Random;
 public class FloorPlan {
 
     Tile[][] floorPlan;
-    Random randomDirtAmount = new Random();
-    Random randomTileType = new Random();
+    final Random randomDirtAmount = new Random();
+    final Random randomTileType = new Random();
 
-    int fixedDirtAmount = 25;
+    //final int fixedDirtAmount = 25;
 
-    int floorPlanLength;
-    int floorPlanWidth;
+    final int floorPlanLength;
+    final int floorPlanWidth;
 
     public FloorPlan(int floorPlanLength, int floorPlanWidth) {
         this.floorPlanLength = floorPlanLength;

@@ -6,8 +6,9 @@ public abstract class Tile {
     protected Tile topNext;
     protected Tile bottomNext;
 
-    public int xPos;
-    public int yPos;
+    public final int xPos;
+    public final int yPos;
+
     public int dirtAmount;
     public boolean cleanTile;
 

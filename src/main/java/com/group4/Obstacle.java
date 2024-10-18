@@ -16,11 +16,12 @@ public class Obstacle extends Tile{
 
     @Override
     public void setDirtAmount(int dirtAmount) {
-        return;
+        this.dirtAmount = 0;
     }
 
-    public void removeDirt(){
-        return;
+    @Override
+    public void removeDirt() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

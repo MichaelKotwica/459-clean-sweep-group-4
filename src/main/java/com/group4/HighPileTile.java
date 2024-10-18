@@ -19,6 +19,8 @@ public class HighPileTile extends Tile {
         this.dirtAmount = dirtAmount;
         this.cleanTile = this.dirtAmount <= 0;
     }
+
+    @Override
     public void removeDirt(){
         this.dirtAmount -= 1;
         if (this.dirtAmount<0) this.dirtAmount = 0;
