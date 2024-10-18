@@ -20,6 +20,9 @@ class CleanSweepTest {
     FloorPlan floorPlan;
     Tile[][] floorPlanArr;
 
+    FloorPlan bareFloorPlan;
+    Tile[][] bareFloorPlanArr;
+
     @BeforeEach
     void setUp() {
         startXTilePos = 2;
@@ -31,38 +34,51 @@ class CleanSweepTest {
         floorPlan = new FloorPlan(floorPlanLength, floorPlanWidth);
         floorPlanArr = floorPlan.createFloorPlan();
 
+        bareFloorPlan = floorPlan;
+        bareFloorPlanArr = bareFloorPlan.createFloorPlan();
+
         // Make all Tiles Bare floor
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
-                floorPlanArr[i][j] = new BareFloorTile(null, null, null, null, i, j);
+                bareFloorPlanArr[i][j] = new BareFloorTile(null, null, null, null, i, j);
             }
         }
 
         // Place Obstacle at 2,1 (Directly above clean sweep start position (2,2))
-        floorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1);
+        bareFloorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1);
+
+        // Place Star at 2,3 (Directly above clean sweep start position (2,2))
+        bareFloorPlanArr[2][3] = new StairDeclineTile(null, null, null, null, 2, 3);
 
         floorPlan.connectFloorPlan();
+        bareFloorPlan.connectFloorPlan();
 
-        cleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,floorPlanArr[startXTilePos][startYTilePos]);
+        cleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,bareFloorPlanArr[startXTilePos][startYTilePos]);
     }
 
     @Test
     void traverseLeftNoObstacle() {
-        assertTrue(cleanSweep.traverseLeft(floorPlanArr[cleanSweep.getXPos()-1][cleanSweep.getYPos()]));
+        assertTrue(cleanSweep.traverseLeft(bareFloorPlanArr[cleanSweep.getXPos()-1][cleanSweep.getYPos()]));
     }
 
     @Test
     void traverseRightNoObstacle() {
-        assertTrue(cleanSweep.traverseRight(floorPlanArr[cleanSweep.getXPos()+1][cleanSweep.getYPos()]));
+        assertTrue(cleanSweep.traverseRight(bareFloorPlanArr[cleanSweep.getXPos()+1][cleanSweep.getYPos()]));
     }
 
     @Test
     void traverseUpObstacle() {
-        assertFalse(cleanSweep.traverseUp(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()-1]));
+        assertFalse(cleanSweep.traverseUp(bareFloorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()-1]));
     }
 
     @Test
     void traverseDownNoObstacle() {
-        assertTrue(cleanSweep.traverseDown(floorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]));
+        assertFalse(cleanSweep.traverseDown(bareFloorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]));
     }
+
+    @Test
+    void traverseDownStairDecline() {
+        assertFalse(cleanSweep.traverseDown(bareFloorPlanArr[cleanSweep.getXPos()][cleanSweep.getYPos()+1]));
+    }
+
 }
