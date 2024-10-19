@@ -63,6 +63,14 @@ public class CleanSweep {
         return currentTile;
     }
 
+    public void charge(){
+        if(currentTile.getTypeStr()== "Charging Station"){
+            this.batteryPercentage = 100.00;
+            return;
+        }
+        System.out.print("The clean sweeper cannot be charged at this tile, please navigate to a charging station");
+    }
+
     /*
 
     Yash's Implementation:
