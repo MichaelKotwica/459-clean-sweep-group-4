@@ -28,7 +28,7 @@ public class CleanSweep {
     }
 
     public boolean traverseLeft(Tile tile) {
-        if (currentTile.getLeft() == tile && tile.traversable()) {
+        if (currentTile.getLeft() != null && currentTile.getLeft() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.xPos--;
             return true;
@@ -40,7 +40,7 @@ public class CleanSweep {
     }
 
     public boolean traverseRight(Tile tile) {
-        if (currentTile.getRight() == tile && tile.traversable()) {
+        if (currentTile.getRight() != null && currentTile.getRight() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.xPos++;
             return true;
@@ -52,7 +52,7 @@ public class CleanSweep {
     }
 
     public boolean traverseUp(Tile tile) {
-        if (currentTile.getTop() == tile && tile.traversable()) {
+        if (currentTile.getTop() != null && currentTile.getTop() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.yPos--;
             return true;
@@ -64,7 +64,7 @@ public class CleanSweep {
     }
 
     public boolean traverseDown(Tile tile) {
-        if (currentTile.getBottom() == tile && tile.traversable()) {
+        if (currentTile.getBottom() != null && currentTile.getBottom() == tile && tile.traversable()) {
             this.currentTile = tile;
             this.yPos++;
             return true;
@@ -185,16 +185,17 @@ public class CleanSweep {
     }
 
     public void avoid() {
-        if (currentTile.getRight().traversable()) { // Try to traverse right to avoid obstacle
+        System.out.println("in avoid");
+        if (currentTile.getRight() != null && currentTile.getRight().traversable()) { // Try to traverse right to avoid obstacle
             System.out.println("Traversing right to avoid obstacle...");
             traverseRight(currentTile.getRight());
-        } else if (currentTile.getBottom().traversable()) { // Try to traverse down to avoid obstacle
+        } else if (currentTile.getBottom() != null && currentTile.getBottom().traversable()) { // Try to traverse down to avoid obstacle
             System.out.println("Traversing down to avoid obstacle...");
             traverseDown(currentTile.getBottom());
-         }else if (currentTile.getLeft().traversable()) { // Try to traverse left to avoid obstacle
+         }else if (currentTile.getLeft() != null && currentTile.getLeft().traversable()) { // Try to traverse left to avoid obstacle
             System.out.println("Traversing left to avoid obstacle...");
             traverseLeft(currentTile.getLeft());
-        } else if (currentTile.getTop().traversable()) { // Try to traverse up to avoid obstacle
+        } else if (currentTile.getTop() != null && currentTile.getTop().traversable()) { // Try to traverse up to avoid obstacle
             System.out.println("Traversing up to avoid obstacle...");
             traverseUp(currentTile.getTop());
         } else {

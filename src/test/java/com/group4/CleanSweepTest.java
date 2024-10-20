@@ -22,10 +22,12 @@ public class CleanSweepTest {
     int stuckFloorPlanWidth;
 
     CleanSweep cleanSweep;
-
     CleanSweep stuckCleanSweep;
-
     CleanSweep stairStuckCleanSweep;
+    CleanSweep leftOutBoundCleanSweep;
+    CleanSweep rightOutBoundCleanSweep;
+    CleanSweep upOutBoundCleanSweep;
+    CleanSweep downOutBoundCleanSweep;
 
     FloorPlan floorPlan;
     Tile[][] floorPlanArr;
@@ -123,6 +125,11 @@ public class CleanSweepTest {
         stuckCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, stuckFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
 
         stairStuckCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, stairStuckFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
+
+        leftOutBoundCleanSweep = new CleanSweep(0,0, true, stairStuckFloorPlanArr[0][0]);
+        rightOutBoundCleanSweep = new CleanSweep(2,0, true, stairStuckFloorPlanArr[2][0]);
+        upOutBoundCleanSweep = new CleanSweep(0,0, true, stairStuckFloorPlanArr[0][0]);
+        downOutBoundCleanSweep = new CleanSweep(0,2, true, stairStuckFloorPlanArr[0][2]);
     }
 
     @Test
@@ -173,6 +180,46 @@ public class CleanSweepTest {
         System.out.println("\nstairStuckShutdown()");
         stairStuckCleanSweep.traverseRight(stairStuckFloorPlanArr[stuckCleanSweep.getXPos()+1][cleanSweep.getYPos()]);
         assertFalse(stairStuckCleanSweep.powerOn);
+    }
+
+    @Test
+    void notTraverseLeftOutOfBounds() {
+        System.out.println("\nnotTraverseLeftOutOfBounds()");
+        try {
+            leftOutBoundCleanSweep.traverseLeft(stairStuckFloorPlanArr[stuckCleanSweep.getXPos()-1][cleanSweep.getYPos()]);
+        } catch (Exception e) {
+            fail("Traversing out of bounds should not throw an exception");
+        }
+    }
+
+    @Test
+    void notTraverseRightOutOfBounds() {
+        System.out.println("\nnotTraverseRightOutOfBounds()");
+        try {
+            rightOutBoundCleanSweep.traverseRight(stairStuckFloorPlanArr[stuckCleanSweep.getXPos()+1][cleanSweep.getYPos()]);
+        } catch (Exception e) {
+            fail("Traversing out of bounds should not throw an exception");
+        }
+    }
+
+    @Test
+    void notTraverseUpOutOfBounds() {
+        System.out.println("\nnotTraverseUpOutOfBounds()");
+        try {
+            upOutBoundCleanSweep.traverseUp(stairStuckFloorPlanArr[stuckCleanSweep.getXPos()][cleanSweep.getYPos()-1]);
+        } catch (Exception e) {
+            fail("Traversing out of bounds should not throw an exception");
+        }
+    }
+
+    @Test
+    void notTraverseDownOutOfBounds() {
+        System.out.println("\nnotTraverseUpOutOfBounds()");
+        try {
+            downOutBoundCleanSweep.traverseDown(stairStuckFloorPlanArr[stuckCleanSweep.getXPos()][cleanSweep.getYPos()+1]);
+        } catch (Exception e) {
+            fail("Traversing out of bounds should not throw an exception");
+        }
     }
 
 }
