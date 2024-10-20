@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="fileName">./logs</Property>
+        <Property name="logPattern">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %m%n</Property>
+    </Properties>
+    <Appenders>
+        <!--Log to console-->
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="${logPattern}"/>
+        </Console>
+        <!--Log to logs/main.log-->
+        <File name ="MAIN" fileName="${fileName}/main.log">
+            <PatternLayout pattern="${logPattern}"/>
+        </File>
+        <!--Log to logs/debug.log-->
+        <File name="DEBUG_LOG" fileName="${fileName}/debug.log">
+            <PatternLayout pattern="${logPattern}"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <!--Root level logs-->
+        <Root level="trace">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+        <!--trace level logs specific to package com.group4-->
+        <Logger name="com.group4" level="trace" additivity="false">
+            <!--create logs in console (println) and main.log-->
+            <AppenderRef ref="MAIN"/>
+            <AppenderRef ref="CONSOLE"/>
+        </Logger>
+        <!--Debug level logs specific to package com.group4
+        <Logger name="com.group4" level="DEBUG" additivity="false">
+            <AppenderRef ref="DEBUG_LOG"/>
+        </Logger>-->
+    </Loggers>
+</Configuration>
