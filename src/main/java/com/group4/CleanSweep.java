@@ -185,7 +185,7 @@ public class CleanSweep {
     }
 
     public void avoid() {
-        System.out.println("in avoid");
+        //System.out.println("in avoid");
         if (currentTile.getRight() != null && currentTile.getRight().traversable()) { // Try to traverse right to avoid obstacle
             System.out.println("Traversing right to avoid obstacle...");
             traverseRight(currentTile.getRight());
