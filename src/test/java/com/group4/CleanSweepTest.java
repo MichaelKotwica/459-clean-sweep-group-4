@@ -154,7 +154,7 @@ public class CleanSweepTest {
         initUpOpenFloorPlan();
 
         // Cleaning Floor Plan
-        initCleanFloorPlan();
+        initCleaningFloorPlan();
 
         initCleanSweeps();
     }
@@ -252,7 +252,7 @@ public class CleanSweepTest {
         upOpenFloorPlan.connectFloorPlan();
     }
 
-    void initCleanFloorPlan() {
+    void initCleaningFloorPlan() {
         cleaningFloorPlan = new FloorPlan(floorPlanLength, floorPlanWidth); // 5 x 5
         cleaningFloorPlanArr = cleaningFloorPlan.createFloorPlan();
 
