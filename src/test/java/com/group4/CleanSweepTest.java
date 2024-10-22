@@ -32,6 +32,8 @@ public class CleanSweepTest {
     CleanSweep onCleanSweep;
     CleanSweep downAvoidanceCleanSweep;
     CleanSweep rightAvoidanceCleanSweep;
+    CleanSweep leftAvoidanceCleanSweep;
+    CleanSweep upAvoidanceCleanSweep;
 
     FloorPlan floorPlan;
     Tile[][] floorPlanArr;
@@ -50,6 +52,12 @@ public class CleanSweepTest {
 
     FloorPlan rightOpenFloorPlan;
     Tile[][] rightOpenFloorPlanArr;
+
+    FloorPlan leftOpenFloorPlan;
+    Tile[][] leftOpenFloorPlanArr;
+
+    FloorPlan upOpenFloorPlan;
+    Tile[][] upOpenFloorPlanArr;
 
 
     @BeforeEach
@@ -132,44 +140,16 @@ public class CleanSweepTest {
 
 
         // Bottom Open Floor Plan
-        bottomOpenFloorPlan = new FloorPlan(floorPlanLength, floorPlanWidth); // 5 x 5
-        bottomOpenFloorPlanArr = bottomOpenFloorPlan.createFloorPlan();
-
-
-        for (int i = 0; i < floorPlanLength; i++) {
-            for (int j = 0; j < floorPlanWidth; j++) {
-                bottomOpenFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
-            }
-        }
-
-        // Place Obstacles surrounding the clean sweep starting position Except below
-        bottomOpenFloorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1); // Above
-        // bottomOpenFloorPlanArr[2][3] = new Obstacle(null, null, null, null, 2, 3); // Below
-        bottomOpenFloorPlanArr[1][2] = new Obstacle(null, null, null, null, 1, 2); // Left
-        bottomOpenFloorPlanArr[3][2] = new Obstacle(null, null, null, null, 3, 2); // Right
-        bottomOpenFloorPlan.connectFloorPlan();
-
-
-
+        initBottomOpenFloorPlan();
 
         // Right Open Floor Plan
-        rightOpenFloorPlan = new FloorPlan(floorPlanLength, floorPlanWidth); // 5 x 5
-        rightOpenFloorPlanArr = rightOpenFloorPlan.createFloorPlan();
+        initRightOpenFloorPlan();
 
+        // Left Open Floor Plan
+        initLeftOpenFloorPlan();
 
-        for (int i = 0; i < floorPlanLength; i++) {
-            for (int j = 0; j < floorPlanWidth; j++) {
-                rightOpenFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
-            }
-        }
-
-        // Place Obstacles surrounding the clean sweep starting position Except Right
-        rightOpenFloorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1); // Above
-        rightOpenFloorPlanArr[2][3] = new Obstacle(null, null, null, null, 2, 3); // Below
-        rightOpenFloorPlanArr[1][2] = new Obstacle(null, null, null, null, 1, 2); // Left
-        // rightOpenFloorPlanArr[3][2] = new Obstacle(null, null, null, null, 3, 2); // Right
-        rightOpenFloorPlan.connectFloorPlan();
-
+        // Up Open Floor Plan
+        initUpOpenFloorPlan();
 
         initCleanSweeps();
     }
@@ -186,6 +166,84 @@ public class CleanSweepTest {
         onCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,bareFloorPlanArr[startXTilePos][startYTilePos]);
         downAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,bottomOpenFloorPlanArr[startXTilePos][startYTilePos]);
         rightAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,rightOpenFloorPlanArr[startXTilePos][startYTilePos]);
+        leftAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,leftOpenFloorPlanArr[startXTilePos][startYTilePos]);
+        upAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,upOpenFloorPlanArr[startXTilePos][startYTilePos]);
+    }
+
+    void initBottomOpenFloorPlan() {
+        bottomOpenFloorPlan = new FloorPlan(floorPlanLength, floorPlanWidth); // 5 x 5
+        bottomOpenFloorPlanArr = bottomOpenFloorPlan.createFloorPlan();
+
+
+        for (int i = 0; i < floorPlanLength; i++) {
+            for (int j = 0; j < floorPlanWidth; j++) {
+                bottomOpenFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+
+        // Place Obstacles surrounding the clean sweep starting position Except below
+        bottomOpenFloorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1); // Above
+        // bottomOpenFloorPlanArr[2][3] = new Obstacle(null, null, null, null, 2, 3); // Below
+        bottomOpenFloorPlanArr[1][2] = new Obstacle(null, null, null, null, 1, 2); // Left
+        bottomOpenFloorPlanArr[3][2] = new Obstacle(null, null, null, null, 3, 2); // Right
+        bottomOpenFloorPlan.connectFloorPlan();
+    }
+
+    void initRightOpenFloorPlan() {
+        rightOpenFloorPlan = new FloorPlan(floorPlanLength, floorPlanWidth); // 5 x 5
+        rightOpenFloorPlanArr = rightOpenFloorPlan.createFloorPlan();
+
+
+        for (int i = 0; i < floorPlanLength; i++) {
+            for (int j = 0; j < floorPlanWidth; j++) {
+                rightOpenFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+
+        // Place Obstacles surrounding the clean sweep starting position Except Right
+        rightOpenFloorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1); // Above
+        rightOpenFloorPlanArr[2][3] = new Obstacle(null, null, null, null, 2, 3); // Below
+        rightOpenFloorPlanArr[1][2] = new Obstacle(null, null, null, null, 1, 2); // Left
+        // rightOpenFloorPlanArr[3][2] = new Obstacle(null, null, null, null, 3, 2); // Right
+        rightOpenFloorPlan.connectFloorPlan();
+    }
+
+    void initLeftOpenFloorPlan() {
+        leftOpenFloorPlan = new FloorPlan(floorPlanLength, floorPlanWidth); // 5 x 5
+        leftOpenFloorPlanArr = leftOpenFloorPlan.createFloorPlan();
+
+
+        for (int i = 0; i < floorPlanLength; i++) {
+            for (int j = 0; j < floorPlanWidth; j++) {
+                leftOpenFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+
+        // Place Obstacles surrounding the clean sweep starting position Except Left
+        leftOpenFloorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1); // Above
+        leftOpenFloorPlanArr[2][3] = new Obstacle(null, null, null, null, 2, 3); // Below
+        // leftOpenFloorPlanArr[1][2] = new Obstacle(null, null, null, null, 1, 2); // Left
+        leftOpenFloorPlanArr[3][2] = new Obstacle(null, null, null, null, 3, 2); // Right
+        leftOpenFloorPlan.connectFloorPlan();
+    }
+
+    void initUpOpenFloorPlan() {
+        upOpenFloorPlan = new FloorPlan(floorPlanLength, floorPlanWidth); // 5 x 5
+        upOpenFloorPlanArr = upOpenFloorPlan.createFloorPlan();
+
+
+        for (int i = 0; i < floorPlanLength; i++) {
+            for (int j = 0; j < floorPlanWidth; j++) {
+                upOpenFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+
+        // Place Obstacles surrounding the clean sweep starting position Except above
+        // upOpenFloorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1); // Above
+        upOpenFloorPlanArr[2][3] = new Obstacle(null, null, null, null, 2, 3); // Below
+        upOpenFloorPlanArr[1][2] = new Obstacle(null, null, null, null, 1, 2); // Left
+        upOpenFloorPlanArr[3][2] = new Obstacle(null, null, null, null, 3, 2); // Right
+        upOpenFloorPlan.connectFloorPlan();
     }
 
     // Traversals, Traversable, Bare floor
@@ -255,7 +313,16 @@ public class CleanSweepTest {
 
     @Test
     public void AvoidLeftTraverseUp() {
-        // TODO
+        System.out.println("\nAvoidLeftTraverseUp()");
+        int xPreLeftTraversal = upAvoidanceCleanSweep.getXPos();
+        int yPreLeftTraversal = upAvoidanceCleanSweep.getYPos();
+
+        upAvoidanceCleanSweep.traverseLeft(upOpenFloorPlanArr[upAvoidanceCleanSweep.getXPos()-1][upAvoidanceCleanSweep.getYPos()]);
+
+        int xPostLeftTraversal = upAvoidanceCleanSweep.getXPos();
+        int yPostLeftTraversal = upAvoidanceCleanSweep.getYPos();
+
+        assertEquals(yPreLeftTraversal - 1,yPostLeftTraversal);
     }
 
     @Test
@@ -293,7 +360,16 @@ public class CleanSweepTest {
 
     @Test
     public void AvoidRightTraverseUp() {
-        // TODO
+        System.out.println("\nAvoidRightTraverseUp()");
+        int xPreRightTraversal = upAvoidanceCleanSweep.getXPos();
+        int yPreRightTraversal = upAvoidanceCleanSweep.getYPos();
+
+        upAvoidanceCleanSweep.traverseRight(upOpenFloorPlanArr[upAvoidanceCleanSweep.getXPos()+1][upAvoidanceCleanSweep.getYPos()]);
+
+        int xPostRightTraversal = upAvoidanceCleanSweep.getXPos();
+        int yPostRightTraversal = upAvoidanceCleanSweep.getYPos();
+
+        assertEquals(yPreRightTraversal - 1,yPostRightTraversal);
     }
 
     @Test
@@ -312,7 +388,16 @@ public class CleanSweepTest {
 
     @Test
     public void AvoidRightTraverseLeft() {
-        //TODO
+        System.out.println("\nAvoidRightTraverseLeft()");
+        int xPreRightTraversal = leftAvoidanceCleanSweep.getXPos();
+        int yPreRightTraversal = leftAvoidanceCleanSweep.getYPos();
+
+        leftAvoidanceCleanSweep.traverseRight(leftOpenFloorPlanArr[leftAvoidanceCleanSweep.getXPos()+1][leftAvoidanceCleanSweep.getYPos()]);
+
+        int xPostRightTraversal = leftAvoidanceCleanSweep.getXPos();
+        int yPostRightTraversal = leftAvoidanceCleanSweep.getYPos();
+
+        assertEquals(xPreRightTraversal - 1,xPostRightTraversal);
     }
 
     // Avoid Right Traverse Right Redundant
@@ -337,7 +422,16 @@ public class CleanSweepTest {
 
     @Test
     public void AvoidUpTraverseLeft() {
-        //TODO
+        System.out.println("\nAvoidUpTraverseLeft()");
+        int xPreUpTraversal = leftAvoidanceCleanSweep.getXPos();
+        int yPreUpTraversal = leftAvoidanceCleanSweep.getYPos();
+
+        leftAvoidanceCleanSweep.traverseUp(leftOpenFloorPlanArr[leftAvoidanceCleanSweep.getXPos()][leftAvoidanceCleanSweep.getYPos()-1]);
+
+        int xPostUpTraversal = leftAvoidanceCleanSweep.getXPos();
+        int yPostUpTraversal = leftAvoidanceCleanSweep.getYPos();
+
+        assertEquals(xPreUpTraversal - 1,xPostUpTraversal);
     }
 
     @Test
@@ -358,14 +452,32 @@ public class CleanSweepTest {
 
     @Test
     public void AvoidDownTraverseUp() {
-        // TODO
+        System.out.println("\nAvoidDownTraverseUp()");
+        int xPreUpTraversal = upAvoidanceCleanSweep.getXPos();
+        int yPreUpTraversal = upAvoidanceCleanSweep.getYPos();
+
+        upAvoidanceCleanSweep.traverseDown(upOpenFloorPlanArr[upAvoidanceCleanSweep.getXPos()][upAvoidanceCleanSweep.getYPos()+1]);
+
+        int xPostUpTraversal = upAvoidanceCleanSweep.getXPos();
+        int yPostUpTraversal = upAvoidanceCleanSweep.getYPos();
+
+        assertEquals(yPreUpTraversal - 1,yPostUpTraversal);
     }
 
     // Avoid Down Traverse Down Redundant Test
 
     @Test
     public void AvoidDownTraverseLeft() {
-        // TODO
+        System.out.println("\nAvoidDownTraverseLeft()");
+        int xPreDownTraversal = leftAvoidanceCleanSweep.getXPos();
+        int yPreDownTraversal = leftAvoidanceCleanSweep.getYPos();
+
+        leftAvoidanceCleanSweep.traverseDown(leftOpenFloorPlanArr[leftAvoidanceCleanSweep.getXPos()][leftAvoidanceCleanSweep.getYPos()+1]);
+
+        int xPostDownTraversal = leftAvoidanceCleanSweep.getXPos();
+        int yPostDownTraversal = leftAvoidanceCleanSweep.getYPos();
+
+        assertEquals(xPreDownTraversal - 1,xPostDownTraversal);
     }
 
     @Test
