@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-//import static org.junit.jupiter.api.Assertions.assertFalse;
-
 public class CleanSweepTest {
 
     int startXTilePos;
@@ -34,6 +32,7 @@ public class CleanSweepTest {
     CleanSweep rightAvoidanceCleanSweep;
     CleanSweep leftAvoidanceCleanSweep;
     CleanSweep upAvoidanceCleanSweep;
+    CleanSweep cleaningCleanSweep;
 
     FloorPlan floorPlan;
     Tile[][] floorPlanArr;
@@ -58,6 +57,9 @@ public class CleanSweepTest {
 
     FloorPlan upOpenFloorPlan;
     Tile[][] upOpenFloorPlanArr;
+
+    FloorPlan cleaningFloorPlan;
+    Tile[][] cleaningFloorPlanArr;
 
 
     @BeforeEach
@@ -151,6 +153,9 @@ public class CleanSweepTest {
         // Up Open Floor Plan
         initUpOpenFloorPlan();
 
+        // Cleaning Floor Plan
+        initCleanFloorPlan();
+
         initCleanSweeps();
     }
 
@@ -168,6 +173,7 @@ public class CleanSweepTest {
         rightAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,rightOpenFloorPlanArr[startXTilePos][startYTilePos]);
         leftAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,leftOpenFloorPlanArr[startXTilePos][startYTilePos]);
         upAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,upOpenFloorPlanArr[startXTilePos][startYTilePos]);
+        cleaningCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,cleaningFloorPlanArr[startXTilePos][startYTilePos]);
     }
 
     void initBottomOpenFloorPlan() {
@@ -246,6 +252,28 @@ public class CleanSweepTest {
         upOpenFloorPlan.connectFloorPlan();
     }
 
+    void initCleanFloorPlan() {
+        cleaningFloorPlan = new FloorPlan(floorPlanLength, floorPlanWidth); // 5 x 5
+        cleaningFloorPlanArr = cleaningFloorPlan.createFloorPlan();
+
+
+        for (int i = 0; i < floorPlanLength; i++) {
+            for (int j = 0; j < floorPlanWidth; j++) {
+                cleaningFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+
+        // Add specific dirt amounts to specific tiles
+        cleaningFloorPlanArr[2][1].setDirtAmount(1); // 1 dirt above clean sweep
+        cleaningFloorPlanArr[3][2].setDirtAmount(2); // 2 dirt right clean sweep
+        cleaningFloorPlanArr[2][3].setDirtAmount(48); // 48 dirt below clean sweep
+        cleaningFloorPlanArr[1][3].setDirtAmount(1); // 1 dirt left clean sweep
+        cleaningFloorPlanArr[2][0].setDirtAmount(0); // 0 dirt 2 tiles above clean sweep
+        cleaningFloorPlanArr[2][0].cleanTile = true;
+
+        cleaningFloorPlan.connectFloorPlan();
+    }
+
     // Traversals, Traversable, Bare floor
 
     @Test
@@ -314,12 +342,10 @@ public class CleanSweepTest {
     @Test
     public void AvoidLeftTraverseUp() {
         System.out.println("\nAvoidLeftTraverseUp()");
-        int xPreLeftTraversal = upAvoidanceCleanSweep.getXPos();
         int yPreLeftTraversal = upAvoidanceCleanSweep.getYPos();
 
         upAvoidanceCleanSweep.traverseLeft(upOpenFloorPlanArr[upAvoidanceCleanSweep.getXPos()-1][upAvoidanceCleanSweep.getYPos()]);
 
-        int xPostLeftTraversal = upAvoidanceCleanSweep.getXPos();
         int yPostLeftTraversal = upAvoidanceCleanSweep.getYPos();
 
         assertEquals(yPreLeftTraversal - 1,yPostLeftTraversal);
@@ -328,29 +354,23 @@ public class CleanSweepTest {
     @Test
     public void AvoidLeftTraverseDown() {
         System.out.println("\nAvoidLeftTraverseDown()");
-        int xPreLeftTraversal = downAvoidanceCleanSweep.getXPos();
         int yPreLeftTraversal = downAvoidanceCleanSweep.getYPos();
 
         downAvoidanceCleanSweep.traverseLeft(bottomOpenFloorPlanArr[downAvoidanceCleanSweep.getXPos()-1][downAvoidanceCleanSweep.getYPos()]);
 
-        int xPostLeftTraversal = downAvoidanceCleanSweep.getXPos();
         int yPostLeftTraversal = downAvoidanceCleanSweep.getYPos();
 
         assertEquals(yPreLeftTraversal + 1,yPostLeftTraversal);
     }
 
-    // Avoid Left Traverse Left Redundant
-
     @Test
     public void AvoidLeftTraverseRight() {
         System.out.println("\nAvoidLeftTraverseRight()");
         int xPreLeftTraversal = rightAvoidanceCleanSweep.getXPos();
-        int yPreLeftTraversal = rightAvoidanceCleanSweep.getYPos();
 
         rightAvoidanceCleanSweep.traverseLeft(rightOpenFloorPlanArr[rightAvoidanceCleanSweep.getXPos()-1][rightAvoidanceCleanSweep.getYPos()]);
 
         int xPostLeftTraversal = rightAvoidanceCleanSweep.getXPos();
-        int yPostLeftTraversal = rightAvoidanceCleanSweep.getYPos();
 
         assertEquals(xPreLeftTraversal + 1,xPostLeftTraversal);
     }
@@ -361,12 +381,10 @@ public class CleanSweepTest {
     @Test
     public void AvoidRightTraverseUp() {
         System.out.println("\nAvoidRightTraverseUp()");
-        int xPreRightTraversal = upAvoidanceCleanSweep.getXPos();
         int yPreRightTraversal = upAvoidanceCleanSweep.getYPos();
 
         upAvoidanceCleanSweep.traverseRight(upOpenFloorPlanArr[upAvoidanceCleanSweep.getXPos()+1][upAvoidanceCleanSweep.getYPos()]);
 
-        int xPostRightTraversal = upAvoidanceCleanSweep.getXPos();
         int yPostRightTraversal = upAvoidanceCleanSweep.getYPos();
 
         assertEquals(yPreRightTraversal - 1,yPostRightTraversal);
@@ -375,12 +393,10 @@ public class CleanSweepTest {
     @Test
     public void AvoidRightTraverseDown() {
         System.out.println("\nAvoidRightTraverseDown()");
-        int xPreRightTraversal = downAvoidanceCleanSweep.getXPos();
         int yPreRightTraversal = downAvoidanceCleanSweep.getYPos();
 
         downAvoidanceCleanSweep.traverseRight(bottomOpenFloorPlanArr[downAvoidanceCleanSweep.getXPos()+1][downAvoidanceCleanSweep.getYPos()]);
 
-        int xPostRightTraversal = downAvoidanceCleanSweep.getXPos();
         int yPostRightTraversal = downAvoidanceCleanSweep.getYPos();
 
         assertEquals(yPreRightTraversal + 1,yPostRightTraversal);
@@ -390,31 +406,23 @@ public class CleanSweepTest {
     public void AvoidRightTraverseLeft() {
         System.out.println("\nAvoidRightTraverseLeft()");
         int xPreRightTraversal = leftAvoidanceCleanSweep.getXPos();
-        int yPreRightTraversal = leftAvoidanceCleanSweep.getYPos();
 
         leftAvoidanceCleanSweep.traverseRight(leftOpenFloorPlanArr[leftAvoidanceCleanSweep.getXPos()+1][leftAvoidanceCleanSweep.getYPos()]);
 
         int xPostRightTraversal = leftAvoidanceCleanSweep.getXPos();
-        int yPostRightTraversal = leftAvoidanceCleanSweep.getYPos();
 
         assertEquals(xPreRightTraversal - 1,xPostRightTraversal);
     }
 
-    // Avoid Right Traverse Right Redundant
-
-
     // Avoid Up Tests
-    // Avoid Up Traverse Up Redundant
 
     @Test
     public void AvoidUpTraverseDown() {
         System.out.println("\nAvoidUpTraverseDown()");
-        int xPreUpTraversal = downAvoidanceCleanSweep.getXPos();
         int yPreUpTraversal = downAvoidanceCleanSweep.getYPos();
 
         downAvoidanceCleanSweep.traverseUp(bottomOpenFloorPlanArr[downAvoidanceCleanSweep.getXPos()][downAvoidanceCleanSweep.getYPos()-1]);
 
-        int xPostUpTraversal = downAvoidanceCleanSweep.getXPos();
         int yPostUpTraversal = downAvoidanceCleanSweep.getYPos();
 
         assertEquals(yPreUpTraversal + 1,yPostUpTraversal);
@@ -424,12 +432,10 @@ public class CleanSweepTest {
     public void AvoidUpTraverseLeft() {
         System.out.println("\nAvoidUpTraverseLeft()");
         int xPreUpTraversal = leftAvoidanceCleanSweep.getXPos();
-        int yPreUpTraversal = leftAvoidanceCleanSweep.getYPos();
 
         leftAvoidanceCleanSweep.traverseUp(leftOpenFloorPlanArr[leftAvoidanceCleanSweep.getXPos()][leftAvoidanceCleanSweep.getYPos()-1]);
 
         int xPostUpTraversal = leftAvoidanceCleanSweep.getXPos();
-        int yPostUpTraversal = leftAvoidanceCleanSweep.getYPos();
 
         assertEquals(xPreUpTraversal - 1,xPostUpTraversal);
     }
@@ -438,12 +444,10 @@ public class CleanSweepTest {
     public void AvoidUpTraverseRight() {
         System.out.println("\nAvoidUpTraverseRight()");
         int xPreUpTraversal = rightAvoidanceCleanSweep.getXPos();
-        int yPreUpTraversal = rightAvoidanceCleanSweep.getYPos();
 
         rightAvoidanceCleanSweep.traverseUp(rightOpenFloorPlanArr[rightAvoidanceCleanSweep.getXPos()][rightAvoidanceCleanSweep.getYPos()-1]);
 
         int xPostUpTraversal = rightAvoidanceCleanSweep.getXPos();
-        int yPostUpTraversal = rightAvoidanceCleanSweep.getYPos();
 
         assertEquals(xPreUpTraversal + 1,xPostUpTraversal);
     }
@@ -453,29 +457,23 @@ public class CleanSweepTest {
     @Test
     public void AvoidDownTraverseUp() {
         System.out.println("\nAvoidDownTraverseUp()");
-        int xPreUpTraversal = upAvoidanceCleanSweep.getXPos();
         int yPreUpTraversal = upAvoidanceCleanSweep.getYPos();
 
         upAvoidanceCleanSweep.traverseDown(upOpenFloorPlanArr[upAvoidanceCleanSweep.getXPos()][upAvoidanceCleanSweep.getYPos()+1]);
 
-        int xPostUpTraversal = upAvoidanceCleanSweep.getXPos();
         int yPostUpTraversal = upAvoidanceCleanSweep.getYPos();
 
         assertEquals(yPreUpTraversal - 1,yPostUpTraversal);
     }
 
-    // Avoid Down Traverse Down Redundant Test
-
     @Test
     public void AvoidDownTraverseLeft() {
         System.out.println("\nAvoidDownTraverseLeft()");
         int xPreDownTraversal = leftAvoidanceCleanSweep.getXPos();
-        int yPreDownTraversal = leftAvoidanceCleanSweep.getYPos();
 
         leftAvoidanceCleanSweep.traverseDown(leftOpenFloorPlanArr[leftAvoidanceCleanSweep.getXPos()][leftAvoidanceCleanSweep.getYPos()+1]);
 
         int xPostDownTraversal = leftAvoidanceCleanSweep.getXPos();
-        int yPostDownTraversal = leftAvoidanceCleanSweep.getYPos();
 
         assertEquals(xPreDownTraversal - 1,xPostDownTraversal);
     }
@@ -484,12 +482,10 @@ public class CleanSweepTest {
     public void AvoidDownTraverseRight() {
         System.out.println("\nAvoidDownTraverseRight()");
         int xPreDownTraversal = rightAvoidanceCleanSweep.getXPos();
-        int yPreDownTraversal = rightAvoidanceCleanSweep.getYPos();
 
         rightAvoidanceCleanSweep.traverseDown(rightOpenFloorPlanArr[rightAvoidanceCleanSweep.getXPos()][rightAvoidanceCleanSweep.getYPos()+1]);
 
         int xPostDownTraversal = rightAvoidanceCleanSweep.getXPos();
-        int yPostDownTraversal = rightAvoidanceCleanSweep.getYPos();
 
         assertEquals(xPreDownTraversal + 1,xPostDownTraversal);
     }
@@ -565,24 +561,81 @@ public class CleanSweepTest {
     @Test
     public void CleanSweepCleanOneUnit() { // Clean Sweep clean 1 unit of dirt
         System.out.println("\nCleanSweepCleanOneUnit()");
-        //TODO
+        cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        assertEquals(1, cleaningCleanSweep.getDirtCapacity());
     }
 
     @Test
-    public void CleanSweepCleanCleanTile() { // Clean Sweep cleans tile until tile is clean
-        System.out.println("\nCleanSweepCleanCleanTile()");
-        //TODO
+    public void CleanSweepCleanCleanUntilClean() { // Clean Sweep cleans tile until tile is clean
+        System.out.println("\nCleanSweepCleanCleanUntilClean()");
+        cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        assertTrue(cleaningCleanSweep.getCurrentTile().cleanTile);
     }
 
     @Test
     public void CleanSweepDirtCapacityFull() { // Clean Sweep can not clean tile because dirt capacity is full
         System.out.println("\nCleanSweepDirtCapacityFull()");
-        //TODO
+        cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()+1]);
+        cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.traverseLeft(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()-1][cleaningCleanSweep.getYPos()]);
+        cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()+1]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
+        cleaningCleanSweep.traverseLeft(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()-1][cleaningCleanSweep.getYPos()]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        assertFalse(cleaningCleanSweep.getCurrentTile().cleanTile);
     }
 
     @Test
     public void CleanSweepNotCleanTileDirtCapacityFull() { // Clean Sweep dirt capacity fills up while cleaning a tile, tile not fully clean
         System.out.println("\nCleanSweepNotCleanTileDirtCapacityFull()");
-        //TODO
+        cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()+1]);
+        cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.traverseLeft(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()-1][cleaningCleanSweep.getYPos()]);
+        cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()+1]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        assertAll(
+                () -> assertFalse(cleaningCleanSweep.getCurrentTile().cleanTile),
+                () -> assertEquals(50, cleaningCleanSweep.getDirtCapacity())
+        );
+    }
+
+    @Test
+    public void CleanSweepCleanCleanTile() {
+        System.out.println("\nCleanSweepCleanCleanTile()");
+        cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
+        cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        assertAll(
+                () -> assertTrue(cleaningCleanSweep.getCurrentTile().cleanTile),
+                () -> assertEquals(0, cleaningCleanSweep.getDirtCapacity()),
+                () -> assertEquals(0,cleaningCleanSweep.getYPos())
+        );
+    }
+
+    // Empty Dirt Container Test
+
+    @Test
+    public void CleanSweepEmptyDirtContainer() {
+        cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.emptyDirtContainer();
+        assertEquals(0,cleaningCleanSweep.getDirtCapacity());
+    }
+
+    // Current Tile Test
+
+    @Test
+    public void CleanSweepGetCurrentTile() {
+        System.out.println("\nCleanSweepGetCurrentTile()");
+        assertSame(bareFloorPlanArr[startXTilePos][startYTilePos],cleanSweep.getCurrentTile());
     }
 }
