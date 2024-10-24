@@ -269,7 +269,6 @@ public class CleanSweepTest {
         cleaningFloorPlanArr[2][3].setDirtAmount(48); // 48 dirt below clean sweep
         cleaningFloorPlanArr[1][3].setDirtAmount(1); // 1 dirt left clean sweep
         cleaningFloorPlanArr[2][0].setDirtAmount(0); // 0 dirt 2 tiles above clean sweep
-        cleaningFloorPlanArr[2][0].cleanTile = true;
 
         cleaningFloorPlan.connectFloorPlan();
     }
