@@ -39,3 +39,4 @@ build/
 
 ### Misc ###
 /uml/
+/.idea/google-java-format.xml
