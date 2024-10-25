@@ -81,6 +81,7 @@ public class FloorPlan {
             for (int j = 0; j < floorPlanWidth; j++) {
                 int dirtAmount = randomDirtAmount.nextInt(10);
                 floorPlan[i][j].setDirtAmount(dirtAmount);
+                floorPlan[i][j].cleanTile = floorPlan[i][j].getDirtAmount() == 0;
             }
         }
     }
