@@ -3,6 +3,7 @@ package com.group4;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class CleanSweepTest {
@@ -489,6 +490,16 @@ public class CleanSweepTest {
         assertEquals(xPreDownTraversal + 1,xPostDownTraversal);
     }
 
+    // Wall Avoidance Test
+    @Test
+    public void CleanSweepAvoidWall() {
+        System.out.println("\nCleanSweepAvoidWall()");
+        cleaningFloorPlan.addWall(cleaningFloorPlanArr[2][3], cleaningFloorPlanArr[1][3]);
+        cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos() + 1]);
+        assertFalse(cleaningCleanSweep.traverseLeft(cleaningFloorPlanArr[cleaningCleanSweep.getXPos() - 1][cleaningCleanSweep.getYPos()]));
+        cleaningCleanSweep.printPos();
+    }
+
 
     // Out of Bounds Tests
 
@@ -624,6 +635,7 @@ public class CleanSweepTest {
 
     @Test
     public void CleanSweepEmptyDirtContainer() {
+        System.out.println("\nCleanSweepEmptyDirtContainer()");
         cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
         cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
         cleaningCleanSweep.emptyDirtContainer();

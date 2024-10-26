@@ -86,6 +86,64 @@ public class FloorPlan {
         }
     }
 
+    public void addWall(Tile t1, Tile t2) {
+        // Add Vertical Wall
+        if (t1.yPos == t2.yPos) {
+            if (t1.xPos == t2.xPos - 1) { // t2 is to the right of t1
+                System.out.println("(" + t2.xPos + "," + t2.yPos + ") is to the right of (" + t1.xPos + "," + t1.yPos + ")");
+                addVerticalWall(t1, t2);
+            } else {
+                System.out.println("(" + t2.xPos + "," + t2.yPos + ") is not next to the right of (" + t1.xPos + "," + t1.yPos + ")");
+            }
+
+            if (t2.xPos + 1 == t1.xPos) { // t2 is to the left of t1
+                System.out.println("(" + t2.xPos + "," + t2.yPos + ") is to the left of (" + t1.xPos + "," + t1.yPos + ")");
+                addVerticalWall(t2, t1);
+            } else {
+                System.out.println("(" + t2.xPos + "," + t2.yPos + ") is not next to the left of (" + t1.xPos + "," + t1.yPos + ")");
+            }
+        } else {
+            System.out.println("(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ") are not on the same X axis to create a vertical wall");
+        }
+
+        // Add Horizontal Wall
+        if (t1.xPos == t2.xPos) {
+            if (t1.yPos == t2.yPos - 1) { // t2 is below of t1
+                System.out.println("(" + t2.xPos + "," + t2.yPos + ") is below (" + t1.xPos + "," + t1.yPos + ")");
+                addHorizontalWall(t1, t2);
+            } else {
+                System.out.println("(" + t2.xPos + "," + t2.yPos + ") is not directly below (" + t1.xPos + "," + t1.yPos + ")");
+            }
+
+            if (t2.yPos + 1 == t1.yPos) { // t2 is above t1
+                System.out.println("(" + t2.xPos + "," + t2.yPos + ") is above (" + t1.xPos + "," + t1.yPos + ")");
+                addHorizontalWall(t2, t1);
+            } else {
+                System.out.println("(" + t2.xPos + "," + t2.yPos + ") is not directly above (" + t1.xPos + "," + t1.yPos + ")");
+            }
+        } else {
+            System.out.println("(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ") are not on the same Y axis to create a horizontal wall");
+        }
+
+        if (t1.yPos != t2.yPos && t1.xPos != t2.xPos) {
+            System.out.println("Cannot create wall between " + "(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ")");
+        }
+
+        // Otherwise tiles are not next to each other
+    }
+
+    private void addVerticalWall(Tile t1, Tile t2) {
+        t1.setRightNext(null);
+        t2.setLeftNext(null);
+        System.out.println("Created vertical wall between tiles " + "(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ")");
+    }
+
+    private void addHorizontalWall(Tile t1, Tile t2) {
+        t1.setBottomNext(null);
+        t2.setTopNext(null);
+        System.out.println("Created horizontal wall between tiles " + "(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ")");
+    }
+
     public void printFloorPlan() {
         // Print Floor Plan
         for (int i = 0; i < floorPlanLength; i++) {
