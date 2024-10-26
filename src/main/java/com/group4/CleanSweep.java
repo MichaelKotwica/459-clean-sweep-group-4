@@ -27,21 +27,21 @@ public class CleanSweep {
         this.batteryLevel = MAX_BATTERY; // Initialize battery level
     }
 
-    private double getSurfaceCost(Tile tile) {
+    protected double getSurfaceCost(Tile tile) {
         if (tile instanceof BareFloorTile) return BARE_FLOOR_COST;
         else if (tile instanceof LowPileTile) return LOW_PILE_COST;
         else if (tile instanceof HighPileTile) return HIGH_PILE_COST;
         return BARE_FLOOR_COST; // Default to bare floor if type unknown
     }
 
-    private boolean hasEnoughBattery(Tile destinationTile) {
+    protected boolean hasEnoughBattery(Tile destinationTile) {
         double moveCost = (getSurfaceCost(currentTile) + getSurfaceCost(destinationTile)) / 2.0;
         double cleaningCost = getSurfaceCost(destinationTile);
         return batteryLevel >= (moveCost + cleaningCost);
     }
 
 
-    private void consumeBattery(Tile destinationTile) {
+    protected void consumeBattery(Tile destinationTile) {
         double moveCost = (getSurfaceCost(currentTile) + getSurfaceCost(destinationTile)) / 2.0;
         double cleaningCost = getSurfaceCost(destinationTile);
         batteryLevel -= moveCost;

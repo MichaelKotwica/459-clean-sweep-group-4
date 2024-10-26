@@ -638,4 +638,10 @@ public class CleanSweepTest {
         System.out.println("\nCleanSweepGetCurrentTile()");
         assertSame(bareFloorPlanArr[startXTilePos][startYTilePos],cleanSweep.getCurrentTile());
     }
+
+    @Test
+    public void CleanSweepGetSurfaceCostBareFloorTest() {
+        Tile tile = bareFloorPlanArr[0][0];
+        assertEquals(1.0, cleanSweep.getSurfaceCost(tile));
+    }
 }
