@@ -75,7 +75,7 @@ public class CleanSweep {
         }
     }
 
-    public Tile getCurrentTile() {
+    public Tile getTile() {
         return currentTile;
     }
 
