@@ -33,6 +33,10 @@ public class CleanSweepTest {
     CleanSweep leftAvoidanceCleanSweep;
     CleanSweep upAvoidanceCleanSweep;
     CleanSweep cleaningCleanSweep;
+    CleanSweep powerLevelCleanSweep;
+    CleanSweep lowPileCleanSweep;
+    CleanSweep highPileCleanSweep;
+    CleanSweep lowHighPileCleanSweep;
 
     FloorPlan floorPlan;
     Tile[][] floorPlanArr;
@@ -60,6 +64,18 @@ public class CleanSweepTest {
 
     FloorPlan cleaningFloorPlan;
     Tile[][] cleaningFloorPlanArr;
+
+    FloorPlan powerLevelFloorPlan;
+    Tile[][] powerLevelFloorPlanArr;
+
+    FloorPlan lowPileFloorPlan;
+    Tile[][] lowPileFloorPlanArr;
+
+    FloorPlan highPileFloorPlan;
+    Tile[][] highPileFloorPlanArr;
+
+    FloorPlan lowHighPileFloorPlan;
+    Tile[][] lowHighPileFloorPlanArr;
 
 
     @BeforeEach
@@ -92,18 +108,8 @@ public class CleanSweepTest {
             }
         }
 
-        // Place Obstacle at 2,1 (Directly above clean sweep start position (2,2))
-        // bareFloorPlanArr[2][1] = new Obstacle(null, null, null, null, 2, 1);
-
-        // Place Stair at 2,3 (Directly above clean sweep start position (2,2))
-        // bareFloorPlanArr[2][3] = new StairDeclineTile(null, null, null, null, 2, 3);
-
-        // Place Stair at 3,2 (Directly to the right clean sweep start position (2,2))
-        // bareFloorPlanArr[3][2] = new StairDeclineTile(null, null, null, null, 3, 2);
-
         floorPlan.connectFloorPlan();
         bareFloorPlan.connectFloorPlan();
-        //bareFloorPlan.printFloorPlan();
 
         stuckFloorPlan = new FloorPlan(stuckFloorPlanLength, stuckFloorPlanWidth);
         stuckFloorPlanArr = stuckFloorPlan.createFloorPlan();
@@ -140,7 +146,6 @@ public class CleanSweepTest {
         stuckFloorPlanArr[2][1] = new StairDeclineTile(null, null, null, null, 2, 1); // Right
         stairStuckFloorPlan.connectFloorPlan();
 
-
         // Bottom Open Floor Plan
         initBottomOpenFloorPlan();
 
@@ -155,6 +160,18 @@ public class CleanSweepTest {
 
         // Cleaning Floor Plan
         initCleaningFloorPlan();
+
+        // Power Level Floor Plan
+        initPowerLevelFloorPlan();
+
+        // Low Pile Floor Plan
+        initLowPileFloorPlan();
+
+        // High Pile Floor Plan
+        initHighPileFloorPlan();
+
+        // Low High Pile Floor Plan
+        initLowHighPileFloorPlan();
 
         initCleanSweeps();
     }
@@ -174,6 +191,10 @@ public class CleanSweepTest {
         leftAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,leftOpenFloorPlanArr[startXTilePos][startYTilePos]);
         upAvoidanceCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,upOpenFloorPlanArr[startXTilePos][startYTilePos]);
         cleaningCleanSweep = new CleanSweep(startXTilePos,startYTilePos,true,cleaningFloorPlanArr[startXTilePos][startYTilePos]);
+        powerLevelCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, powerLevelFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
+        lowPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, lowPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
+        highPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, highPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
+        lowHighPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, lowHighPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
     }
 
     void initBottomOpenFloorPlan() {
@@ -271,6 +292,68 @@ public class CleanSweepTest {
         cleaningFloorPlanArr[2][0].setDirtAmount(0); // 0 dirt 2 tiles above clean sweep
 
         cleaningFloorPlan.connectFloorPlan();
+    }
+
+    void initPowerLevelFloorPlan() {
+        powerLevelFloorPlan = new FloorPlan(stuckFloorPlanLength, stuckFloorPlanWidth); // 3x3
+        powerLevelFloorPlanArr = powerLevelFloorPlan.createFloorPlan();
+
+        // Make All Tiles Bare Floor
+        for (int i = 0; i < stuckFloorPlanLength; i++) {
+            for (int j = 0; j < stuckFloorPlanWidth; j++) {
+                powerLevelFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+
+        powerLevelFloorPlanArr[stuckStartXTilePos+1][stuckStartYTilePos] = new LowPileTile(null,null,null,null,stuckStartXTilePos+1,stuckStartYTilePos);
+        powerLevelFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos-1] = new HighPileTile(null,null,null,null,stuckStartXTilePos,stuckStartYTilePos-1);
+
+        powerLevelFloorPlan.connectFloorPlan();
+    }
+
+    void initLowPileFloorPlan() {
+        lowPileFloorPlan = new FloorPlan(stuckFloorPlanLength, stuckFloorPlanWidth); // 3x3
+        lowPileFloorPlanArr = lowPileFloorPlan.createFloorPlan();
+
+        // Make All Tiles Low Pile
+        for (int i = 0; i < stuckFloorPlanLength; i++) {
+            for (int j = 0; j < stuckFloorPlanWidth; j++) {
+                lowPileFloorPlanArr[i][j] = new LowPileTile(null,null,null,null,i,j);
+            }
+        }
+
+        lowPileFloorPlan.connectFloorPlan();
+    }
+
+    void initHighPileFloorPlan() {
+        highPileFloorPlan = new FloorPlan(stuckFloorPlanLength, stuckFloorPlanWidth); // 3x3
+        highPileFloorPlanArr = highPileFloorPlan.createFloorPlan();
+
+        // Make All Tiles Low Pile
+        for (int i = 0; i < stuckFloorPlanLength; i++) {
+            for (int j = 0; j < stuckFloorPlanWidth; j++) {
+                highPileFloorPlanArr[i][j] = new HighPileTile(null,null,null,null,i,j);
+            }
+        }
+
+        highPileFloorPlan.connectFloorPlan();
+    }
+
+    void initLowHighPileFloorPlan() {
+        lowHighPileFloorPlan = new FloorPlan(stuckFloorPlanLength, stuckFloorPlanWidth); // 3x3
+        lowHighPileFloorPlanArr = lowHighPileFloorPlan.createFloorPlan();
+
+        // Make All Tiles Low Pile
+        for (int i = 0; i < stuckFloorPlanLength; i++) {
+            for (int j = 0; j < stuckFloorPlanWidth; j++) {
+                lowHighPileFloorPlanArr[i][j] = new LowPileTile(null,null,null,null,i,j);
+            }
+        }
+
+        lowHighPileFloorPlanArr[stuckStartXTilePos+1][stuckStartYTilePos] = new HighPileTile(null,null,null,null,
+                stuckStartXTilePos+1,stuckStartYTilePos);
+
+        lowHighPileFloorPlan.connectFloorPlan();
     }
 
     // Traversals, Traversable, Bare floor
@@ -648,4 +731,154 @@ public class CleanSweepTest {
         System.out.println("\nCleanSweepGetTile()");
         assertSame(bareFloorPlanArr[startXTilePos][startYTilePos],cleanSweep.getTile());
     }
+
+    // Power Level Tests
+
+    @Test
+    public void CleanSweepGetSurfaceCostBareFloorTest() {
+        Tile tile = bareFloorPlanArr[0][0];
+        assertEquals(1.0, cleanSweep.getSurfaceCost(tile));
+    }
+
+    @Test
+    public void CleanSweepGetSurfaceCostLowPileFloorTest() {
+       Tile tile = new LowPileTile(null,null,null,null,0,0);
+       assertEquals(2.0,cleanSweep.getSurfaceCost(tile),"surface cost for low pile is 2.0 units");
+    }
+
+    @Test
+    public void CleanSweepGetSurfaceCostHighPileTest() {
+        Tile tile = new HighPileTile(null, null, null,null,0,0 );
+        assertEquals(3.0,cleanSweep.getSurfaceCost(tile),"Surface cost for High Pile is 3.0 units");
+    }
+
+    @Test
+    public void testInitialBatteryLevel() {
+        // Initialize a tile (e.g., a BareFloorTile) to set as the starting position
+        Tile initialTile = new BareFloorTile(null, null, null, null, 0, 0);
+
+        // Initialize CleanSweep starting on the initialTile
+        CleanSweep cleanSweep = new CleanSweep(0, 0, true, initialTile);
+
+        // Assert that the initial battery level is as expected
+        assertEquals(250, cleanSweep.getBatteryLevel(),
+                "Initial battery level should be 250.0 units");
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionBareToLowPileCleanTile() {
+        double initialBattery = powerLevelCleanSweep.getBatteryLevel();
+        powerLevelCleanSweep.traverseRight(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()]);
+        double expectedBatteryAfterMove = initialBattery - 1.5;
+        assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionBareToHighPileCleanTile() {
+        double initialBattery = powerLevelCleanSweep.getBatteryLevel();
+        powerLevelCleanSweep.traverseUp(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1]);
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 2.0;
+        assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionBareToBareCleanTile() {
+        double initialBattery = powerLevelCleanSweep.getBatteryLevel();
+        powerLevelCleanSweep.traverseLeft(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()]);
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 1.0;
+        assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionLowPileToLowPileCleanTile() {
+        double initialBattery = lowPileCleanSweep.getBatteryLevel();
+        lowPileCleanSweep.traverseLeft(lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()]);
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 2.0;
+        assertEquals(expectedBatteryAfterMove, lowPileCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionHighPileToHighPileCleanTile() {
+        double initialBattery = highPileCleanSweep.getBatteryLevel();
+        highPileCleanSweep.traverseLeft(highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()]);
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 3.0;
+        assertEquals(expectedBatteryAfterMove, highPileCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionLowPileToHighPileCleanTile() {
+        double initialBattery = lowHighPileCleanSweep.getBatteryLevel();
+        lowHighPileCleanSweep.traverseRight(lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()]);
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 2.5;
+        assertEquals(expectedBatteryAfterMove, lowHighPileCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionBareToBareDirtyTile() {
+        powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
+        double initialBattery = powerLevelCleanSweep.getBatteryLevel();
+        powerLevelCleanSweep.traverseLeft(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()]);
+        powerLevelCleanSweep.clean(powerLevelCleanSweep.getCurrentTile());
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 2.0;
+        assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionLowPileToLowPileDirtyTile() {
+        lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()].setDirtAmount(3);
+        double initialBattery = lowPileCleanSweep.getBatteryLevel();
+        lowPileCleanSweep.traverseLeft(lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()]);
+        lowPileCleanSweep.clean(lowPileCleanSweep.getCurrentTile());
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 4.0;
+        assertEquals(expectedBatteryAfterMove, lowPileCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionHighPileToHighPileDirtyTile() {
+        highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()].setDirtAmount(3);
+        double initialBattery = highPileCleanSweep.getBatteryLevel();
+        highPileCleanSweep.traverseLeft(highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()]);
+        highPileCleanSweep.clean(highPileCleanSweep.getCurrentTile());
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 6.0;
+        assertEquals(expectedBatteryAfterMove, highPileCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionBareToLowPileDirtyTile() {
+        powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
+        double initialBattery = powerLevelCleanSweep.getBatteryLevel();
+        powerLevelCleanSweep.traverseRight(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()]);
+        powerLevelCleanSweep.clean(powerLevelCleanSweep.getCurrentTile());
+        double expectedBatteryAfterMove = initialBattery - 3.5;
+        assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionBareToHighPileDirtyTile() {
+        powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1].setDirtAmount(3);
+        double initialBattery = powerLevelCleanSweep.getBatteryLevel();
+        powerLevelCleanSweep.traverseUp(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1]);
+        powerLevelCleanSweep.clean(powerLevelCleanSweep.getCurrentTile());
+        double expectedBatteryAfterMove = initialBattery - 5.0;
+        assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionLowPileToHighPileDirtyTile() {
+        lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()].setDirtAmount(3);
+        double initialBattery = lowHighPileCleanSweep.getBatteryLevel();
+        lowHighPileCleanSweep.traverseRight(lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()]);
+        lowHighPileCleanSweep.clean(lowHighPileCleanSweep.getCurrentTile());
+        double expectedBatteryAfterMove = initialBattery - 5.5;
+        assertEquals(expectedBatteryAfterMove, lowHighPileCleanSweep.getBatteryLevel());
+    }
+
 }
