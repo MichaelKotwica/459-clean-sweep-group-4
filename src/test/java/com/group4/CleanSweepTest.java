@@ -36,6 +36,7 @@ public class CleanSweepTest {
     CleanSweep powerLevelCleanSweep;
     CleanSweep lowPileCleanSweep;
     CleanSweep highPileCleanSweep;
+    CleanSweep lowHighPileCleanSweep;
 
     FloorPlan floorPlan;
     Tile[][] floorPlanArr;
@@ -72,6 +73,9 @@ public class CleanSweepTest {
 
     FloorPlan highPileFloorPlan;
     Tile[][] highPileFloorPlanArr;
+
+    FloorPlan lowHighPileFloorPlan;
+    Tile[][] lowHighPileFloorPlanArr;
 
 
     @BeforeEach
@@ -166,6 +170,9 @@ public class CleanSweepTest {
         // High Pile Floor Plan
         initHighPileFloorPlan();
 
+        // Low High Pile Floor Plan
+        initLowHighPileFloorPlan();
+
         initCleanSweeps();
     }
 
@@ -187,6 +194,7 @@ public class CleanSweepTest {
         powerLevelCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, powerLevelFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
         lowPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, lowPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
         highPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, highPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
+        lowHighPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, lowHighPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
     }
 
     void initBottomOpenFloorPlan() {
@@ -330,6 +338,23 @@ public class CleanSweepTest {
         }
 
         highPileFloorPlan.connectFloorPlan();
+    }
+
+    void initLowHighPileFloorPlan() {
+        lowHighPileFloorPlan = new FloorPlan(stuckFloorPlanLength, stuckFloorPlanWidth); // 3x3
+        lowHighPileFloorPlanArr = lowHighPileFloorPlan.createFloorPlan();
+
+        // Make All Tiles Low Pile
+        for (int i = 0; i < stuckFloorPlanLength; i++) {
+            for (int j = 0; j < stuckFloorPlanWidth; j++) {
+                lowHighPileFloorPlanArr[i][j] = new LowPileTile(null,null,null,null,i,j);
+            }
+        }
+
+        lowHighPileFloorPlanArr[stuckStartXTilePos+1][stuckStartYTilePos] = new HighPileTile(null,null,null,null,
+                stuckStartXTilePos+1,stuckStartYTilePos);
+
+        lowHighPileFloorPlan.connectFloorPlan();
     }
 
     // Traversals, Traversable, Bare floor
@@ -775,5 +800,13 @@ public class CleanSweepTest {
         assertEquals(expectedBatteryAfterMove, highPileCleanSweep.getBatteryLevel());
     }
 
+    @Test
+    public void CleanSweepBatteryConsumptionLowPileToHighPileCleanTile() {
+        double initialBattery = lowHighPileCleanSweep.getBatteryLevel();
+        lowHighPileCleanSweep.traverseRight(lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()]);
+        //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
+        double expectedBatteryAfterMove = initialBattery - 2.5;
+        assertEquals(expectedBatteryAfterMove, lowHighPileCleanSweep.getBatteryLevel());
+    }
 
 }
