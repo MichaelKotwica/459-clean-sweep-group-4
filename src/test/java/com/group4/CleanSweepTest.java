@@ -644,4 +644,35 @@ public class CleanSweepTest {
         Tile tile = bareFloorPlanArr[0][0];
         assertEquals(1.0, cleanSweep.getSurfaceCost(tile));
     }
+
+    @Test
+    public void CleanSweepGetSurfaceCostLowPileFloorTest() {
+       Tile tile = new LowPileTile(null,null,null,null,0,0);
+       assertEquals(2.0,cleanSweep.getSurfaceCost(tile),"surface cost for low pile is 2.0 units");
+    }
+
+    @Test
+    public void CleanSweepGetSurfaceCostHighPileTest() {
+        Tile tile = new HighPileTile(null, null, null,null,0,0 );
+        assertEquals(3.0,cleanSweep.getSurfaceCost(tile),"Surface cost for High Pile is 3.0 units");
+    }
+
+    @Test
+    public void testInitialBatteryLevel() {
+        // Initialize a tile (e.g., a BareFloorTile) to set as the starting position
+        Tile initialTile = new BareFloorTile(null, null, null, null, 0, 0);
+
+        // Initialize CleanSweep starting on the initialTile
+        CleanSweep cleanSweep = new CleanSweep(0, 0, true, initialTile);
+
+        // Assert that the initial battery level is as expected
+        assertEquals(250, cleanSweep.getBatteryLevel(),
+                "Initial battery level should be 250.0 units");
+    }
+
+
+
+
+
+
 }

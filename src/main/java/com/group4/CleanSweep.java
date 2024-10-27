@@ -46,8 +46,13 @@ public class CleanSweep {
         double cleaningCost = getSurfaceCost(destinationTile);
         batteryLevel -= moveCost;
         System.out.println("Battery level after move: " + batteryLevel);
-        batteryLevel -= cleaningCost;
-        System.out.println("Battery level after cleaning: " + batteryLevel);
+        if (destinationTile.getDirtAmount() > 0) {
+             cleaningCost = getSurfaceCost(destinationTile);
+            batteryLevel -= cleaningCost;
+            System.out.println("Battery level after cleaning: " + batteryLevel);
+        } else {
+            System.out.println("No cleaning needed. Battery level: " + batteryLevel);
+        }
     }
 
     public boolean traverseLeft(Tile tile) {
@@ -239,6 +244,10 @@ public class CleanSweep {
     public void emptyDirtContainer() {
         dirtCapacity = 0;
         System.out.println("Dirt container emptied.");
+    }
+
+    public double getBatteryLevel() {
+        return batteryLevel;
     }
     private void returnToChargingStation() {
         System.out.println("Returning to charging station...");
