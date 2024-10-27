@@ -765,7 +765,6 @@ public class CleanSweepTest {
 
     @Test
     public void CleanSweepBatteryConsumptionBareToHighPileCleanTile() {
-
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseUp(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1]);
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
@@ -840,6 +839,16 @@ public class CleanSweepTest {
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
         double expectedBatteryAfterMove = initialBattery - 6.0;
         assertEquals(expectedBatteryAfterMove, highPileCleanSweep.getBatteryLevel());
+    }
+
+    @Test
+    public void CleanSweepBatteryConsumptionBareToLowPileDirtyTile() {
+        powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
+        double initialBattery = powerLevelCleanSweep.getBatteryLevel();
+        powerLevelCleanSweep.traverseRight(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()]);
+        //powerLevelCleanSweep.clean(powerLevelCleanSweep.getCurrentTile());
+        double expectedBatteryAfterMove = initialBattery - 3.5;
+        assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
     }
 
 }

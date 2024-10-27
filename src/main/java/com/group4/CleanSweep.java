@@ -47,7 +47,7 @@ public class CleanSweep {
         batteryLevel -= moveCost;
         System.out.println("Battery level after move: " + batteryLevel);
         if (destinationTile.getDirtAmount() > 0) {
-             cleaningCost = getSurfaceCost(destinationTile);
+            cleaningCost = getSurfaceCost(destinationTile);
             batteryLevel -= cleaningCost;
             System.out.println("Battery level after cleaning: " + batteryLevel);
         } else {
