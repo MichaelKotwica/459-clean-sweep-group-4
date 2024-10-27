@@ -167,270 +167,336 @@ public class Main {
 
         sampleFloorPlanCleanSweep.startUp();
         sampleFloorPlanCleanSweep.printPos();
-
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
-        sampleFloorPlanCleanSweep.printPos();
-        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
-
-        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
         sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseUp(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()-1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseLeft(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()-1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseDown(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()][sampleFloorPlanCleanSweep.getYPos()+1]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
+        sampleFloorPlanCleanSweep.printPos();
+        sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+
+        sampleFloorPlanCleanSweep.traverseRight(sampleFloorPlanArr[sampleFloorPlanCleanSweep.getXPos()+1][sampleFloorPlanCleanSweep.getYPos()]);
+        System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
 
