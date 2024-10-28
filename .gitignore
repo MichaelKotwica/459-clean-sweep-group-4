@@ -42,3 +42,4 @@ build/
 /.idea/google-java-format.xml
 /logs/debug.log
 /logs/main.log
+/logs/
