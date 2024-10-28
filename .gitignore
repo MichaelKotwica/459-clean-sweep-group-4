@@ -40,3 +40,5 @@ build/
 ### Misc ###
 /uml/
 /.idea/google-java-format.xml
+/logs/debug.log
+/logs/main.log

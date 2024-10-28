@@ -1,5 +1,8 @@
 package com.group4;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class CleanSweep {
     private int xPos;
     private int yPos;
@@ -9,6 +12,9 @@ public class CleanSweep {
     private Tile currentTile;
     private double batteryLevel;
     private int dirtCapacity;
+
+    private static final Logger cleanSweepLogger = LogManager.getLogger(CleanSweep.class.getName());
+
     private final int MAX_CAPACITY = 50; // Max dirt capacity
     private final double MAX_BATTERY = 250; // Maximum battery level
     private final double BARE_FLOOR_COST = 1.0;
@@ -25,6 +31,8 @@ public class CleanSweep {
 
         this.dirtCapacity = 0; // Start with an empty dirt container
         this.batteryLevel = MAX_BATTERY; // Initialize battery level
+
+        cleanSweepLogger.info("Created Clean Sweep with at position ({},{})",xPos,yPos);
     }
 
     protected double getSurfaceCost(Tile tile) {
@@ -45,13 +53,13 @@ public class CleanSweep {
         double moveCost = (getSurfaceCost(currentTile) + getSurfaceCost(destinationTile)) / 2.0;
         double cleaningCost = getSurfaceCost(destinationTile);
         batteryLevel -= moveCost;
-        System.out.println("Battery level after move: " + batteryLevel);
+        cleanSweepLogger.info("Battery level after move: {}", batteryLevel);
         if (destinationTile.getDirtAmount() > 0) {
             cleaningCost = getSurfaceCost(destinationTile);
             batteryLevel -= cleaningCost;
-            System.out.println("Battery level after cleaning: " + batteryLevel);
+            cleanSweepLogger.info("Battery level after cleaning: {}", batteryLevel);
         } else {
-            System.out.println("No cleaning needed. Battery level: " + batteryLevel);
+            cleanSweepLogger.info("No cleaning needed. Battery level: {}", batteryLevel);
         }
     }
 
@@ -61,14 +69,15 @@ public class CleanSweep {
                 consumeBattery(tile);
                 this.currentTile = tile;
                 this.xPos--;
+                cleanSweepLogger.info("Traversing Left");
                 return true;
             } else {
-                System.out.println("Not enough battery to move left.");
+                cleanSweepLogger.fatal("Not enough battery to move left.");
                 returnToChargingStation();
                 return false;
             }
         } else {
-            System.out.println("Left tile not traversable...");
+            cleanSweepLogger.warn("Left tile not traversable...");
             avoid();
             return false;
         }
@@ -80,14 +89,15 @@ public class CleanSweep {
                 consumeBattery(tile);
                 this.currentTile = tile;
                 this.xPos++;
+                cleanSweepLogger.info("Traversing Right");
                 return true;
             } else {
-                System.out.println("Not enough battery to move right.");
+                cleanSweepLogger.fatal("Not enough battery to move right.");
                 returnToChargingStation();
                 return false;
             }
         } else {
-            System.out.println("Right tile not traversable...");
+            cleanSweepLogger.warn("Right tile not traversable...");
             avoid();
             return false;
         }
@@ -99,14 +109,15 @@ public class CleanSweep {
                 consumeBattery(tile);
                 this.currentTile = tile;
                 this.yPos--;
+                cleanSweepLogger.info("Traversing Up");
                 return true;
             } else {
-                System.out.println("Not enough battery to move up.");
+                cleanSweepLogger.fatal("Not enough battery to move up.");
                 returnToChargingStation();
                 return false;
             }
         } else {
-            System.out.println("Above tile not traversable...");
+            cleanSweepLogger.warn("Above tile not traversable...");
             avoid();
             return false;
         }
@@ -118,20 +129,21 @@ public class CleanSweep {
                 consumeBattery(tile);
                 this.currentTile = tile;
                 this.yPos++;
+                cleanSweepLogger.info("Traversing Down");
                 return true;
             } else {
-                System.out.println("Not enough battery to move down.");
+                cleanSweepLogger.fatal("Not enough battery to move down.");
                 returnToChargingStation();
                 return false;
             }
         } else {
-                System.out.println("Below tile not traversable...");
+                cleanSweepLogger.warn("Below tile not traversable...");
                 avoid();
                 return false;
             }
         }
 
-    public Tile getCurrentTile() {
+    public Tile getTile() {
         return currentTile;
     }
 
@@ -167,61 +179,62 @@ public class CleanSweep {
 
         if (dirtCapacity < MAX_CAPACITY) {
             if (!tile.cleanTile) {
+                cleanSweepLogger.info("Found Dirty Tile");
                 int dirtToCollect = Math.min(MAX_CAPACITY - dirtCapacity, tile.getDirtAmount());
                 while (dirtToCollect > 0) {
                     //System.out.println("before set:" + tile.getDirtAmount());
                     dirtCapacity++;
                     tile.setDirtAmount(tile.getDirtAmount() - 1);
-                    System.out.println("Cleaned 1 dirt. Current Capacity: " + dirtCapacity + "/" + MAX_CAPACITY);
+                    cleanSweepLogger.info("Cleaned 1 dirt. Current Capacity: {}/" + MAX_CAPACITY, dirtCapacity);
                     dirtToCollect--;
                     //System.out.println("after set:" + tile.getDirtAmount());
                 }
                 if (tile.getDirtAmount() == 0) {
                     tile.cleanTile = true;
                 } else {
-                    System.out.println("Dirt container is full! Cannot clean more until emptied.");
+                    cleanSweepLogger.warn("Dirt container is full! Cannot clean more until emptied.");
                 }
 
             } else {
-                System.out.println("This is a clean tile.");
+                cleanSweepLogger.info("This is a clean tile.");
             }
 
         } else {
-            System.out.println("Dirt container is full! Cannot clean more until emptied.");
+            cleanSweepLogger.warn("Dirt container is full! Cannot clean this tile.");
         }
     }
 
     public void avoid() {
         //System.out.println("in avoid");
         if (currentTile.getRight() != null && currentTile.getRight().traversable()) { // Try to traverse right to avoid obstacle
-            System.out.println("Traversing right to avoid obstacle...");
+            cleanSweepLogger.info("Traversing right to avoid obstacle...");
             traverseRight(currentTile.getRight());
         } else if (currentTile.getBottom() != null && currentTile.getBottom().traversable()) { // Try to traverse down to avoid obstacle
-            System.out.println("Traversing down to avoid obstacle...");
+            cleanSweepLogger.info("Traversing down to avoid obstacle...");
             traverseDown(currentTile.getBottom());
         }else if (currentTile.getLeft() != null && currentTile.getLeft().traversable()) { // Try to traverse left to avoid obstacle
-            System.out.println("Traversing left to avoid obstacle...");
+            cleanSweepLogger.info("Traversing left to avoid obstacle...");
             traverseLeft(currentTile.getLeft());
         } else if (currentTile.getTop() != null && currentTile.getTop().traversable()) { // Try to traverse up to avoid obstacle
-            System.out.println("Traversing up to avoid obstacle...");
+            cleanSweepLogger.info("Traversing up to avoid obstacle...");
             traverseUp(currentTile.getTop());
         } else {
-            System.out.println("Cannot avoid obstacle(s)");
+            cleanSweepLogger.fatal("Cannot avoid obstacle(s)");
             shutDown();
         }
     }
 
     public void showBatteryPercentage() {
-        System.out.println("Battery : " + batteryLevel + "units");
+        cleanSweepLogger.info("Battery: {} units", batteryLevel);
     }
 
     public void shutDown() {
-        System.out.println("Shutting Down...\n");
+        cleanSweepLogger.info("Shutting Down...");
         powerOn = false;
     }
 
     public void startUp() {
-        System.out.println("\nPowering on...");
+        cleanSweepLogger.info("Powering on...");
         powerOn = true;
     }
 
@@ -234,7 +247,7 @@ public class CleanSweep {
     }
 
     public void printPos() {
-        System.out.println("Current Position: (" + getXPos() + ", " + getYPos() + ")");
+        cleanSweepLogger.info("Current Position: ({}, {})", getXPos(), getYPos());
     }
 
     public int getDirtCapacity() {
@@ -243,15 +256,15 @@ public class CleanSweep {
 
     public void emptyDirtContainer() {
         dirtCapacity = 0;
-        System.out.println("Dirt container emptied.");
+        cleanSweepLogger.info("Dirt container emptied.");
     }
 
     public double getBatteryLevel() {
         return batteryLevel;
     }
     private void returnToChargingStation() {
-        System.out.println("Returning to charging station...");
+        cleanSweepLogger.info("Returning to charging station...");
         batteryLevel = MAX_BATTERY;
-        System.out.println("Recharged to full battery capacity.");
+        cleanSweepLogger.info("Recharged to full battery capacity.");
     }
 }

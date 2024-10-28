@@ -3,7 +3,6 @@ package com.group4;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class CleanSweepTest {
@@ -655,7 +654,7 @@ public class CleanSweepTest {
     public void CleanSweepCleanOneUnit() { // Clean Sweep clean 1 unit of dirt
         System.out.println("\nCleanSweepCleanOneUnit()");
         cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         assertEquals(1, cleaningCleanSweep.getDirtCapacity());
     }
 
@@ -663,40 +662,40 @@ public class CleanSweepTest {
     public void CleanSweepCleanCleanUntilClean() { // Clean Sweep cleans tile until tile is clean
         System.out.println("\nCleanSweepCleanCleanUntilClean()");
         cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
-        assertTrue(cleaningCleanSweep.getCurrentTile().cleanTile);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
+        assertTrue(cleaningCleanSweep.getTile().cleanTile);
     }
 
     @Test
     public void CleanSweepDirtCapacityFull() { // Clean Sweep can not clean tile because dirt capacity is full
         System.out.println("\nCleanSweepDirtCapacityFull()");
         cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()+1]);
         cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         cleaningCleanSweep.traverseLeft(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()-1][cleaningCleanSweep.getYPos()]);
         cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()+1]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
         cleaningCleanSweep.traverseLeft(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()-1][cleaningCleanSweep.getYPos()]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
-        assertFalse(cleaningCleanSweep.getCurrentTile().cleanTile);
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
+        assertFalse(cleaningCleanSweep.getTile().cleanTile);
     }
 
     @Test
     public void CleanSweepNotCleanTileDirtCapacityFull() { // Clean Sweep dirt capacity fills up while cleaning a tile, tile not fully clean
         System.out.println("\nCleanSweepNotCleanTileDirtCapacityFull()");
         cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()+1]);
         cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         cleaningCleanSweep.traverseLeft(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()-1][cleaningCleanSweep.getYPos()]);
         cleaningCleanSweep.traverseDown(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()+1]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         assertAll(
-                () -> assertFalse(cleaningCleanSweep.getCurrentTile().cleanTile),
+                () -> assertFalse(cleaningCleanSweep.getTile().cleanTile),
                 () -> assertEquals(50, cleaningCleanSweep.getDirtCapacity())
         );
     }
@@ -706,9 +705,9 @@ public class CleanSweepTest {
         System.out.println("\nCleanSweepCleanCleanTile()");
         cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
         cleaningCleanSweep.traverseUp(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()][cleaningCleanSweep.getYPos()-1]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         assertAll(
-                () -> assertTrue(cleaningCleanSweep.getCurrentTile().cleanTile),
+                () -> assertTrue(cleaningCleanSweep.getTile().cleanTile),
                 () -> assertEquals(0, cleaningCleanSweep.getDirtCapacity()),
                 () -> assertEquals(0,cleaningCleanSweep.getYPos())
         );
@@ -720,7 +719,7 @@ public class CleanSweepTest {
     public void CleanSweepEmptyDirtContainer() {
         System.out.println("\nCleanSweepEmptyDirtContainer()");
         cleaningCleanSweep.traverseRight(cleaningFloorPlanArr[cleaningCleanSweep.getXPos()+1][cleaningCleanSweep.getYPos()]);
-        cleaningCleanSweep.clean(cleaningCleanSweep.getCurrentTile());
+        cleaningCleanSweep.clean(cleaningCleanSweep.getTile());
         cleaningCleanSweep.emptyDirtContainer();
         assertEquals(0,cleaningCleanSweep.getDirtCapacity());
     }
@@ -728,9 +727,9 @@ public class CleanSweepTest {
     // Current Tile Test
 
     @Test
-    public void CleanSweepGetCurrentTile() {
-        System.out.println("\nCleanSweepGetCurrentTile()");
-        assertSame(bareFloorPlanArr[startXTilePos][startYTilePos],cleanSweep.getCurrentTile());
+    public void CleanSweepGetTile() {
+        System.out.println("\nCleanSweepGetTile()");
+        assertSame(bareFloorPlanArr[startXTilePos][startYTilePos],cleanSweep.getTile());
     }
 
     // Power Level Tests
@@ -824,7 +823,7 @@ public class CleanSweepTest {
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseLeft(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()]);
-        powerLevelCleanSweep.clean(powerLevelCleanSweep.getCurrentTile());
+        powerLevelCleanSweep.clean(powerLevelCleanSweep.getTile());
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
         double expectedBatteryAfterMove = initialBattery - 2.0;
         assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
@@ -835,7 +834,7 @@ public class CleanSweepTest {
         lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = lowPileCleanSweep.getBatteryLevel();
         lowPileCleanSweep.traverseLeft(lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()]);
-        lowPileCleanSweep.clean(lowPileCleanSweep.getCurrentTile());
+        lowPileCleanSweep.clean(lowPileCleanSweep.getTile());
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
         double expectedBatteryAfterMove = initialBattery - 4.0;
         assertEquals(expectedBatteryAfterMove, lowPileCleanSweep.getBatteryLevel());
@@ -846,7 +845,7 @@ public class CleanSweepTest {
         highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = highPileCleanSweep.getBatteryLevel();
         highPileCleanSweep.traverseLeft(highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()]);
-        highPileCleanSweep.clean(highPileCleanSweep.getCurrentTile());
+        highPileCleanSweep.clean(highPileCleanSweep.getTile());
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
         double expectedBatteryAfterMove = initialBattery - 6.0;
         assertEquals(expectedBatteryAfterMove, highPileCleanSweep.getBatteryLevel());
@@ -857,7 +856,7 @@ public class CleanSweepTest {
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseRight(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()]);
-        powerLevelCleanSweep.clean(powerLevelCleanSweep.getCurrentTile());
+        powerLevelCleanSweep.clean(powerLevelCleanSweep.getTile());
         double expectedBatteryAfterMove = initialBattery - 3.5;
         assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
     }
@@ -867,7 +866,7 @@ public class CleanSweepTest {
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseUp(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1]);
-        powerLevelCleanSweep.clean(powerLevelCleanSweep.getCurrentTile());
+        powerLevelCleanSweep.clean(powerLevelCleanSweep.getTile());
         double expectedBatteryAfterMove = initialBattery - 5.0;
         assertEquals(expectedBatteryAfterMove, powerLevelCleanSweep.getBatteryLevel());
     }
@@ -877,7 +876,7 @@ public class CleanSweepTest {
         lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = lowHighPileCleanSweep.getBatteryLevel();
         lowHighPileCleanSweep.traverseRight(lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()]);
-        lowHighPileCleanSweep.clean(lowHighPileCleanSweep.getCurrentTile());
+        lowHighPileCleanSweep.clean(lowHighPileCleanSweep.getTile());
         double expectedBatteryAfterMove = initialBattery - 5.5;
         assertEquals(expectedBatteryAfterMove, lowHighPileCleanSweep.getBatteryLevel());
     }
