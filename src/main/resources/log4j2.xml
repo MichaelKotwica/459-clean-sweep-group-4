@@ -22,11 +22,9 @@
         <RollingFile
                 name="rollingFile"
                 fileName="${fileName}/application.log"
-                filePattern="${fileName}/%d{MMM-dd}/%d{HH-mm-ss}.log"
+                filePattern="${fileName}/%d{MMMdd}/%d{HH-mm-ss}.log"
                 ignoreExceptions="false">
-            <PatternLayout>
-                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
-            </PatternLayout>
+            <PatternLayout pattern="${logPattern}"/>
             <Policies>
                 <OnStartupTriggeringPolicy />
                 <SizeBasedTriggeringPolicy size="100 MB" />
