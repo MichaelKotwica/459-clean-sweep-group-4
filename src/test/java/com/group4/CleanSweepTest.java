@@ -371,7 +371,7 @@ public class CleanSweepTest {
         // Make All Bare Floor
         for (int i = 0; i < stuckFloorPlanLength; i++) {
             for (int j = 0; j < stuckFloorPlanWidth; j++) {
-                lowHighPileFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+                bareFloorWithChargingStationFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
             }
         }
         bareFloorWithChargingStationFloorPlanArr[0][0] = new ChargingStation(null, null, null, null,0,0);
@@ -905,14 +905,17 @@ public class CleanSweepTest {
 
     @Test
     public void CleanSweepChargingTest() {
-        //double initialBattery = chargingCleanSweep.getBatteryLevel();
+        bareFloorWithChargingStationFloorPlan.representFloorPlan();
+        bareFloorWithChargingStationFloorPlan.representDirt();
+        chargingCleanSweep.showBatteryPercentage();
         chargingCleanSweep.traverseRight(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()+1][chargingCleanSweep.getYPos()]);
         chargingCleanSweep.traverseUp(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()][chargingCleanSweep.getYPos()-1]);
         chargingCleanSweep.traverseLeft(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()-1][chargingCleanSweep.getYPos()]);
         chargingCleanSweep.traverseLeft(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()-1][chargingCleanSweep.getYPos()]);
+        chargingCleanSweep.showBatteryPercentage();
         chargingCleanSweep.printPos();
-        //chargingCleanSweep.traverseLeft(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()-1][chargingCleanSweep.getYPos()]);
         chargingCleanSweep.charge();
+        chargingCleanSweep.showBatteryPercentage();
         double batteryAfterTraversals = chargingCleanSweep.getBatteryLevel();
         assertEquals(250.0,batteryAfterTraversals);
     }
