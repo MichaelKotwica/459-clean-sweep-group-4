@@ -27,6 +27,11 @@ public class ChargingStation extends Tile{
     }
 
     @Override
+    public Boolean traversable() {
+        return true;
+    }
+
+    @Override
     public String getTypeStr() {
         return ("Charging Station");
     }
