@@ -17,6 +17,22 @@
         <File name="DEBUG_LOG" fileName="${fileName}/debug.log">
             <PatternLayout pattern="${logPattern}"/>
         </File>
+
+        <!--new logs per run-->
+        <RollingFile
+                name="rollingFile"
+                fileName="${fileName}/application.log"
+                filePattern="${fileName}/%d{MMMdd}/%d{HH-mm-ss}.log"
+                ignoreExceptions="false">
+            <PatternLayout pattern="${logPattern}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+
     </Appenders>
     <Loggers>
         <!--Root level logs-->
@@ -28,6 +44,7 @@
             <!--create logs in console (println) and main.log-->
             <AppenderRef ref="MAIN"/>
             <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="rollingFile"/>
         </Logger>
         <!--Debug level logs specific to package com.group4
         <Logger name="com.group4" level="DEBUG" additivity="false">

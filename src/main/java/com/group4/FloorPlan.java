@@ -11,7 +11,7 @@ public class FloorPlan {
     final Random randomDirtAmount = new Random();
     final Random randomTileType = new Random();
 
-    //final int fixedDirtAmount = 25;
+    final int fixedDirtAmount = 1;
 
     final int floorPlanLength;
     final int floorPlanWidth;
@@ -253,7 +253,8 @@ public class FloorPlan {
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
                 int dirtAmount = randomDirtAmount.nextInt(4);
-                floorPlan[i][j].setDirtAmount(dirtAmount);
+                //floorPlan[i][j].setDirtAmount(dirtAmount);
+                floorPlan[i][j].setDirtAmount(fixedDirtAmount);
                 floorPlan[i][j].cleanTile = floorPlan[i][j].getDirtAmount() == 0;
             }
         }
