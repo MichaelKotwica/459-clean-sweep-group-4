@@ -1,6 +1,6 @@
 package com.group4;
 
-public class Obstacle extends Tile{
+public class Obstacle extends Tile {
     public Obstacle(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
         super(leftNext, rightNext, topNext, bottomNext, xPos, yPos);
     }

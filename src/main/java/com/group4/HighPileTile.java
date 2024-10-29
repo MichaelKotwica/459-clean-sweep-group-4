@@ -27,6 +27,11 @@ public class HighPileTile extends Tile {
     }
 
     @Override
+    public Boolean traversable() {
+        return true;
+    }
+
+    @Override
     public String getTypeStr() {
         return ("High Pile");
     }
