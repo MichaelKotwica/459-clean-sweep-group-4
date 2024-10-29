@@ -361,6 +361,9 @@ public class FloorPlan {
                 if (floorPlan[i][j].getClass() == StairDeclineTile.class) {
                     floorPlanStr[j][i] = " S ";
                 }
+                if (floorPlan[i][j].getClass() == ChargingStation.class) {
+                    floorPlanStr[j][i] = " C ";
+                }
             }
         }
         for (String[] x : floorPlanStr) {
@@ -373,7 +376,7 @@ public class FloorPlan {
         System.out.println("\n                     Key:                        ");
         System.out.println("    B = Bare Floor          / = Low Pile Carpet  ");
         System.out.println("    S = Stairs              \\ = High Pile Carpet");
-        System.out.println("    O = Obstacle                                 ");
+        System.out.println("    O = Obstacle            C = Charging Station   ");
     }
 
     public void representDirt() {
