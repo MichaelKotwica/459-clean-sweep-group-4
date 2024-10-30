@@ -534,15 +534,12 @@ public class Main {
             visited.add(key);
 
             cleanSweep.clean(cleanSweep.getTile());
-
 //            if(cleanSweep.getYPos() - 1 < 0) {
 //                return;
 //            }
-
             if (cleanSweep.getXPos() - 1 < 0) {
                 return;
             }
-
             if (cleanSweep.getYPos() - 1 < 0) {
                 return;
             }
@@ -550,11 +547,9 @@ public class Main {
             if (cleanSweep.getXPos() + 1 > fp.floorPlanLength) {
                 return;
             }
-
             if (cleanSweep.getYPos() + 1 > fp.floorPlanWidth) {
                 return;
             }
-
  */
 
             if (cleanSweep.traverseUp(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos() - 1])) {
