@@ -1,6 +1,13 @@
 package com.group4;
 
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class Main {
+
+    static Set<String> visited = new HashSet<>();
+
     public static void main(String[] args) {
 /*
         int floorPlanLength = 5;
@@ -143,6 +150,8 @@ public class Main {
         Tile[][] sampleFloorPlanArr = sampleFloorPlan.createSampleFloorPlan();
 
         sampleFloorPlan.connectFloorPlan();
+
+
         //sampleFloorPlan.printFloorPlan();
 
         System.out.println("\n========================================================================");
@@ -166,6 +175,7 @@ public class Main {
                 false, sampleFloorPlanArr[sampleFloorPlanStartXTilePos][sampleFloorPlanStartYTilePos]);
 
         sampleFloorPlanCleanSweep.startUp();
+        /*
         sampleFloorPlanCleanSweep.printPos();
         System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
@@ -499,6 +509,9 @@ public class Main {
         System.out.println("Current Tile type: " + sampleFloorPlanCleanSweep.getTile().getTypeStr());
         sampleFloorPlanCleanSweep.printPos();
         sampleFloorPlanCleanSweep.clean(sampleFloorPlanCleanSweep.getTile());
+        */
+
+        dfs(sampleFloorPlanCleanSweep, sampleFloorPlanArr, sampleFloorPlan);
 
 
         sampleFloorPlanCleanSweep.shutDown();
@@ -510,21 +523,43 @@ public class Main {
 
     }
 
+    private static void dfs(CleanSweep cleanSweep, Tile[][] floorPlan, FloorPlan fp) {
+        String key = cleanSweep.getXPos() + "," + cleanSweep.getYPos();
+
+        fp.representDirt();
+
+        if(!visited.contains(key)) {
+            visited.add(key);
+
+            cleanSweep.clean(cleanSweep.getTile());
+
+            for (int i = 0; i < 4; i++) {
+                if (cleanSweep.traverseUp(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos()-1])) {
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+                if (cleanSweep.traverseRight(floorPlan[cleanSweep.getXPos()+1][cleanSweep.getYPos()])) {
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+                if (cleanSweep.traverseDown(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos()+1])) {
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+                if (cleanSweep.traverseLeft(floorPlan[cleanSweep.getXPos()-1][cleanSweep.getYPos()])) {
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+            }
+        }
+
+    }
+
+    private static void moveBack(CleanSweep cleanSweep, Tile[][] floorPlanArr) {
+
+    }
+
    /*     public void returnToChargingStation() {
         System.out.println("Returning to starting charging station...");
         moveToPosition(0, 0); // Assuming (0, 0) is the charging station position
         emptyDirtContainer();
         System.out.println("Reached charging station. Dirt container emptied.");
-    }
-
-    private void moveToPosition(int targetX, int targetY) {
-        // Simplified movement logic: moves to target position step-by-step.
-        while (xPos != targetX || yPos != targetY) {
-            if (xPos < targetX) traverseRight(floorPlan[xPos + 1][yPos]);
-            else if (xPos > targetX) traverseLeft(floorPlan[xPos - 1][yPos]);
-            if (yPos < targetY) traverseDown(floorPlan[xPos][yPos + 1]);
-            else if (yPos > targetY) traverseUp(floorPlan[xPos][yPos - 1]);
-        }
-    }    */
+    }*/
 
 }

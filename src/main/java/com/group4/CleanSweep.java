@@ -72,6 +72,7 @@ public class CleanSweep {
                 this.currentTile = tile;
                 this.xPos--;
                 cleanSweepLogger.info("Traversing Left");
+                printPos();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move left.");
@@ -80,7 +81,7 @@ public class CleanSweep {
             }
         } else {
             cleanSweepLogger.warn("Left tile not traversable...");
-            avoid();
+            //avoid();
             return false;
         }
     }
@@ -92,6 +93,7 @@ public class CleanSweep {
                 this.currentTile = tile;
                 this.xPos++;
                 cleanSweepLogger.info("Traversing Right");
+                printPos();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move right.");
@@ -100,7 +102,7 @@ public class CleanSweep {
             }
         } else {
             cleanSweepLogger.warn("Right tile not traversable...");
-            avoid();
+            //avoid();
             return false;
         }
     }
@@ -112,6 +114,7 @@ public class CleanSweep {
                 this.currentTile = tile;
                 this.yPos--;
                 cleanSweepLogger.info("Traversing Up");
+                printPos();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move up.");
@@ -120,7 +123,7 @@ public class CleanSweep {
             }
         } else {
             cleanSweepLogger.warn("Above tile not traversable...");
-            avoid();
+            //avoid();
             return false;
         }
     }
@@ -132,6 +135,7 @@ public class CleanSweep {
                 this.currentTile = tile;
                 this.yPos++;
                 cleanSweepLogger.info("Traversing Down");
+                printPos();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move down.");
@@ -140,7 +144,7 @@ public class CleanSweep {
             }
         } else {
                 cleanSweepLogger.warn("Below tile not traversable...");
-                avoid();
+                //avoid();
                 return false;
             }
         }
