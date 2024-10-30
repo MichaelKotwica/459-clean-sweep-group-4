@@ -521,6 +521,8 @@ public class Main {
         sampleFloorPlan.representDirt();
         System.out.println("\n========================================================================");
 
+        //sampleFloorPlan.representFloorPlan();
+
     }
 
     private static void dfs(CleanSweep cleanSweep, Tile[][] floorPlan, FloorPlan fp) {
@@ -528,31 +530,56 @@ public class Main {
 
         fp.representDirt();
 
-        if(!visited.contains(key)) {
+        if (!visited.contains(key)) {
             visited.add(key);
 
             cleanSweep.clean(cleanSweep.getTile());
 
-            for (int i = 0; i < 4; i++) {
-                if (cleanSweep.traverseUp(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos()-1])) {
-                    dfs(cleanSweep, floorPlan, fp);
-                }
-                if (cleanSweep.traverseRight(floorPlan[cleanSweep.getXPos()+1][cleanSweep.getYPos()])) {
-                    dfs(cleanSweep, floorPlan, fp);
-                }
-                if (cleanSweep.traverseDown(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos()+1])) {
-                    dfs(cleanSweep, floorPlan, fp);
-                }
-                if (cleanSweep.traverseLeft(floorPlan[cleanSweep.getXPos()-1][cleanSweep.getYPos()])) {
-                    dfs(cleanSweep, floorPlan, fp);
-                }
+//            if(cleanSweep.getYPos() - 1 < 0) {
+//                return;
+//            }
+
+            if (cleanSweep.getXPos() - 1 < 0) {
+                return;
+            }
+
+            if (cleanSweep.getYPos() - 1 < 0) {
+                return;
+            }
+/*
+            if (cleanSweep.getXPos() + 1 > fp.floorPlanLength) {
+                return;
+            }
+
+            if (cleanSweep.getYPos() + 1 > fp.floorPlanWidth) {
+                return;
+            }
+
+ */
+
+            if (cleanSweep.traverseUp(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos() - 1])) {
+                dfs(cleanSweep, floorPlan, fp);
+            }
+            if (cleanSweep.traverseRight(floorPlan[cleanSweep.getXPos() + 1][cleanSweep.getYPos()])) {
+                dfs(cleanSweep, floorPlan, fp);
+            }
+            if (cleanSweep.traverseDown(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos() + 1])) {
+                dfs(cleanSweep, floorPlan, fp);
+            }
+            if (cleanSweep.traverseLeft(floorPlan[cleanSweep.getXPos() - 1][cleanSweep.getYPos()])) {
+                dfs(cleanSweep, floorPlan, fp);
             }
         }
-
+        moveBack(cleanSweep, floorPlan, fp);
     }
 
-    private static void moveBack(CleanSweep cleanSweep, Tile[][] floorPlanArr) {
-
+    private static void moveBack(CleanSweep cleanSweep, Tile[][] floorPlan, FloorPlan fp) {
+        if (cleanSweep.traverseDown(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos() + 1])) {
+            dfs(cleanSweep, floorPlan, fp);
+        }
+        if (cleanSweep.traverseLeft(floorPlan[cleanSweep.getXPos() - 1][cleanSweep.getYPos()])) {
+            dfs(cleanSweep, floorPlan, fp);
+        }
     }
 
    /*     public void returnToChargingStation() {
