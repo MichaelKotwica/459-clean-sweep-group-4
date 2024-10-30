@@ -3,6 +3,8 @@ package com.group4;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Objects;
+
 public class CleanSweep {
     private int xPos;
     private int yPos;
@@ -145,6 +147,15 @@ public class CleanSweep {
 
     public Tile getTile() {
         return currentTile;
+    }
+
+    public void charge() {
+        if(Objects.equals(currentTile.getTypeStr(), "Charging Station")){
+            this.batteryLevel = MAX_BATTERY;
+            cleanSweepLogger.info("Charging");
+            return;
+        }
+        cleanSweepLogger.warn("The clean sweeper cannot be charged at this tile, please navigate to a charging station");
     }
 
     /*
