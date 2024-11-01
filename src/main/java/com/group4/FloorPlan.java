@@ -181,6 +181,7 @@ public class FloorPlan {
         addWall(floorPlan[3][3],floorPlan[3][4]);
         addWall(floorPlan[4][2],floorPlan[4][3]);
         addWall(floorPlan[4][3],floorPlan[4][4]);
+        addWall(floorPlan[4][4],floorPlan[4][5]);
         addWall(floorPlan[5][2],floorPlan[5][3]);
         addWall(floorPlan[5][3],floorPlan[5][4]);
         addWall(floorPlan[5][4],floorPlan[5][5]);
@@ -226,11 +227,13 @@ public class FloorPlan {
                 if((floorPlan[i+1][j]) != null) {
                     //System.out.println("test");
                     floorPlan[i][j].setRightNext(floorPlan[i+1][j]);
+                    floorPlan[i][j].neighbors.add(floorPlan[i+1][j]);
 
                     // Connect Next Left
                     if (floorPlan[i][j].getRight().xPos - 1 == floorPlan[i][j].xPos) {
                         //    System.out.println("test");
                         floorPlan[i+1][j].setLeftNext(floorPlan[i][j]);
+                        floorPlan[i+1][j].neighbors.add(floorPlan[i][j]);
                     }
                 }
 
@@ -238,11 +241,13 @@ public class FloorPlan {
                 if((floorPlan[i][j+1]) != null) {
                     //    System.out.println("test");
                     floorPlan[i][j].setBottomNext(floorPlan[i][j+1]);
+                    floorPlan[i][j].neighbors.add(floorPlan[i][j+1]);
 
                     // Connect Next Top
                     if (floorPlan[i][j].getBottom().yPos - 1 == floorPlan[i][j].yPos) {
                         //            System.out.println("test");
                         floorPlan[i][j+1].setTopNext(floorPlan[i][j]);
+                        floorPlan[i][j+1].neighbors.add(floorPlan[i][j]);
                     }
                 }
             }
@@ -319,14 +324,18 @@ public class FloorPlan {
 
     private void addVerticalWall(Tile t1, Tile t2) {
         t1.setRightNext(null);
+        t1.neighbors.remove(t2);
         t2.setLeftNext(null);
+        t2.neighbors.remove(t1);
         //System.out.println("Created vertical wall between tiles " + "(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ")");
         //floorPlanLogger.info("Created vertical wall between tiles ({},{}) and ({},{})", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
     }
 
     private void addHorizontalWall(Tile t1, Tile t2) {
         t1.setBottomNext(null);
+        t1.neighbors.remove(t2);
         t2.setTopNext(null);
+        t2.neighbors.remove(t1);
         //System.out.println("Created horizontal wall between tiles " + "(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ")");
         //floorPlanLogger.info("Created horizontal wall between tiles ({},{}) and ({},{})", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
     }
