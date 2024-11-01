@@ -555,7 +555,6 @@ public class Main {
             if (cleanSweep.getXPos() + 1 > fp.floorPlanLength) {
                 return;
             }
-
             if (cleanSweep.getYPos() + 1 > fp.floorPlanWidth) {
                 return;
             }
