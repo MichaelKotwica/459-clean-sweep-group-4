@@ -81,6 +81,9 @@ public class CleanSweepTest {
     FloorPlan bareFloorWithChargingStationFloorPlan;
     Tile[][] bareFloorWithChargingStationFloorPlanArr;
 
+    FloorPlan chargingStationLarge;
+    Tile[][] chargingStationLargeArr;
+
 
     @BeforeEach
     void setUp() {
@@ -181,6 +184,8 @@ public class CleanSweepTest {
         initBareFloorWithChargingStationFloorPlan();
 
         initCleanSweeps();
+
+        initChargingStationLarge();
     }
 
     void initCleanSweeps() {
@@ -379,6 +384,19 @@ public class CleanSweepTest {
     }
 
     // Traversals, Traversable, Bare floor
+    void initChargingStationLarge() {
+        chargingStationLarge = new FloorPlan(10, 10); // 3x3
+        chargingStationLargeArr = chargingStationLarge.createFloorPlan();
+
+        // Make All Bare Floor
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                chargingStationLargeArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+        chargingStationLargeArr[4][4] = new ChargingStation(null, null, null, null,4,4);
+        chargingStationLarge.connectFloorPlan();
+    }
 
     @Test
     public void CleanSweepTraverseLeftTraversable() {
@@ -918,6 +936,14 @@ public class CleanSweepTest {
         chargingCleanSweep.showBatteryPercentage();
         double batteryAfterTraversals = chargingCleanSweep.getBatteryLevel();
         assertEquals(250.0,batteryAfterTraversals);
+    }
+    @Test
+    public void chargingStationFinderTest(){
+        chargingStationLarge.representFloorPlan();
+        Tile testTile = chargingStationLargeArr[chargingCleanSweep.getXPos()+1][chargingCleanSweep.getYPos()+1];
+        assertEquals(chargingStationLargeArr[4][4],chargingCleanSweep.findChargingStation(testTile));
+
+
     }
 
 }

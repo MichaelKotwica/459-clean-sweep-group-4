@@ -3,6 +3,9 @@ package com.group4;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class CleanSweep {
@@ -48,6 +51,27 @@ public class CleanSweep {
         double moveCost = (getSurfaceCost(currentTile) + getSurfaceCost(destinationTile)) / 2.0;
         double cleaningCost = getSurfaceCost(destinationTile);
         return batteryLevel >= (moveCost + cleaningCost);
+    }
+    protected Tile findChargingStation(Tile start){
+        Tile target = null;
+        List<Tile> visited = new ArrayList<Tile>();
+        List<Tile> collection = new ArrayList<Tile>();
+        finderHelper(start,visited, collection);
+        target = collection.get(0);
+        return target;
+    }
+    protected void finderHelper(Tile node, List<Tile> visited, List<Tile> collection){
+            if(node!= null && !visited.contains(node)){
+                visited.add(node);
+                if(node.getTypeStr() == "Charging Station"){
+                    collection.add(node);
+                }
+                finderHelper(node.getTop(), visited,collection);
+                finderHelper(node.getLeft(), visited,collection);
+                finderHelper(node.getBottom(), visited,collection);
+                finderHelper(node.getRight(), visited,collection);
+            }
+            return;
     }
 
 
