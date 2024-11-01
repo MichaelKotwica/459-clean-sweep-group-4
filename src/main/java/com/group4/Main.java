@@ -1,8 +1,7 @@
 package com.group4;
 
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -526,27 +525,33 @@ public class Main {
     }
 
     private static void dfs(CleanSweep cleanSweep, Tile[][] floorPlan, FloorPlan fp) {
+        List<Tile> traversableTiles = new ArrayList<>();
+        //List<Tile> traversableTiles2 = new ArrayList<>(traversableTiles);
         String key = cleanSweep.getXPos() + "," + cleanSweep.getYPos();
 
-        fp.representDirt();
+
+        if (cleanSweep.getTile().getTop() != null && cleanSweep.getTile().getTop().traversable()) {
+            traversableTiles.add(cleanSweep.getTile().getTop());
+        }
+
+        if (cleanSweep.getTile().getBottom() != null && cleanSweep.getTile().getBottom().traversable()) {
+            traversableTiles.add(cleanSweep.getTile().getBottom());
+        }
+
+        if (cleanSweep.getTile().getRight() != null && cleanSweep.getTile().getRight().traversable()) {
+            traversableTiles.add(cleanSweep.getTile().getRight());
+        }
+
+        if (cleanSweep.getTile().getLeft() != null && cleanSweep.getTile().getLeft().traversable()) {
+            traversableTiles.add(cleanSweep.getTile().getLeft());
+        }
 
         if (!visited.contains(key)) {
             visited.add(key);
 
             cleanSweep.clean(cleanSweep.getTile());
 
-//            if(cleanSweep.getYPos() - 1 < 0) {
-//                return;
-//            }
-
-            if (cleanSweep.getXPos() - 1 < 0) {
-                return;
-            }
-
-            if (cleanSweep.getYPos() - 1 < 0) {
-                return;
-            }
-/*
+            /*
             if (cleanSweep.getXPos() + 1 > fp.floorPlanLength) {
                 return;
             }
@@ -554,9 +559,9 @@ public class Main {
             if (cleanSweep.getYPos() + 1 > fp.floorPlanWidth) {
                 return;
             }
+            */
 
- */
-
+            /*
             if (cleanSweep.traverseUp(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos() - 1])) {
                 dfs(cleanSweep, floorPlan, fp);
             }
@@ -569,16 +574,49 @@ public class Main {
             if (cleanSweep.traverseLeft(floorPlan[cleanSweep.getXPos() - 1][cleanSweep.getYPos()])) {
                 dfs(cleanSweep, floorPlan, fp);
             }
-        }
-        moveBack(cleanSweep, floorPlan, fp);
-    }
+            */
 
-    private static void moveBack(CleanSweep cleanSweep, Tile[][] floorPlan, FloorPlan fp) {
-        if (cleanSweep.traverseDown(floorPlan[cleanSweep.getXPos()][cleanSweep.getYPos() + 1])) {
-            dfs(cleanSweep, floorPlan, fp);
-        }
-        if (cleanSweep.traverseLeft(floorPlan[cleanSweep.getXPos() - 1][cleanSweep.getYPos()])) {
-            dfs(cleanSweep, floorPlan, fp);
+            for (Tile tile : traversableTiles) {
+                //traversableTiles2.remove(tile);
+
+                if (tile.getBottom() == cleanSweep.getTile()) {
+                    //System.out.println(true);
+                    cleanSweep.traverseUp(tile);
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+
+                if (tile.getTop() == cleanSweep.getTile()) {
+                    cleanSweep.traverseDown(tile);
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+
+                if (tile.getLeft() == cleanSweep.getTile()) {
+                    cleanSweep.traverseRight(tile);
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+
+                if (tile.getRight() == cleanSweep.getTile()) {
+                    cleanSweep.traverseLeft(tile);
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+
+
+/*
+                // if tile is above
+                if (tile.getBottom() == cleanSweep.getTile()) {
+                    cleanSweep.traverseUp(tile);
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+
+                // if tile is below
+                if (tile.getTop() == cleanSweep.getTile()) {
+                    cleanSweep.traverseDown(tile);
+                    dfs(cleanSweep, floorPlan, fp);
+                }
+
+ */
+
+            }
         }
     }
 
