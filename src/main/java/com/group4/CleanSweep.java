@@ -3,10 +3,7 @@ package com.group4;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CleanSweep {
     private int xPos;
@@ -55,29 +52,97 @@ public class CleanSweep {
     protected Tile findChargingStation(Tile start){
         Tile target = null;
         List<Tile> visited = new ArrayList<Tile>();
-        List<Tile> collection = new ArrayList<Tile>();
+        Queue<Tile> collection = new LinkedList<>();
+        visited.add(start);
         finderHelper(start,visited, collection);
-        target = collection.get(0);
+        target = visited.get(visited.size()-1);
         return target;
     }
-    protected void finderHelper(Tile node, List<Tile> visited, List<Tile> collection){
-            if(node!= null && !visited.contains(node)){
-                visited.add(node);
-                if(node.getTypeStr() == "Charging Station"){
-                    collection.add(node);
+    protected void finderHelper(Tile node, List<Tile> visited, Queue<Tile> collection){
+            if(node!= null){
+                if(node.getTop()!= null && !visited.contains(node.getTop())){
+                    collection.add(node.getTop());
+                    visited.add(node.getTop());
+                    if(node.getTop().getTypeStr() == "Charging Station"){
+                        return;
+
+                    }
+
                 }
-                finderHelper(node.getTop(), visited,collection);
-                finderHelper(node.getLeft(), visited,collection);
-                finderHelper(node.getBottom(), visited,collection);
-                finderHelper(node.getRight(), visited,collection);
+                if(node.getLeft()!= null && !visited.contains(node.getLeft())){
+                    collection.add(node.getLeft());
+                    visited.add(node.getLeft());
+                    if(node.getLeft().getTypeStr() == "Charging Station"){
+                        return;
+
+                    }
+
+                }
+                if(node.getBottom()!= null && !visited.contains(node.getBottom())){
+                    collection.add(node.getBottom());
+                    visited.add(node.getBottom());
+                    if(node.getBottom().getTypeStr() == "Charging Station"){
+                        return;
+
+                    }
+
+                }
+                if(node.getRight()!= null && !visited.contains(node.getRight())){
+                    collection.add(node.getRight());
+                    visited.add(node.getRight());
+                    if(node.getRight().getTypeStr() == "Charging Station"){
+                        return;
+
+                    }
+
+                }
+                collection.remove();
+                finderHelper(collection.peek(), visited, collection);
+
             }
             return;
+    }
+    protected List<Tile> pathTo(Tile start) {
+        List<Tile> visited = new ArrayList<Tile>();
+        Queue<Tile> collection = new LinkedList<>();
+        visited.add(start);
+        finderHelper(start, visited, collection);
+        int xCoord = visited.get(visited.size() - 1).xPos;
+        int yCoord = visited.get(visited.size() - 1).xPos;
+
+        for (int i = visited.size() - 1; i > 0; i--) {
+            if (Math.abs(xCoord - visited.get(i - 1).xPos) + Math.abs(yCoord - visited.get(i - 1).yPos) > 1) {
+                visited.set(i - 1, null);
+            } else {
+                xCoord = visited.get(i - 1).xPos;
+                yCoord = visited.get(i - 1).yPos;
+            }
+
+        }
+        List<Tile> visitedClean = new ArrayList<Tile>();
+        for(Tile node : visited){
+            if(node != null)
+                visitedClean.add(node);
+        }
+        return visitedClean;
+    }
+    protected double calculateTravelCost(Tile start){
+        List<Tile> path = pathTo(start);
+        double totalPower = 0.0;
+        for(int i = 0; i< path.size()-1; i++){
+            totalPower+= getSurfaceCost(path.get(i)) + getSurfaceCost(path.get(i+1)) / 2.0;
+        }
+        return totalPower;
     }
 
 
     protected void consumeBattery(Tile destinationTile) {
         double moveCost = (getSurfaceCost(currentTile) + getSurfaceCost(destinationTile)) / 2.0;
         double cleaningCost = getSurfaceCost(destinationTile);
+        if(calculateTravelCost(currentTile)<=batteryLevel){
+            returnToChargingStation();
+            return;
+        }
         batteryLevel -= moveCost;
         cleanSweepLogger.info("Battery level after move: {}", batteryLevel);
         if (destinationTile.getDirtAmount() > 0) {
