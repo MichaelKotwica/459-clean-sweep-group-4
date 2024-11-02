@@ -127,7 +127,7 @@ public class FloorPlan {
                 }
             }
         }
-
+        floorPlan[7][3] = new ChargingStation(null, null, null, null, 7, 3);
 
         // Left Closet on Left Side
         floorPlanLogger.info("Left Closet on Left Side");
@@ -160,6 +160,8 @@ public class FloorPlan {
                 floorPlan[i][j] = new LowPileTile(null, null, null, null, i, j);
             }
         }
+
+        floorPlan[0][5] = new ChargingStation(null, null, null, null, 0, 5);
 
         floorPlanLogger.info("createSampleFloorPlan Complete");
 
