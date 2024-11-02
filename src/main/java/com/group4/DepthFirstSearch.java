@@ -3,9 +3,14 @@ package com.group4;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class DepthFirstSearch {
 
-    public void traverse(Tile startTile, CleanSweep cleanSweep, Tile[][] floorPlanArr) {
+    private static final Logger DFSLogger = LogManager.getLogger(DepthFirstSearch.class.getName());
+
+    public void traverse(Tile startTile, CleanSweep cleanSweep) {
         Deque<Tile> stack = new LinkedList<>();
         stack.push(startTile);
         cleanSweep.clean(startTile);
@@ -46,10 +51,15 @@ public class DepthFirstSearch {
                         System.out.println("(" + current.xPos + "," + current.yPos + ") " +
                                 "not adjacent to (" + cleanSweep.getTile().xPos + "," + cleanSweep.getTile().yPos + ") ");
 */
+                        //DFSLogger.info("({},{}) not adjacent to ({},{}) ", current.xPos, current.yPos, cleanSweep.getTile().xPos, cleanSweep.getTile().yPos);
+                        //cleanSweep.clean(current);
                         cleanSweep.moveToPosition(current.xPos, current.yPos);
 
                         //current.setDirtAmount(0);
                     }
+
+                    // Return to charging station?
+
                 }
 
 //                System.out.println("========================================================================");

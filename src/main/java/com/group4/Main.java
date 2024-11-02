@@ -47,7 +47,7 @@ public class Main {
 
         //dfs(sampleFloorPlanCleanSweep, sampleFloorPlanArr, sampleFloorPlan);
         DepthFirstSearch dfs = new DepthFirstSearch();
-        dfs.traverse(sampleFloorPlanCleanSweep.getTile(), sampleFloorPlanCleanSweep, sampleFloorPlanArr);
+        dfs.traverse(sampleFloorPlanCleanSweep.getTile(), sampleFloorPlanCleanSweep);
 
         sampleFloorPlanCleanSweep.shutDown();
 
