@@ -227,13 +227,21 @@ public class FloorPlan {
                 if((floorPlan[i+1][j]) != null) {
                     //System.out.println("test");
                     floorPlan[i][j].setRightNext(floorPlan[i+1][j]);
-                    floorPlan[i][j].neighbors.add(floorPlan[i+1][j]);
+
+                    if (floorPlan[i][j].traversable()) {
+                        floorPlan[i][j].neighbors.add(floorPlan[i+1][j]);
+                    }
+
 
                     // Connect Next Left
                     if (floorPlan[i][j].getRight().xPos - 1 == floorPlan[i][j].xPos) {
                         //    System.out.println("test");
                         floorPlan[i+1][j].setLeftNext(floorPlan[i][j]);
-                        floorPlan[i+1][j].neighbors.add(floorPlan[i][j]);
+
+                        if (floorPlan[i+1][j].traversable()) {
+                            floorPlan[i+1][j].neighbors.add(floorPlan[i][j]);
+                        }
+
                     }
                 }
 
@@ -241,13 +249,21 @@ public class FloorPlan {
                 if((floorPlan[i][j+1]) != null) {
                     //    System.out.println("test");
                     floorPlan[i][j].setBottomNext(floorPlan[i][j+1]);
-                    floorPlan[i][j].neighbors.add(floorPlan[i][j+1]);
+
+                    if (floorPlan[i][j].traversable()) {
+                        floorPlan[i][j].neighbors.add(floorPlan[i][j+1]);
+                    }
+
 
                     // Connect Next Top
                     if (floorPlan[i][j].getBottom().yPos - 1 == floorPlan[i][j].yPos) {
                         //            System.out.println("test");
                         floorPlan[i][j+1].setTopNext(floorPlan[i][j]);
-                        floorPlan[i][j+1].neighbors.add(floorPlan[i][j]);
+
+                        if (floorPlan[i][j+1].traversable()) {
+                            floorPlan[i][j+1].neighbors.add(floorPlan[i][j]);
+                        }
+
                     }
                 }
             }
