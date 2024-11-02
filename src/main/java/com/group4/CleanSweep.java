@@ -159,11 +159,21 @@ public class CleanSweep {
             else if (getTile().getLeft() != null && xPos > targetX && getTile().getLeft().traversable()) {
                 traverseLeft(currentTile.getLeft());
             }
-            if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
+            else if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
                 traverseDown(currentTile.getBottom());
             }
             else if (getTile().getTop() != null && yPos > targetY && getTile().getTop().traversable()) {
                 traverseUp(currentTile.getTop());
+            } else {
+                if (!(xPos < targetX)) {
+                    if (getTile().getRight() != null && getTile().getRight().traversable()) {
+                        traverseRight(currentTile.getRight());
+                    }
+
+                    if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
+                        traverseDown(currentTile.getBottom());
+                    }
+                }
             }
 
             // Hey you are not moving and need to get around a wall
