@@ -80,7 +80,7 @@ public class CleanSweep {
                 return false;
             }
         } else {
-            cleanSweepLogger.warn("Left tile not traversable...");
+            cleanSweepLogger.warn("Left tile ({},{}) not traversable...", tile.xPos,tile.yPos);
             //avoid();
             return false;
         }
@@ -101,7 +101,7 @@ public class CleanSweep {
                 return false;
             }
         } else {
-            cleanSweepLogger.warn("Right tile not traversable...");
+            cleanSweepLogger.warn("Right tile ({},{}) not traversable...", tile.xPos, tile.yPos);
             //avoid();
             return false;
         }
@@ -122,7 +122,7 @@ public class CleanSweep {
                 return false;
             }
         } else {
-            cleanSweepLogger.warn("Above tile not traversable...");
+            cleanSweepLogger.warn("Above tile ({},{}) not traversable...",tile.xPos,tile.yPos);
             //avoid();
             return false;
         }
@@ -143,11 +143,36 @@ public class CleanSweep {
                 return false;
             }
         } else {
-                cleanSweepLogger.warn("Below tile not traversable...");
+                cleanSweepLogger.warn("Below tile ({},{}) not traversable...",tile.xPos,tile.yPos);
                 //avoid();
                 return false;
             }
+    }
+
+    public void moveToPosition(int targetX, int targetY) {
+        // Simplified movement logic: moves to target position step-by-step.
+        while (xPos != targetX || yPos != targetY) {
+
+            if (getTile().getRight() != null && xPos < targetX && getTile().getRight().traversable()) {
+                traverseRight(currentTile.getRight());
+            }
+            else if (getTile().getLeft() != null && xPos > targetX && getTile().getLeft().traversable()) {
+                traverseLeft(currentTile.getLeft());
+            }
+            if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
+                traverseDown(currentTile.getBottom());
+            }
+            else if (getTile().getTop() != null && yPos > targetY && getTile().getTop().traversable()) {
+                traverseUp(currentTile.getTop());
+            }
+
+            // Hey you are not moving and need to get around a wall
+
+            //System.out.println("Clean Sweep Position: (" + xPos + "," + yPos + ")");
+            //System.out.println(!(xPos < targetX));
+            //System.out.println(xPos);
         }
+    }
 
     public Tile getTile() {
         return currentTile;

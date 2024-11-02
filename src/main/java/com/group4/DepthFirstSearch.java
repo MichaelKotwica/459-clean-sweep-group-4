@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class DepthFirstSearch {
 
-    public void traverse(Tile startTile, CleanSweep cleanSweep, FloorPlan floorPlan) {
+    public void traverse(Tile startTile, CleanSweep cleanSweep, Tile[][] floorPlanArr) {
         Deque<Tile> stack = new LinkedList<>();
         stack.push(startTile);
         cleanSweep.clean(startTile);
@@ -42,8 +42,12 @@ public class DepthFirstSearch {
                             current.setDirtAmount(0);
                         }
                     } else {
+/*
                         System.out.println("(" + current.xPos + "," + current.yPos + ") " +
                                 "not adjacent to (" + cleanSweep.getTile().xPos + "," + cleanSweep.getTile().yPos + ") ");
+*/
+                        cleanSweep.moveToPosition(current.xPos, current.yPos);
+
                         //current.setDirtAmount(0);
                     }
                 }
