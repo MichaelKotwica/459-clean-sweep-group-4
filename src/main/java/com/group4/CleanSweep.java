@@ -174,6 +174,7 @@ public class CleanSweep {
                         traverseDown(currentTile.getBottom());
                     }
                 }
+                //System.out.println("yPos: " + yPos + "," + "targetY: " + targetY);
             }
 
             // Hey you are not moving and need to get around a wall
