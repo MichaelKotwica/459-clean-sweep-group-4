@@ -945,6 +945,7 @@ public class CleanSweepTest {
         Tile testTile = chargingStationLargeArr[chargingCleanSweep.getXPos()+1][chargingCleanSweep.getYPos()+1];
         assertEquals(chargingStationLargeArr[4][4],chargingCleanSweep.findChargingStation(testTile));
         assertEquals(6.0,chargingCleanSweep.calculateTravelCost(testTile));
+        System.out.println(chargingCleanSweep.pathTo(testTile));
 
 
     }

@@ -56,11 +56,15 @@ public class CleanSweep {
         visited.add(start);
         finderHelper(start,visited, collection);
         target = visited.get(visited.size()-1);
+        if(target.getTypeStr() != "Charging Station")
+        {
+            return null;
+        }
         return target;
     }
     protected void finderHelper(Tile node, List<Tile> visited, Queue<Tile> collection){
             if(node!= null){
-                if(node.getTop()!= null && !visited.contains(node.getTop())){
+                if(node.getTop()!= null && !visited.contains(node.getTop()) && node.getTop().traversable()){
                     collection.add(node.getTop());
                     visited.add(node.getTop());
                     if(node.getTop().getTypeStr() == "Charging Station"){
@@ -69,7 +73,7 @@ public class CleanSweep {
                     }
 
                 }
-                if(node.getLeft()!= null && !visited.contains(node.getLeft())){
+                if(node.getLeft()!= null && !visited.contains(node.getLeft())&& node.getLeft().traversable()){
                     collection.add(node.getLeft());
                     visited.add(node.getLeft());
                     if(node.getLeft().getTypeStr() == "Charging Station"){
@@ -78,7 +82,7 @@ public class CleanSweep {
                     }
 
                 }
-                if(node.getBottom()!= null && !visited.contains(node.getBottom())){
+                if(node.getBottom()!= null && !visited.contains(node.getBottom()) && node.getBottom().traversable()){
                     collection.add(node.getBottom());
                     visited.add(node.getBottom());
                     if(node.getBottom().getTypeStr() == "Charging Station"){
@@ -87,7 +91,7 @@ public class CleanSweep {
                     }
 
                 }
-                if(node.getRight()!= null && !visited.contains(node.getRight())){
+                if(node.getRight()!= null && !visited.contains(node.getRight()) && node.getRight().traversable()){
                     collection.add(node.getRight());
                     visited.add(node.getRight());
                     if(node.getRight().getTypeStr() == "Charging Station"){
@@ -363,6 +367,13 @@ public class CleanSweep {
         return batteryLevel;
     }
     private void returnToChargingStation() {
+        if(findChargingStation(currentTile) == null){
+            cleanSweepLogger.info("There is no charging station on this floor");
+            return;
+        }
+        List<Tile> guide = pathTo(currentTile);
+
+
         cleanSweepLogger.info("Returning to charging station...");
         batteryLevel = MAX_BATTERY;
         cleanSweepLogger.info("Recharged to full battery capacity.");
