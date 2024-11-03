@@ -57,9 +57,6 @@ public class DepthFirstSearch {
 
                         //current.setDirtAmount(0);
                     }
-
-                    // Return to charging station?
-
                 }
 
 //                System.out.println("========================================================================");
