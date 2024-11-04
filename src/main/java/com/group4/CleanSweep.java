@@ -194,8 +194,8 @@ public class CleanSweep {
         Queue<Tile> collection = new LinkedList<>();
         visited.add(start);
         finderHelperNonAdjTile(start,goal,visited, collection);
-        int xCoord = visited.getLast().xPos;
-        int yCoord = visited.getLast().yPos;
+        int xCoord = visited.get(visited.size()-1).xPos;
+        int yCoord = visited.get(visited.size()-1).yPos;
 
         for (int i = visited.size() - 1; i > 0; i--) {
             if (Math.abs(xCoord - visited.get(i - 1).xPos) + Math.abs(yCoord - visited.get(i - 1).yPos) > 1) {
