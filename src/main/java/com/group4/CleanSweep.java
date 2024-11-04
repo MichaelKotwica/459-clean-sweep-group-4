@@ -184,7 +184,7 @@ public class CleanSweep {
             cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
 
             followPath(traversalList);
-            //break;
+            break;
             // iterate through traversalList and traverse through the tiles
         }
     }
