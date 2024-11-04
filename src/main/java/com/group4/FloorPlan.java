@@ -3,6 +3,7 @@ package com.group4;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class FloorPlan {
@@ -411,6 +412,9 @@ public class FloorPlan {
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
                 dirtStr[j][i] = String.valueOf(floorPlan[i][j].getDirtAmount());
+                if(!floorPlan[i][j].traversable()) {
+                    dirtStr[j][i] = "X";
+                }
             }
         }
         for (String[] x : dirtStr) {
