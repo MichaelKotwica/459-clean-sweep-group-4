@@ -10,7 +10,7 @@ public class DepthFirstSearch {
 
     private static final Logger DFSLogger = LogManager.getLogger(DepthFirstSearch.class.getName());
 
-    public void traverse(Tile startTile, CleanSweep cleanSweep) {
+    public void traverse(Tile startTile, CleanSweep cleanSweep, Tile[][] floorPlanArr) {
         Deque<Tile> stack = new LinkedList<>();
         stack.push(startTile);
         cleanSweep.clean(startTile);
@@ -53,7 +53,7 @@ public class DepthFirstSearch {
 */
                         //DFSLogger.info("({},{}) not adjacent to ({},{}) ", current.xPos, current.yPos, cleanSweep.getTile().xPos, cleanSweep.getTile().yPos);
                         //cleanSweep.clean(current);
-                        cleanSweep.moveToPosition(current.xPos, current.yPos);
+                        cleanSweep.moveToPosition(current.xPos, current.yPos, floorPlanArr);
 
                         //current.setDirtAmount(0);
                     }

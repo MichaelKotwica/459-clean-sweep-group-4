@@ -3,7 +3,7 @@ package com.group4;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Objects;
+import java.util.*;
 
 public class CleanSweep {
     private int xPos;
@@ -149,7 +149,7 @@ public class CleanSweep {
             }
     }
 
-    public void moveToPosition(int targetX, int targetY) {
+    public void moveToPosition(int targetX, int targetY, Tile[][] floorPlanArr) {
         // Simplified movement logic: moves to target position step-by-step.
         while (xPos != targetX || yPos != targetY) {
 
@@ -165,6 +165,8 @@ public class CleanSweep {
             else if (getTile().getTop() != null && yPos > targetY && getTile().getTop().traversable()) {
                 traverseUp(currentTile.getTop());
             } else {
+
+                /*                           BRUTE FORCE
                 if (!(xPos < targetX)) {
                     if (getTile().getRight() != null && getTile().getRight().traversable()) {
                         traverseRight(currentTile.getRight());
@@ -174,15 +176,88 @@ public class CleanSweep {
                         traverseDown(currentTile.getBottom());
                     }
                 }
+                */
+
+
+                List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[targetX][targetY], floorPlanArr[targetX][targetY]);
+                System.out.println(Arrays.toString(new List[]{traversalList}));
+                // iterate through traversalList and traverse through the tiles
+
                 //System.out.println("yPos: " + yPos + "," + "targetY: " + targetY);
+
             }
 
-            // Hey you are not moving and need to get around a wall
-
-            //System.out.println("Clean Sweep Position: (" + xPos + "," + yPos + ")");
-            //System.out.println(!(xPos < targetX));
-            //System.out.println(xPos);
         }
+    }
+
+    protected List<Tile> pathToNonAdjTile(Tile start, Tile goal) {
+        List<Tile> visited = new ArrayList<Tile>();
+        Queue<Tile> collection = new LinkedList<>();
+        visited.add(start);
+        finderHelperNonAdjTile(start,goal,visited, collection);
+        int xCoord = visited.getLast().xPos;
+        int yCoord = visited.getLast().yPos;
+
+        for (int i = visited.size() - 1; i > 0; i--) {
+            if (Math.abs(xCoord - visited.get(i - 1).xPos) + Math.abs(yCoord - visited.get(i - 1).yPos) > 1) {
+                visited.set(i - 1, null);
+            } else {
+                xCoord = visited.get(i - 1).xPos;
+                yCoord = visited.get(i - 1).yPos;
+            }
+
+        }
+        List<Tile> visitedClean = new ArrayList<Tile>();
+        for(Tile node : visited){
+            if(node != null)
+                visitedClean.add(node);
+        }
+        return visitedClean;
+    }
+
+    protected void finderHelperNonAdjTile(Tile node, Tile goal, List<Tile> visited, Queue<Tile> collection){
+        if(node!= null){
+            if(node.getTop()!= null && !visited.contains(node.getTop()) && node.getTop().traversable()){
+                collection.add(node.getTop());
+                visited.add(node.getTop());
+                if(node == goal) {     // check if node is THE adjacent tile
+                    return;
+
+                }
+
+            }
+            if(node.getLeft()!= null && !visited.contains(node.getLeft())&& node.getLeft().traversable()){
+                collection.add(node.getLeft());
+                visited.add(node.getLeft());
+                if(node == goal) {
+                    return;
+
+                }
+
+            }
+            if(node.getBottom()!= null && !visited.contains(node.getBottom()) && node.getBottom().traversable()){
+                collection.add(node.getBottom());
+                visited.add(node.getBottom());
+                if(node == goal){
+                    return;
+
+                }
+
+            }
+            if(node.getRight()!= null && !visited.contains(node.getRight()) && node.getRight().traversable()){ // Change if statement
+                collection.add(node.getRight());
+                visited.add(node.getRight());
+                if(node == goal){
+                    return;
+
+                }
+
+            }
+            collection.remove();
+            finderHelperNonAdjTile(collection.peek(), goal, visited, collection);
+
+        }
+        return;
     }
 
     public Tile getTile() {

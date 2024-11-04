@@ -1,7 +1,6 @@
 package com.group4;
 
 
-import java.util.*;
 
 public class Main {
 
@@ -47,7 +46,7 @@ public class Main {
 
         //dfs(sampleFloorPlanCleanSweep, sampleFloorPlanArr, sampleFloorPlan);
         DepthFirstSearch dfs = new DepthFirstSearch();
-        dfs.traverse(sampleFloorPlanCleanSweep.getTile(), sampleFloorPlanCleanSweep);
+        dfs.traverse(sampleFloorPlanCleanSweep.getTile(), sampleFloorPlanCleanSweep, sampleFloorPlanArr);
 
         sampleFloorPlanCleanSweep.shutDown();
 
