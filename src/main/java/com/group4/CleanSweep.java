@@ -271,15 +271,31 @@ public class CleanSweep {
         for (Tile tile : tiles) {
             if (tile != currentTile && currentTile.bottomNext == tile && tile.traversable()) {
                 traverseDown(tile);
+                if (!currentTile.cleanTile) {
+                    //clean(currentTile);
+                    currentTile.setDirtAmount(0);
+                }
             }
             if (tile != currentTile &&currentTile.rightNext == tile && tile.traversable()) {
                 traverseRight(tile);
+                if (!currentTile.cleanTile) {
+                    //clean(currentTile);
+                    currentTile.setDirtAmount(0);
+                }
             }
             if (tile != currentTile &&currentTile.topNext == tile && tile.traversable()) {
                 traverseUp(tile);
+                if (!currentTile.cleanTile) {
+                    //clean(currentTile);
+                    currentTile.setDirtAmount(0);
+                }
             }
             if (tile != currentTile &&currentTile.leftNext == tile && tile.traversable()) {
                 traverseLeft(tile);
+                if (!currentTile.cleanTile) {
+                    //clean(currentTile);
+                    currentTile.setDirtAmount(0);
+                }
             }
         }
     }
