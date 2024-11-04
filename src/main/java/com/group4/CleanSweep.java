@@ -180,7 +180,7 @@ public class CleanSweep {
 
 
                 List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[targetX][targetY], floorPlanArr[targetX][targetY]);
-                System.out.println(Arrays.toString(new List[]{traversalList}));
+                System.out.println(Arrays.toString(traversalList.toArray()));
                 // iterate through traversalList and traverse through the tiles
 
                 //System.out.println("yPos: " + yPos + "," + "targetY: " + targetY);

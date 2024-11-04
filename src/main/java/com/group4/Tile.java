@@ -29,9 +29,9 @@ public abstract class Tile {
 
     @Override
     public String toString() {
-        return "Tile Location: (" + xPos +"," + yPos + ")" +
+        return "[Tile Location: (" + xPos +"," + yPos + ")" +
                 " | Type: " + getTypeStr() +
-                " | Dirt Amount: " + getDirtAmount();
+                " | Dirt Amount: " + getDirtAmount() + "]";
     }
 
     public abstract void setDirtAmount(int dirtAmount);
