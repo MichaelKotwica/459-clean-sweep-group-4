@@ -164,9 +164,10 @@ public class CleanSweep {
             }
             else if (getTile().getTop() != null && yPos > targetY && getTile().getTop().traversable()) {
                 traverseUp(currentTile.getTop());
-            } else {
+            }
+            /* else {
 
-                /*                           BRUTE FORCE
+                                          BRUTE FORCE
                 if (!(xPos < targetX)) {
                     if (getTile().getRight() != null && getTile().getRight().traversable()) {
                         traverseRight(currentTile.getRight());
@@ -176,19 +177,15 @@ public class CleanSweep {
                         traverseDown(currentTile.getBottom());
                     }
                 }
-                */
 
+            }*/
 
-                List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
-                cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
-                // iterate through traversalList and traverse through the tiles
-
-                cleanSweepLogger.debug("(xPos, yPos): ({},{}) (targetX, targetY): ({},{})", xPos, yPos, targetX, targetY);
-
-                //System.out.println("yPos: " + yPos + "," + "targetY: " + targetY);
-
-            }
-
+            List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
+            cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
+            cleanSweepLogger.debug("Target Position: ({},{})",targetX,targetY);
+            followPath(traversalList);
+            //break;
+            // iterate through traversalList and traverse through the tiles
         }
     }
 
@@ -260,6 +257,23 @@ public class CleanSweep {
 
         }
         return;
+    }
+
+    private void followPath(List<Tile> tiles) {
+        for (Tile tile : tiles) {
+            if (getTile().bottomNext == tile && tile.traversable()) {
+                traverseDown(tile);
+            }
+            if (getTile().rightNext == tile && tile.traversable()) {
+                traverseRight(tile);
+            }
+            if (getTile().topNext == tile && tile.traversable()) {
+                traverseUp(tile);
+            }
+            if (getTile().leftNext == tile && tile.traversable()) {
+                traverseLeft(tile);
+            }
+        }
     }
 
     public Tile getTile() {
