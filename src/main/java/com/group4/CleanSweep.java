@@ -179,10 +179,10 @@ public class CleanSweep {
                 }
 
             }*/
-
+            cleanSweepLogger.debug("Target Position: ({},{})",targetX,targetY);
             List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
             cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
-            cleanSweepLogger.debug("Target Position: ({},{})",targetX,targetY);
+
             followPath(traversalList);
             //break;
             // iterate through traversalList and traverse through the tiles
@@ -261,16 +261,16 @@ public class CleanSweep {
 
     private void followPath(List<Tile> tiles) {
         for (Tile tile : tiles) {
-            if (getTile().bottomNext == tile && tile.traversable()) {
+            if (tile != currentTile && currentTile.bottomNext == tile && tile.traversable()) {
                 traverseDown(tile);
             }
-            if (getTile().rightNext == tile && tile.traversable()) {
+            if (tile != currentTile &&currentTile.rightNext == tile && tile.traversable()) {
                 traverseRight(tile);
             }
-            if (getTile().topNext == tile && tile.traversable()) {
+            if (tile != currentTile &&currentTile.topNext == tile && tile.traversable()) {
                 traverseUp(tile);
             }
-            if (getTile().leftNext == tile && tile.traversable()) {
+            if (tile != currentTile &&currentTile.leftNext == tile && tile.traversable()) {
                 traverseLeft(tile);
             }
         }
