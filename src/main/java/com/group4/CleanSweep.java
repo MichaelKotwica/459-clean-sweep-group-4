@@ -179,7 +179,7 @@ public class CleanSweep {
                 */
 
 
-                List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[targetX][targetY], floorPlanArr[targetX][targetY]);
+                List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
                 cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
                 // iterate through traversalList and traverse through the tiles
 
@@ -222,7 +222,7 @@ public class CleanSweep {
             if(node.getTop()!= null && !visited.contains(node.getTop()) && node.getTop().traversable()){
                 collection.add(node.getTop());
                 visited.add(node.getTop());
-                if(node == goal) {     // check if node is THE adjacent tile
+                if(node == goal) {     // check if node is the adjacent tile
                     return;
 
                 }
