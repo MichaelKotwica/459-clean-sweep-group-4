@@ -151,19 +151,27 @@ public class CleanSweep {
 
     public void moveToPosition(int targetX, int targetY, Tile[][] floorPlanArr) {
         // Simplified movement logic: moves to target position step-by-step.
-        while (xPos != targetX || yPos != targetY) {
+        if (xPos != targetX || yPos != targetY) {
 
             if (getTile().getRight() != null && xPos < targetX && getTile().getRight().traversable()) {
                 traverseRight(currentTile.getRight());
+                //clean(currentTile);
+                currentTile.setDirtAmount(0);
             }
             else if (getTile().getLeft() != null && xPos > targetX && getTile().getLeft().traversable()) {
                 traverseLeft(currentTile.getLeft());
+                //clean(currentTile);
+                currentTile.setDirtAmount(0);
             }
             else if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
                 traverseDown(currentTile.getBottom());
+                //clean(currentTile);
+                currentTile.setDirtAmount(0);
             }
             else if (getTile().getTop() != null && yPos > targetY && getTile().getTop().traversable()) {
                 traverseUp(currentTile.getTop());
+                //clean(currentTile);
+                currentTile.setDirtAmount(0);
             }
             /* else {
 
@@ -184,7 +192,7 @@ public class CleanSweep {
             cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
 
             followPath(traversalList);
-            break;
+            //break;
             // iterate through traversalList and traverse through the tiles
         }
     }
