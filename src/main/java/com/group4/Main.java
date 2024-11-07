@@ -50,13 +50,18 @@ public class Main {
 
         sampleFloorPlanCleanSweep.shutDown();
 
-        System.out.println("========================================================================");
+        System.out.println("\n========================================================================");
+        System.out.println("                 Floor Plan:              ");
+        sampleFloorPlan.representFloorPlan();
+        System.out.println("\n========================================================================");
         System.out.println("                Floor Plan Dirt Remaining After Cleaning:               ");
         sampleFloorPlan.representDirt();
         System.out.println("\n========================================================================");
-
-        //sampleFloorPlan.representFloorPlan();
-
+        System.out.println("                    Clean Sweep Info After Cleaning:                      ");
+        System.out.println("  Powered On: " + sampleFloorPlanCleanSweep.powerOn +
+                "   Dirt Capacity: " + sampleFloorPlanCleanSweep.getDirtCapacity() + "/" + sampleFloorPlanCleanSweep.MAX_CAPACITY +
+                "   Battery Level: " + sampleFloorPlanCleanSweep.getBatteryLevel() + "/" + sampleFloorPlanCleanSweep.MAX_BATTERY
+        );
     }
 
 }

@@ -17,8 +17,8 @@ public class CleanSweep {
 
     private static final Logger cleanSweepLogger = LogManager.getLogger(CleanSweep.class.getName());
 
-    private final int MAX_CAPACITY = 50; // Max dirt capacity
-    private final double MAX_BATTERY = 250; // Maximum battery level
+    protected final int MAX_CAPACITY = 50; // Max dirt capacity
+    protected final double MAX_BATTERY = 250; // Maximum battery level
     private final double BARE_FLOOR_COST = 1.0;
     private final double LOW_PILE_COST = 2.0;
     private final double HIGH_PILE_COST = 3.0;
