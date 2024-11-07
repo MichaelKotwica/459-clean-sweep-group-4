@@ -3,13 +3,12 @@ package com.group4;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Objects;
 import java.util.Random;
 
 public class FloorPlan {
 
     Tile[][] floorPlan;
-    final Random randomDirtAmount = new Random();
+    //final Random randomDirtAmount = new Random();
     final Random randomTileType = new Random();
 
     final int fixedDirtAmount = 1;
@@ -30,10 +29,8 @@ public class FloorPlan {
         // Create Floor Plan
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
-                //System.out.println(i + ", " + j);
 
                 int tileType = randomTileType.nextInt(4);
-                //System.out.println(tileType);
 
                 if (tileType == 0) {
                     floorPlan[i][j] = new BareFloorTile(null, null, null, null, i, j);
@@ -228,7 +225,6 @@ public class FloorPlan {
 
                 // Connect Next Right
                 if((floorPlan[i+1][j]) != null) {
-                    //System.out.println("test");
                     floorPlan[i][j].setRightNext(floorPlan[i+1][j]);
 
                     if (floorPlan[i][j].traversable()) {
@@ -238,7 +234,6 @@ public class FloorPlan {
 
                     // Connect Next Left
                     if (floorPlan[i][j].getRight().xPos - 1 == floorPlan[i][j].xPos) {
-                        //    System.out.println("test");
                         floorPlan[i+1][j].setLeftNext(floorPlan[i][j]);
 
                         if (floorPlan[i+1][j].traversable()) {
@@ -250,7 +245,6 @@ public class FloorPlan {
 
                 // Connect Next Bottom
                 if((floorPlan[i][j+1]) != null) {
-                    //    System.out.println("test");
                     floorPlan[i][j].setBottomNext(floorPlan[i][j+1]);
 
                     if (floorPlan[i][j].traversable()) {
@@ -260,7 +254,6 @@ public class FloorPlan {
 
                     // Connect Next Top
                     if (floorPlan[i][j].getBottom().yPos - 1 == floorPlan[i][j].yPos) {
-                        //            System.out.println("test");
                         floorPlan[i][j+1].setTopNext(floorPlan[i][j]);
 
                         if (floorPlan[i][j+1].traversable()) {
@@ -276,7 +269,7 @@ public class FloorPlan {
     public void addDirt() {
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
-                int dirtAmount = randomDirtAmount.nextInt(4);
+                //int dirtAmount = randomDirtAmount.nextInt(4);
                 //floorPlan[i][j].setDirtAmount(dirtAmount);
                 floorPlan[i][j].setDirtAmount(fixedDirtAmount);
                 floorPlan[i][j].cleanTile = floorPlan[i][j].getDirtAmount() == 0;
@@ -288,57 +281,45 @@ public class FloorPlan {
         // Add Vertical Wall
         if (t1.yPos == t2.yPos) {
             if (t1.xPos == t2.xPos - 1) { // t2 is to the right of t1
-                //System.out.println("(" + t2.xPos + "," + t2.yPos + ") is to the right of (" + t1.xPos + "," + t1.yPos + ")");
-                //floorPlanLogger.info("({},{}) is to the right of ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
+                floorPlanLogger.debug("({},{}) is to the right of ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
                 addVerticalWall(t1, t2);
             } else {
-                //System.out.println("(" + t2.xPos + "," + t2.yPos + ") is not next to the right of (" + t1.xPos + "," + t1.yPos + ")");
-                //floorPlanLogger.warn("({},{}) is not next to the right of ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
+                floorPlanLogger.warn("({},{}) is not next to the right of ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
             }
 
             if (t2.xPos + 1 == t1.xPos) { // t2 is to the left of t1
-                //System.out.println("(" + t2.xPos + "," + t2.yPos + ") is to the left of (" + t1.xPos + "," + t1.yPos + ")");
-                //floorPlanLogger.info("({},{}) is to the left of ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
+                floorPlanLogger.debug("({},{}) is to the left of ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
                 addVerticalWall(t2, t1);
             } else {
-                //System.out.println("(" + t2.xPos + "," + t2.yPos + ") is not next to the left of (" + t1.xPos + "," + t1.yPos + ")");
-                //floorPlanLogger.warn("({},{}) is not next to the left of ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
+                floorPlanLogger.debug("({},{}) is not next to the left of ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
             }
         } else {
-            //System.out.println("(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ") are not on the same X axis to create a vertical wall");
-            //floorPlanLogger.warn("({},{}) and ({},{}) are not on the same X axis to create a vertical wall", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
+            floorPlanLogger.warn("({},{}) and ({},{}) are not on the same X axis to create a vertical wall", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
         }
 
         // Add Horizontal Wall
         if (t1.xPos == t2.xPos) {
             if (t1.yPos == t2.yPos - 1) { // t2 is below of t1
-                //System.out.println("(" + t2.xPos + "," + t2.yPos + ") is below (" + t1.xPos + "," + t1.yPos + ")");
-                //floorPlanLogger.info("({},{}) is below ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
+                floorPlanLogger.debug("({},{}) is below ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
                 addHorizontalWall(t1, t2);
             } else {
-                //System.out.println("(" + t2.xPos + "," + t2.yPos + ") is not directly below (" + t1.xPos + "," + t1.yPos + ")");
                 floorPlanLogger.warn("({},{}) is not directly below ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
             }
 
             if (t2.yPos + 1 == t1.yPos) { // t2 is above t1
-                //System.out.println("(" + t2.xPos + "," + t2.yPos + ") is above (" + t1.xPos + "," + t1.yPos + ")");
-                //floorPlanLogger.info("({},{}) is above ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
+                floorPlanLogger.debug("({},{}) is above ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
                 addHorizontalWall(t2, t1);
             } else {
-                //System.out.println("(" + t2.xPos + "," + t2.yPos + ") is not directly above (" + t1.xPos + "," + t1.yPos + ")");
-                //floorPlanLogger.warn("({},{}) is not directly above ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
+                floorPlanLogger.warn("({},{}) is not directly above ({},{})", t2.xPos, t2.yPos, t1.xPos, t1.yPos);
             }
         } else {
-            //System.out.println("(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ") are not on the same Y axis to create a horizontal wall");
-            //floorPlanLogger.warn("({},{}) and ({},{}) are not on the same Y axis to create a horizontal wall", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
-        }
-
-        if (t1.yPos != t2.yPos && t1.xPos != t2.xPos) {
-            //floorPlanLogger.fatal("Cannot create wall between ({},{}) and ({},{})", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
-            //System.out.println("Cannot create wall between " + "(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ")");
+            floorPlanLogger.warn("({},{}) and ({},{}) are not on the same Y axis to create a horizontal wall", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
         }
 
         // Otherwise tiles are not next to each other
+        if (t1.yPos != t2.yPos && t1.xPos != t2.xPos) {
+            floorPlanLogger.fatal("Cannot create wall between ({},{}) and ({},{})", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
+        }
     }
 
     private void addVerticalWall(Tile t1, Tile t2) {
@@ -346,8 +327,7 @@ public class FloorPlan {
         t1.neighbors.remove(t2);
         t2.setLeftNext(null);
         t2.neighbors.remove(t1);
-        //System.out.println("Created vertical wall between tiles " + "(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ")");
-        //floorPlanLogger.info("Created vertical wall between tiles ({},{}) and ({},{})", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
+        floorPlanLogger.debug("Created vertical wall between tiles ({},{}) and ({},{})", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
     }
 
     private void addHorizontalWall(Tile t1, Tile t2) {
@@ -355,8 +335,7 @@ public class FloorPlan {
         t1.neighbors.remove(t2);
         t2.setTopNext(null);
         t2.neighbors.remove(t1);
-        //System.out.println("Created horizontal wall between tiles " + "(" + t1.xPos + "," + t1.yPos + ") and (" + t2.xPos + "," + t2.yPos + ")");
-        //floorPlanLogger.info("Created horizontal wall between tiles ({},{}) and ({},{})", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
+        floorPlanLogger.debug("Created horizontal wall between tiles ({},{}) and ({},{})", t1.xPos, t1.yPos, t2.xPos, t2.yPos);
     }
 
     public void printFloorPlan() {
