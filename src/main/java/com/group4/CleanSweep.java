@@ -185,6 +185,7 @@ public class CleanSweep {
                 }
 
             }*/
+            cleanSweepLogger.debug("Current Position: ({},{})", xPos, yPos);
             cleanSweepLogger.debug("Target Position: ({},{})", targetX, targetY);
             List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
             cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
