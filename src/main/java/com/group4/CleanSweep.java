@@ -151,6 +151,7 @@ public class CleanSweep {
 
     public void moveToPosition(int targetX, int targetY, Tile[][] floorPlanArr) {
         // Simplified movement logic: moves to target position step-by-step.
+
         if (xPos != targetX || yPos != targetY) {
 
             if (getTile().getRight() != null && xPos < targetX && getTile().getRight().traversable()) {
@@ -191,7 +192,7 @@ public class CleanSweep {
             List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
             cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
 
-            followPath(traversalList);
+            followPath(traversalList, floorPlanArr[targetX][targetY]);
         }
     }
 
@@ -265,13 +266,16 @@ public class CleanSweep {
         return;
     }
 
-    private void followPath(List<Tile> tiles) {
+    private void followPath(List<Tile> tiles, Tile goal) {
         for (Tile tile : tiles) {
             if (tile != currentTile && currentTile.bottomNext == tile && tile.traversable()) {
                 traverseDown(tile);
                 if (!currentTile.cleanTile) {
                     //clean(currentTile);
                     currentTile.setDirtAmount(0);
+                }
+                if (currentTile == goal) {
+                    break;
                 }
             }
             if (tile != currentTile &&currentTile.rightNext == tile && tile.traversable()) {
@@ -280,6 +284,9 @@ public class CleanSweep {
                     //clean(currentTile);
                     currentTile.setDirtAmount(0);
                 }
+                if (currentTile == goal) {
+                    break;
+                }
             }
             if (tile != currentTile &&currentTile.topNext == tile && tile.traversable()) {
                 traverseUp(tile);
@@ -287,12 +294,18 @@ public class CleanSweep {
                     //clean(currentTile);
                     currentTile.setDirtAmount(0);
                 }
+                if (currentTile == goal) {
+                    break;
+                }
             }
             if (tile != currentTile &&currentTile.leftNext == tile && tile.traversable()) {
                 traverseLeft(tile);
                 if (!currentTile.cleanTile) {
                     //clean(currentTile);
                     currentTile.setDirtAmount(0);
+                }
+                if (currentTile == goal) {
+                    break;
                 }
             }
         }
