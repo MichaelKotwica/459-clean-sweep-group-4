@@ -13,9 +13,9 @@ public class BareFloorTile extends Tile {
     }
 
     @Override
-    public void removeDirt(){
+    public void removeDirt() {
         this.dirtAmount -= 3;
-        if (this.dirtAmount<0) this.dirtAmount = 0;
+        if (this.dirtAmount < 0) this.dirtAmount = 0;
     }
 
     @Override

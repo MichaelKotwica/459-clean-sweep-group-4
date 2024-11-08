@@ -12,7 +12,7 @@ public class LowPileTile extends Tile {
     }
 
     @Override
-    public void removeDirt(){
+    public void removeDirt() {
         this.dirtAmount -= 2;
         if (this.dirtAmount < 0) this.dirtAmount = 0;
     }

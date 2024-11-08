@@ -1,10 +1,10 @@
 package com.group4;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class DepthFirstSearch {
 

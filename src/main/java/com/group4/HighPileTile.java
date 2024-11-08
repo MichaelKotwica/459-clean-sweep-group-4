@@ -12,9 +12,9 @@ public class HighPileTile extends Tile {
     }
 
     @Override
-    public void removeDirt(){
+    public void removeDirt() {
         this.dirtAmount -= 1;
-        if (this.dirtAmount<0) this.dirtAmount = 0;
+        if (this.dirtAmount < 0) this.dirtAmount = 0;
     }
 
     @Override

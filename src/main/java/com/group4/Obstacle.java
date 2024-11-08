@@ -16,7 +16,7 @@ public class Obstacle extends Tile {
     }
 
     @Override
-    public Boolean traversable(){
+    public Boolean traversable() {
         return false;
     }
 

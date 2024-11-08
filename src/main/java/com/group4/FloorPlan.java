@@ -142,7 +142,7 @@ public class FloorPlan {
                 floorPlan[i][j] = new BareFloorTile(null, null, null, null, i, j);
             }
         }
-        
+
         // Left Closet between Guest Bedroom A and smaller closets
         floorPlanLogger.info("Left Closet Between Guest Bedroom A and Smaller Closets");
         for (int i = 0; i < 6; i++) {
@@ -169,51 +169,51 @@ public class FloorPlan {
     public void addSampleFloorPlanWalls() {
 
         // Horizontal Walls
-        addWall(floorPlan[0][2],floorPlan[0][3]);
-        addWall(floorPlan[0][3],floorPlan[0][4]);
-        addWall(floorPlan[0][4],floorPlan[0][5]);
-        addWall(floorPlan[1][3],floorPlan[1][4]);
-        addWall(floorPlan[1][4],floorPlan[1][5]);
-        addWall(floorPlan[2][2],floorPlan[2][3]);
-        addWall(floorPlan[2][3],floorPlan[2][4]);
-        addWall(floorPlan[2][4],floorPlan[2][5]);
-        addWall(floorPlan[3][2],floorPlan[3][3]);
-        addWall(floorPlan[3][3],floorPlan[3][4]);
-        addWall(floorPlan[4][2],floorPlan[4][3]);
-        addWall(floorPlan[4][3],floorPlan[4][4]);
-        addWall(floorPlan[4][4],floorPlan[4][5]);
-        addWall(floorPlan[5][2],floorPlan[5][3]);
-        addWall(floorPlan[5][3],floorPlan[5][4]);
-        addWall(floorPlan[5][4],floorPlan[5][5]);
-        addWall(floorPlan[6][0],floorPlan[6][1]);
-        addWall(floorPlan[6][1],floorPlan[6][2]);
-        addWall(floorPlan[7][0],floorPlan[7][1]);
-        addWall(floorPlan[8][0],floorPlan[8][1]);
-        addWall(floorPlan[8][1],floorPlan[8][2]);
-        addWall(floorPlan[9][0],floorPlan[9][1]);
-        addWall(floorPlan[11][0],floorPlan[11][1]);
-        addWall(floorPlan[12][2],floorPlan[12][3]);
-        addWall(floorPlan[13][2],floorPlan[13][3]);
+        addWall(floorPlan[0][2], floorPlan[0][3]);
+        addWall(floorPlan[0][3], floorPlan[0][4]);
+        addWall(floorPlan[0][4], floorPlan[0][5]);
+        addWall(floorPlan[1][3], floorPlan[1][4]);
+        addWall(floorPlan[1][4], floorPlan[1][5]);
+        addWall(floorPlan[2][2], floorPlan[2][3]);
+        addWall(floorPlan[2][3], floorPlan[2][4]);
+        addWall(floorPlan[2][4], floorPlan[2][5]);
+        addWall(floorPlan[3][2], floorPlan[3][3]);
+        addWall(floorPlan[3][3], floorPlan[3][4]);
+        addWall(floorPlan[4][2], floorPlan[4][3]);
+        addWall(floorPlan[4][3], floorPlan[4][4]);
+        addWall(floorPlan[4][4], floorPlan[4][5]);
+        addWall(floorPlan[5][2], floorPlan[5][3]);
+        addWall(floorPlan[5][3], floorPlan[5][4]);
+        addWall(floorPlan[5][4], floorPlan[5][5]);
+        addWall(floorPlan[6][0], floorPlan[6][1]);
+        addWall(floorPlan[6][1], floorPlan[6][2]);
+        addWall(floorPlan[7][0], floorPlan[7][1]);
+        addWall(floorPlan[8][0], floorPlan[8][1]);
+        addWall(floorPlan[8][1], floorPlan[8][2]);
+        addWall(floorPlan[9][0], floorPlan[9][1]);
+        addWall(floorPlan[11][0], floorPlan[11][1]);
+        addWall(floorPlan[12][2], floorPlan[12][3]);
+        addWall(floorPlan[13][2], floorPlan[13][3]);
 
         // Vertical Walls
-        addWall(floorPlan[2][3],floorPlan[3][3]);
-        addWall(floorPlan[5][0],floorPlan[6][0]);
-        addWall(floorPlan[5][1],floorPlan[6][1]);
-        addWall(floorPlan[5][4],floorPlan[6][4]);
-        addWall(floorPlan[5][5],floorPlan[6][5]);
-        addWall(floorPlan[5][7],floorPlan[6][7]);
-        addWall(floorPlan[5][8],floorPlan[6][8]);
-        addWall(floorPlan[5][9],floorPlan[6][9]);
-        addWall(floorPlan[8][1],floorPlan[9][1]);
-        addWall(floorPlan[8][3],floorPlan[9][3]);
-        addWall(floorPlan[8][4],floorPlan[9][4]);
-        addWall(floorPlan[8][5],floorPlan[9][5]);
-        addWall(floorPlan[8][6],floorPlan[9][6]);
-        addWall(floorPlan[8][7],floorPlan[9][7]);
-        addWall(floorPlan[8][8],floorPlan[9][8]);
-        addWall(floorPlan[8][9],floorPlan[9][9]);
-        addWall(floorPlan[11][0],floorPlan[12][0]);
-        addWall(floorPlan[11][2],floorPlan[12][2]);
+        addWall(floorPlan[2][3], floorPlan[3][3]);
+        addWall(floorPlan[5][0], floorPlan[6][0]);
+        addWall(floorPlan[5][1], floorPlan[6][1]);
+        addWall(floorPlan[5][4], floorPlan[6][4]);
+        addWall(floorPlan[5][5], floorPlan[6][5]);
+        addWall(floorPlan[5][7], floorPlan[6][7]);
+        addWall(floorPlan[5][8], floorPlan[6][8]);
+        addWall(floorPlan[5][9], floorPlan[6][9]);
+        addWall(floorPlan[8][1], floorPlan[9][1]);
+        addWall(floorPlan[8][3], floorPlan[9][3]);
+        addWall(floorPlan[8][4], floorPlan[9][4]);
+        addWall(floorPlan[8][5], floorPlan[9][5]);
+        addWall(floorPlan[8][6], floorPlan[9][6]);
+        addWall(floorPlan[8][7], floorPlan[9][7]);
+        addWall(floorPlan[8][8], floorPlan[9][8]);
+        addWall(floorPlan[8][9], floorPlan[9][9]);
+        addWall(floorPlan[11][0], floorPlan[12][0]);
+        addWall(floorPlan[11][2], floorPlan[12][2]);
 
     }
 
@@ -224,40 +224,40 @@ public class FloorPlan {
             for (int j = 0; j < floorPlanWidth; j++) {
 
                 // Connect Next Right
-                if((floorPlan[i+1][j]) != null) {
-                    floorPlan[i][j].setRightNext(floorPlan[i+1][j]);
+                if ((floorPlan[i + 1][j]) != null) {
+                    floorPlan[i][j].setRightNext(floorPlan[i + 1][j]);
 
                     if (floorPlan[i][j].traversable()) {
-                        floorPlan[i][j].neighbors.add(floorPlan[i+1][j]);
+                        floorPlan[i][j].neighbors.add(floorPlan[i + 1][j]);
                     }
 
 
                     // Connect Next Left
                     if (floorPlan[i][j].getRight().xPos - 1 == floorPlan[i][j].xPos) {
-                        floorPlan[i+1][j].setLeftNext(floorPlan[i][j]);
+                        floorPlan[i + 1][j].setLeftNext(floorPlan[i][j]);
 
-                        if (floorPlan[i+1][j].traversable()) {
-                            floorPlan[i+1][j].neighbors.add(floorPlan[i][j]);
+                        if (floorPlan[i + 1][j].traversable()) {
+                            floorPlan[i + 1][j].neighbors.add(floorPlan[i][j]);
                         }
 
                     }
                 }
 
                 // Connect Next Bottom
-                if((floorPlan[i][j+1]) != null) {
-                    floorPlan[i][j].setBottomNext(floorPlan[i][j+1]);
+                if ((floorPlan[i][j + 1]) != null) {
+                    floorPlan[i][j].setBottomNext(floorPlan[i][j + 1]);
 
                     if (floorPlan[i][j].traversable()) {
-                        floorPlan[i][j].neighbors.add(floorPlan[i][j+1]);
+                        floorPlan[i][j].neighbors.add(floorPlan[i][j + 1]);
                     }
 
 
                     // Connect Next Top
                     if (floorPlan[i][j].getBottom().yPos - 1 == floorPlan[i][j].yPos) {
-                        floorPlan[i][j+1].setTopNext(floorPlan[i][j]);
+                        floorPlan[i][j + 1].setTopNext(floorPlan[i][j]);
 
-                        if (floorPlan[i][j+1].traversable()) {
-                            floorPlan[i][j+1].neighbors.add(floorPlan[i][j]);
+                        if (floorPlan[i][j + 1].traversable()) {
+                            floorPlan[i][j + 1].neighbors.add(floorPlan[i][j]);
                         }
 
                     }
@@ -391,14 +391,14 @@ public class FloorPlan {
         for (int i = 0; i < floorPlanLength; i++) {
             for (int j = 0; j < floorPlanWidth; j++) {
                 dirtStr[j][i] = String.valueOf(floorPlan[i][j].getDirtAmount());
-                if(!floorPlan[i][j].traversable()) {
+                if (!floorPlan[i][j].traversable()) {
                     dirtStr[j][i] = "X";
                 }
             }
         }
         for (String[] x : dirtStr) {
             for (String y : x) {
-                System.out.format("%5s",y);
+                System.out.format("%5s", y);
             }
             System.out.println();
         }

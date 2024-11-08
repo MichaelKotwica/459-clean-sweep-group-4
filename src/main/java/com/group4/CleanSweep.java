@@ -260,7 +260,6 @@ public class CleanSweep {
             finderHelperNonAdjTile(collection.peek(), goal, visited, collection);
 
         }
-        return;
     }
 
     private void followPath(List<Tile> tiles, Tile goal) {
