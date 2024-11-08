@@ -194,20 +194,6 @@ public class CleanSweep {
         }
     }
 
-    protected Tile findNonAdjTile(Tile start, Tile goal){
-        Tile target = null;
-        List<Tile> visited = new ArrayList<Tile>();
-        Queue<Tile> collection = new LinkedList<>();
-        visited.add(start);
-        finderHelperNonAdjTile(start, goal, visited, collection);
-        target = visited.get(visited.size()-1);
-        if(target != goal)
-        {
-            return null;
-        }
-        return target;
-    }
-
     protected List<Tile> pathToNonAdjTile(Tile start, Tile goal) {
         List<Tile> visited = new ArrayList<Tile>();
         Queue<Tile> collection = new LinkedList<>();
