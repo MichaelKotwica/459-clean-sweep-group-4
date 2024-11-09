@@ -188,9 +188,13 @@ public class CleanSweep {
 
             cleanSweepLogger.debug("Target Position: ({},{})", targetX, targetY);
             List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
-            cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
+            List<Tile> shortTraversalList = shortenPath(traversalList, floorPlanArr[targetX][targetY]);
 
-            followPath(traversalList, floorPlanArr[targetX][targetY]);
+            //cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
+            cleanSweepLogger.debug(Arrays.toString(shortTraversalList.toArray()));
+
+            //followPath(traversalList, floorPlanArr[targetX][targetY]);
+            followPath(shortTraversalList, floorPlanArr[targetX][targetY]);
         }
     }
 
@@ -261,6 +265,21 @@ public class CleanSweep {
             finderHelperNonAdjTile(collection.peek(), goal, visited, collection);
 
         }
+    }
+
+    private List<Tile> shortenPath (List<Tile> traversalList, Tile goal) {
+        List<Tile> shortPath = new ArrayList<Tile>();
+        if (!traversalList.contains(goal)) {
+            return shortPath;
+        }
+        for (Tile tile : traversalList) {
+            if (tile == goal) {
+                //shortPath.add(tile);
+                break;
+            }
+            shortPath.add(tile);
+        }
+        return shortPath;
     }
 
     private void followPath(List<Tile> tiles, Tile goal) {
