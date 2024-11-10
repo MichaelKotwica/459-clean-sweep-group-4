@@ -116,7 +116,7 @@ public class CleanSweep {
         visited.add(start);
         finderHelper(start, visited, collection);
         int xCoord = visited.get(visited.size() - 1).xPos;
-        int yCoord = visited.get(visited.size() - 1).xPos;
+        int yCoord = visited.get(visited.size() - 1).yPos;
 
         for (int i = visited.size() - 1; i > 0; i--) {
             if (Math.abs(xCoord - visited.get(i - 1).xPos) + Math.abs(yCoord - visited.get(i - 1).yPos) > 1) {
@@ -178,11 +178,11 @@ public class CleanSweep {
     public boolean traverseLeft(Tile tile) {
         if (currentTile.getLeft() != null && currentTile.getLeft() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
-                consumeBattery(tile);
+                consumeBattery(tile);/*
                 if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
                     returnToChargingStation();
                     return false;
-                }
+                }*/
                 this.currentTile = tile;
                 this.xPos--;
                 cleanSweepLogger.info("Traversing Left");
@@ -204,11 +204,11 @@ public class CleanSweep {
     public boolean traverseRight(Tile tile) {
         if (currentTile.getRight() != null && currentTile.getRight() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
-                consumeBattery(tile);
+                consumeBattery(tile);/*
                 if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
                     returnToChargingStation();
                     return false;
-                }
+                }*/
                 this.currentTile = tile;
                 this.xPos++;
                 cleanSweepLogger.info("Traversing Right");
@@ -230,11 +230,11 @@ public class CleanSweep {
     public boolean traverseUp(Tile tile) {
         if (currentTile.getTop() != null && currentTile.getTop() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
-                consumeBattery(tile);
+                consumeBattery(tile);/*
                 if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
                     returnToChargingStation();
                     return false;
-                }
+                }*/
                 this.currentTile = tile;
                 this.yPos--;
                 cleanSweepLogger.info("Traversing Up");
@@ -256,11 +256,11 @@ public class CleanSweep {
     public boolean traverseDown(Tile tile) {
         if (currentTile.getBottom() != null && currentTile.getBottom() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
-                consumeBattery(tile);
+                consumeBattery(tile);/*
                 if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
                     returnToChargingStation();
                     return false;
-                }
+                }*/
                 this.currentTile = tile;
                 this.yPos++;
                 cleanSweepLogger.info("Traversing Down");
@@ -593,6 +593,9 @@ public class CleanSweep {
                 if (tile.traversable()) {
                     cleanSweepLogger.info("Moving down to tile: ({}, {})", tile.xPos, tile.yPos);
                     traverseDown(tile);
+                    if (currentTile == goal) {
+                        break;
+                    }
                 } else {
                     cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
                     continue;
@@ -601,6 +604,9 @@ public class CleanSweep {
                 if (tile.traversable()) {
                     cleanSweepLogger.info("Moving right to tile: ({}, {})", tile.xPos, tile.yPos);
                     traverseRight(tile);
+                    if (currentTile == goal) {
+                        break;
+                    }
                 } else {
                     cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
                     continue;
@@ -609,6 +615,9 @@ public class CleanSweep {
                 if (tile.traversable()) {
                     cleanSweepLogger.info("Moving up to tile: ({}, {})", tile.xPos, tile.yPos);
                     traverseUp(tile);
+                    if (currentTile == goal) {
+                        break;
+                    }
                 } else {
                     cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
                     continue;
@@ -617,6 +626,9 @@ public class CleanSweep {
                 if (tile.traversable()) {
                     cleanSweepLogger.info("Moving left to tile: ({}, {})", tile.xPos, tile.yPos);
                     traverseLeft(tile);
+                    if (currentTile == goal) {
+                        break;
+                    }
                 } else {
                     cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
                     continue;
@@ -637,7 +649,20 @@ public class CleanSweep {
             cleanSweepLogger.info("There is no charging station on this floor");
             return;
         }
-        List<Tile> guide = pathTo(chargingStation);
+        List<Tile> guide = pathTo(currentTile);
+
+        /*
+        if(findChargingStation(currentTile) == null){
+            cleanSweepLogger.info("There is no charging station on this floor");
+            return;
+        }
+        List<Tile> guide = pathTo(currentTile);
+        cleanSweepLogger.debug("Path to charging station: {}", guide);
+        followPathtochargingstation(guide, findChargingStation(currentTile));*/
+
+        //followPathtochargingstation(guide, findChargingStation(currentTile));
+
+
         if (guide == null || guide.isEmpty()) {
             cleanSweepLogger.error("Failed to calculate a path to the charging station.");
             return;
