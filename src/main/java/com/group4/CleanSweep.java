@@ -20,7 +20,8 @@ public class CleanSweep {
     protected final int MAX_CAPACITY = 50; // Max dirt capacity
     protected final double MAX_BATTERY = 250; // Maximum battery level
 
-    private static final double LOW_BATTERY_THRESHOLD = 50.0; // Threshold for low battery level
+    private static final double LOW_BATTERY_THRESHOLD = 50.0;
+    private boolean returningToChargingStation = false;// Threshold for low battery level
     private final double BARE_FLOOR_COST = 1.0;
     private final double LOW_PILE_COST = 2.0;
     private final double HIGH_PILE_COST = 3.0;
@@ -151,8 +152,11 @@ public class CleanSweep {
 
         // Check if the battery level is below the low battery threshold
         if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
-            cleanSweepLogger.fatal("Battery level is low. Returning to charging station.");
-            returnToChargingStation();
+            if(!returningToChargingStation) {
+                cleanSweepLogger.fatal("Battery level is low. Returning to charging station.");
+                returningToChargingStation = true;
+                returnToChargingStation();
+            }
             return;
         }
 
@@ -588,57 +592,36 @@ public class CleanSweep {
 
     private void followPathtochargingstation(List<Tile> tiles, Tile goal) {
         for (Tile tile : tiles) {
-            if (tile == currentTile) continue;
-            if (currentTile.getBottom() == tile) {
-                if (tile.traversable()) {
-                    cleanSweepLogger.info("Moving down to tile: ({}, {})", tile.xPos, tile.yPos);
-                    traverseDown(tile);
-                    if (currentTile == goal) {
-                        break;
-                    }
-                } else {
-                    cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
-                    continue;
-                }
-            } else if (currentTile.getRight() == tile) {
-                if (tile.traversable()) {
-                    cleanSweepLogger.info("Moving right to tile: ({}, {})", tile.xPos, tile.yPos);
-                    traverseRight(tile);
-                    if (currentTile == goal) {
-                        break;
-                    }
-                } else {
-                    cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
-                    continue;
-                }
-            } else if (currentTile.getTop() == tile) {
-                if (tile.traversable()) {
-                    cleanSweepLogger.info("Moving up to tile: ({}, {})", tile.xPos, tile.yPos);
-                    traverseUp(tile);
-                    if (currentTile == goal) {
-                        break;
-                    }
-                } else {
-                    cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
-                    continue;
-                }
-            } else if (currentTile.getLeft() == tile) {
-                if (tile.traversable()) {
-                    cleanSweepLogger.info("Moving left to tile: ({}, {})", tile.xPos, tile.yPos);
-                    traverseLeft(tile);
-                    if (currentTile == goal) {
-                        break;
-                    }
-                } else {
-                    cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
-                    continue;
-                }
+            if (tile == null) continue; // Skip null tiles if any
+
+            if (tile.equals(currentTile)) continue; // Skip if already on this tile
+
+            // Try to move to the tile in the correct direction
+            if (currentTile.getBottom() == tile && tile.traversable()) {
+                cleanSweepLogger.info("Attempting to move down to tile: ({}, {})", tile.xPos, tile.yPos);
+                if (!traverseDown(tile)) break; // Stop if movement fails
+            } else if (currentTile.getRight() == tile && tile.traversable()) {
+                cleanSweepLogger.info("Attempting to move right to tile: ({}, {})", tile.xPos, tile.yPos);
+                if (!traverseRight(tile)) break; // Stop if movement fails
+            } else if (currentTile.getTop() == tile && tile.traversable()) {
+                cleanSweepLogger.info("Attempting to move up to tile: ({}, {})", tile.xPos, tile.yPos);
+                if (!traverseUp(tile)) break; // Stop if movement fails
+            } else if (currentTile.getLeft() == tile && tile.traversable()) {
+                cleanSweepLogger.info("Attempting to move left to tile: ({}, {})", tile.xPos, tile.yPos);
+                if (!traverseLeft(tile)) break; // Stop if movement fails
+            } else {
+                cleanSweepLogger.error("Tile at ({}, {}) is not traversable or not in the correct direction.", tile.xPos, tile.yPos);
+                continue; // Skip to the next tile
             }
-            if (currentTile == goal) {
+
+            // Check if we have reached the goal
+            if (currentTile.equals(goal)) {
                 cleanSweepLogger.info("Successfully reached the charging station at ({}, {}).", goal.xPos, goal.yPos);
                 return;
             }
         }
+
+        // If we exit the loop without reaching the goal, log an error
         cleanSweepLogger.error("Failed to reach the charging station after following the path.");
     }
 
@@ -649,7 +632,7 @@ public class CleanSweep {
             cleanSweepLogger.info("There is no charging station on this floor");
             return;
         }
-        List<Tile> guide = pathTo(currentTile);
+        List<Tile> guide = pathTo(chargingStation);
 
         /*
         if(findChargingStation(currentTile) == null){
@@ -670,9 +653,11 @@ public class CleanSweep {
         cleanSweepLogger.debug("Path to charging station: " + guide);
         cleanSweepLogger.info("Returning to charging station...");
         followPathtochargingstation(guide, chargingStation);
-        if (currentTile == chargingStation) {
-            batteryLevel = MAX_BATTERY;
-            cleanSweepLogger.info("Recharged to full battery capacity.");
+        if (currentTile.getXPos() == chargingStation.getXPos() && currentTile.getYPos() == chargingStation.getYPos()) {
+            if (currentTile instanceof ChargingStation) {
+                batteryLevel = MAX_BATTERY; // Recharge the battery
+                cleanSweepLogger.info("Recharged to full battery capacity: {} units.", batteryLevel);
+            }
         } else {
             cleanSweepLogger.error("Failed to reach the charging station.");
         }

@@ -18,6 +18,14 @@ public abstract class Tile {
     public int dirtAmount;
     public boolean cleanTile;
 
+    public int getXPos() {
+        return this.xPos;
+    }
+
+    public int getYPos() {
+        return this.yPos;
+    }
+
     public Tile(Tile leftNext, Tile rightNext, Tile topNext, Tile bottomNext, int xPos, int yPos) {
         this.leftNext = leftNext;
         this.rightNext = rightNext;
