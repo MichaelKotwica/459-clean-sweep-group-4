@@ -16,6 +16,8 @@ public class FloorPlan {
     final int floorPlanLength;
     final int floorPlanWidth;
 
+    private boolean clean;
+
     private static final Logger floorPlanLogger = LogManager.getLogger(FloorPlan.class.getName());
 
     public FloorPlan(int floorPlanLength, int floorPlanWidth) {
@@ -275,6 +277,18 @@ public class FloorPlan {
                 floorPlan[i][j].cleanTile = floorPlan[i][j].getDirtAmount() == 0;
             }
         }
+        this.clean = false;
+    }
+
+    public boolean isClean() {
+        int dirtSum = 0;
+        for (int i = 0; i < floorPlanLength; i++) {
+            for (int j = 0; j < floorPlanWidth; j++) {
+                dirtSum += floorPlan[i][j].getDirtAmount();
+            }
+        }
+        clean = dirtSum == 0;
+        return this.clean;
     }
 
     public void addWall(Tile t1, Tile t2) {

@@ -20,6 +20,12 @@ public class CleanSweepTest {
     int stuckFloorPlanLength;
     int stuckFloorPlanWidth;
 
+    int traversalFloorPlanLength;
+    int traversalFloorPlanWidth;
+
+    int traversalStartXTilePos;
+    int traversalStartYTilePos;
+
     CleanSweep cleanSweep;
     CleanSweep stuckCleanSweep;
     CleanSweep stairStuckCleanSweep;
@@ -39,6 +45,7 @@ public class CleanSweepTest {
     CleanSweep highPileCleanSweep;
     CleanSweep lowHighPileCleanSweep;
     CleanSweep chargingCleanSweep;
+    CleanSweep traversalCleanSweep;
 
     FloorPlan floorPlan;
     Tile[][] floorPlanArr;
@@ -82,6 +89,8 @@ public class CleanSweepTest {
     FloorPlan bareFloorWithChargingStationFloorPlan;
     Tile[][] bareFloorWithChargingStationFloorPlanArr;
 
+    FloorPlan traversalFloorPlan;
+    Tile[][] traversalFloorPlanArr;
 
     @BeforeEach
     void setUp() {
@@ -99,6 +108,12 @@ public class CleanSweepTest {
 
         stuckFloorPlanLength = 3;
         stuckFloorPlanWidth = 3;
+
+        traversalFloorPlanLength = 10;
+        traversalFloorPlanWidth = 10;
+
+        traversalStartXTilePos = 2;
+        traversalStartYTilePos = 7;
 
         floorPlan = new FloorPlan(floorPlanLength, floorPlanWidth);
         floorPlanArr = floorPlan.createFloorPlan();
@@ -181,6 +196,9 @@ public class CleanSweepTest {
         // Bare Floor with Charging Station
         initBareFloorWithChargingStationFloorPlan();
 
+        // Traversal Algorithm Floor Plan
+        initTraversalFloorPlan();
+
         initCleanSweeps();
     }
 
@@ -204,6 +222,7 @@ public class CleanSweepTest {
         highPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, highPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
         lowHighPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, lowHighPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
         chargingCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, bareFloorWithChargingStationFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
+        traversalCleanSweep = new CleanSweep(traversalStartXTilePos, traversalStartYTilePos, true, traversalFloorPlanArr[traversalStartXTilePos][traversalStartYTilePos]);
     }
 
     void initBottomOpenFloorPlan() {
@@ -375,8 +394,42 @@ public class CleanSweepTest {
                 bareFloorWithChargingStationFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
             }
         }
-        bareFloorWithChargingStationFloorPlanArr[0][0] = new ChargingStation(null, null, null, null,0,0);
+        bareFloorWithChargingStationFloorPlanArr[1][1] = new ChargingStation(null, null, null, null,1,1);
         bareFloorWithChargingStationFloorPlan.connectFloorPlan();
+    }
+
+    void initTraversalFloorPlan() {
+        traversalFloorPlan = new FloorPlan(traversalFloorPlanLength, traversalFloorPlanWidth); // 10x10
+        traversalFloorPlanArr = traversalFloorPlan.createFloorPlan();
+
+        // Make All Bare Floor
+        for (int i = 0; i < traversalFloorPlanLength; i++) {
+            for (int j = 0; j < traversalFloorPlanWidth; j++) {
+                traversalFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+        traversalFloorPlanArr[traversalStartXTilePos][traversalStartYTilePos] = new ChargingStation(null, null, null, null,traversalStartXTilePos,traversalStartYTilePos);
+        traversalFloorPlan.connectFloorPlan();
+        traversalFloorPlan.addDirt();
+
+        // Vertical Walls
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][1], traversalFloorPlanArr[5][1]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][2], traversalFloorPlanArr[5][2]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][3], traversalFloorPlanArr[5][3]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][5], traversalFloorPlanArr[5][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][6], traversalFloorPlanArr[5][6]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][7], traversalFloorPlanArr[5][7]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][8], traversalFloorPlanArr[5][8]);
+
+        // Horizontal Walls
+        traversalFloorPlan.addWall(traversalFloorPlanArr[1][4], traversalFloorPlanArr[1][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[2][4], traversalFloorPlanArr[2][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[3][4], traversalFloorPlanArr[3][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][4], traversalFloorPlanArr[4][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[6][4], traversalFloorPlanArr[6][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[7][4], traversalFloorPlanArr[7][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[8][4], traversalFloorPlanArr[8][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[9][4], traversalFloorPlanArr[9][5]);
     }
 
     // Traversals, Traversable, Bare floor
@@ -935,6 +988,21 @@ public class CleanSweepTest {
         chargingCleanSweep.showBatteryPercentage();
         double batteryAfterTraversals = chargingCleanSweep.getBatteryLevel();
         assertEquals(250.0,batteryAfterTraversals);
+    }
+
+    @Test
+    public void TraversalAlgorithmTest() {
+        System.out.println();
+        traversalFloorPlan.representFloorPlan();
+        System.out.println();
+        traversalFloorPlan.representDirt();
+        DepthFirstSearch traversalDFS = new DepthFirstSearch();
+        traversalDFS.traverse(traversalCleanSweep.getTile(), traversalCleanSweep, traversalFloorPlanArr);
+        System.out.println();
+        traversalFloorPlan.representFloorPlan();
+        System.out.println();
+        traversalFloorPlan.representDirt();
+        assertTrue(traversalFloorPlan.isClean());
     }
 
 }

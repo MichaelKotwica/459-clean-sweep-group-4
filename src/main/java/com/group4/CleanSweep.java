@@ -34,7 +34,7 @@ public class CleanSweep {
         this.dirtCapacity = 0; // Start with an empty dirt container
         this.batteryLevel = MAX_BATTERY; // Initialize battery level
 
-        cleanSweepLogger.info("Created Clean Sweep with at position ({},{})", xPos, yPos);
+        cleanSweepLogger.info("Created Clean Sweep at ({},{})", xPos, yPos);
     }
 
     protected double getSurfaceCost(Tile tile) {
