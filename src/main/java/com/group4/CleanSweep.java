@@ -19,6 +19,8 @@ public class CleanSweep {
 
     protected final int MAX_CAPACITY = 50; // Max dirt capacity
     protected final double MAX_BATTERY = 250; // Maximum battery level
+
+    private static final double LOW_BATTERY_THRESHOLD = 50.0; // Threshold for low battery level
     private final double BARE_FLOOR_COST = 1.0;
     private final double LOW_PILE_COST = 2.0;
     private final double HIGH_PILE_COST = 3.0;
@@ -49,63 +51,65 @@ public class CleanSweep {
         double cleaningCost = getSurfaceCost(destinationTile);
         return batteryLevel >= (moveCost + cleaningCost);
     }
-    protected Tile findChargingStation(Tile start){
+
+    protected Tile findChargingStation(Tile start) {
         Tile target = null;
         List<Tile> visited = new ArrayList<Tile>();
         Queue<Tile> collection = new LinkedList<>();
         visited.add(start);
-        finderHelper(start,visited, collection);
-        target = visited.get(visited.size()-1);
-        if(target.getTypeStr() != "Charging Station")
-        {
+        finderHelper(start, visited, collection);
+        target = visited.get(visited.size() - 1);
+        if (target.getTypeStr() != "Charging Station") {
             return null;
         }
         return target;
     }
-    protected void finderHelper(Tile node, List<Tile> visited, Queue<Tile> collection){
-            if(node!= null){
-                if(node.getTop()!= null && !visited.contains(node.getTop()) && node.getTop().traversable()){
-                    collection.add(node.getTop());
-                    visited.add(node.getTop());
-                    if(node.getTop().getTypeStr() == "Charging Station"){
-                        return;
 
-                    }
-
-                }
-                if(node.getLeft()!= null && !visited.contains(node.getLeft())&& node.getLeft().traversable()){
-                    collection.add(node.getLeft());
-                    visited.add(node.getLeft());
-                    if(node.getLeft().getTypeStr() == "Charging Station"){
-                        return;
-
-                    }
+    protected void finderHelper(Tile node, List<Tile> visited, Queue<Tile> collection) {
+        if (node != null) {
+            if (node.getTop() != null && !visited.contains(node.getTop()) && node.getTop().traversable()) {
+                collection.add(node.getTop());
+                visited.add(node.getTop());
+                if (node.getTop().getTypeStr() == "Charging Station") {
+                    return;
 
                 }
-                if(node.getBottom()!= null && !visited.contains(node.getBottom()) && node.getBottom().traversable()){
-                    collection.add(node.getBottom());
-                    visited.add(node.getBottom());
-                    if(node.getBottom().getTypeStr() == "Charging Station"){
-                        return;
-
-                    }
-
-                }
-                if(node.getRight()!= null && !visited.contains(node.getRight()) && node.getRight().traversable()){
-                    collection.add(node.getRight());
-                    visited.add(node.getRight());
-                    if(node.getRight().getTypeStr() == "Charging Station"){
-                        return;
-
-                    }
-
-                }
-                collection.remove();
-                finderHelper(collection.peek(), visited, collection);
 
             }
-            return;
+            if (node.getLeft() != null && !visited.contains(node.getLeft()) && node.getLeft().traversable()) {
+                collection.add(node.getLeft());
+                visited.add(node.getLeft());
+                if (node.getLeft().getTypeStr() == "Charging Station") {
+                    return;
+
+                }
+
+            }
+            if (node.getBottom() != null && !visited.contains(node.getBottom()) && node.getBottom().traversable()) {
+                collection.add(node.getBottom());
+                visited.add(node.getBottom());
+                if (node.getBottom().getTypeStr() == "Charging Station") {
+                    return;
+
+                }
+
+            }
+            if (node.getRight() != null && !visited.contains(node.getRight()) && node.getRight().traversable()) {
+                collection.add(node.getRight());
+                visited.add(node.getRight());
+                if (node.getRight().getTypeStr() == "Charging Station") {
+                    return;
+
+                }
+
+            }
+            collection.remove();
+            finderHelper(collection.peek(), visited, collection);
+
+        }
+        return;
     }
+
     protected List<Tile> pathTo(Tile start) {
         List<Tile> visited = new ArrayList<Tile>();
         Queue<Tile> collection = new LinkedList<>();
@@ -124,37 +128,50 @@ public class CleanSweep {
 
         }
         List<Tile> visitedClean = new ArrayList<Tile>();
-        for(Tile node : visited){
-            if(node != null)
+        for (Tile node : visited) {
+            if (node != null)
                 visitedClean.add(node);
         }
         return visitedClean;
     }
-    protected double calculateTravelCost(Tile start){
+
+    protected double calculateTravelCost(Tile start) {
         List<Tile> path = pathTo(start);
         double totalPower = 0.0;
-        for(int i = 0; i< path.size()-1; i++){
-            totalPower+= getSurfaceCost(path.get(i)) + getSurfaceCost(path.get(i+1)) / 2.0;
+        for (int i = 0; i < path.size() - 1; i++) {
+            totalPower += getSurfaceCost(path.get(i)) + getSurfaceCost(path.get(i + 1)) / 2.0;
         }
         return totalPower;
     }
 
 
     protected void consumeBattery(Tile destinationTile) {
+        // Calculate the cost of moving to the destination tile
         double moveCost = (getSurfaceCost(currentTile) + getSurfaceCost(destinationTile)) / 2.0;
-        double cleaningCost = getSurfaceCost(destinationTile);
-        if(calculateTravelCost(currentTile)<=batteryLevel){
+
+        // Check if the battery level is below the low battery threshold
+        if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
+            cleanSweepLogger.fatal("Battery level is low. Returning to charging station.");
             returnToChargingStation();
             return;
         }
+
+        // Deduct the move cost from the battery
         batteryLevel -= moveCost;
-        cleanSweepLogger.info("Battery level after move: {}", batteryLevel);
+        cleanSweepLogger.info("Battery level after move: {} units", batteryLevel);
+
+        // If the destination tile has dirt, deduct the cleaning cost
         if (destinationTile.getDirtAmount() > 0) {
-            cleaningCost = getSurfaceCost(destinationTile);
+            double cleaningCost = getSurfaceCost(destinationTile);
             batteryLevel -= cleaningCost;
-            cleanSweepLogger.info("Battery level after cleaning: {}", batteryLevel);
+            cleanSweepLogger.info("Battery level after cleaning: {} units", batteryLevel);
         } else {
-            cleanSweepLogger.info("No cleaning needed. Battery level: {}", batteryLevel);
+            cleanSweepLogger.info("No cleaning needed. Battery level: {} units", batteryLevel);
+        }
+
+        // Ensure battery level does not drop below zero
+        if (batteryLevel < 0) {
+            batteryLevel = 0;
         }
     }
 
@@ -162,10 +179,15 @@ public class CleanSweep {
         if (currentTile.getLeft() != null && currentTile.getLeft() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
                 consumeBattery(tile);
+                if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
+                    returnToChargingStation();
+                    return false;
+                }
                 this.currentTile = tile;
                 this.xPos--;
                 cleanSweepLogger.info("Traversing Left");
                 printPos();
+                showBatteryPercentage();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move left.");
@@ -183,10 +205,15 @@ public class CleanSweep {
         if (currentTile.getRight() != null && currentTile.getRight() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
                 consumeBattery(tile);
+                if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
+                    returnToChargingStation();
+                    return false;
+                }
                 this.currentTile = tile;
                 this.xPos++;
                 cleanSweepLogger.info("Traversing Right");
                 printPos();
+                showBatteryPercentage();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move right.");
@@ -204,10 +231,15 @@ public class CleanSweep {
         if (currentTile.getTop() != null && currentTile.getTop() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
                 consumeBattery(tile);
+                if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
+                    returnToChargingStation();
+                    return false;
+                }
                 this.currentTile = tile;
                 this.yPos--;
                 cleanSweepLogger.info("Traversing Up");
                 printPos();
+                showBatteryPercentage();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move up.");
@@ -225,10 +257,15 @@ public class CleanSweep {
         if (currentTile.getBottom() != null && currentTile.getBottom() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
                 consumeBattery(tile);
+                if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
+                    returnToChargingStation();
+                    return false;
+                }
                 this.currentTile = tile;
                 this.yPos++;
                 cleanSweepLogger.info("Traversing Down");
                 printPos();
+                showBatteryPercentage();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move down.");
@@ -360,7 +397,7 @@ public class CleanSweep {
         }
     }
 
-    private List<Tile> shortenPath (List<Tile> traversalList, Tile goal) {
+    private List<Tile> shortenPath(List<Tile> traversalList, Tile goal) {
         List<Tile> shortPath = new ArrayList<Tile>();
         if (!traversalList.contains(goal)) {
             return shortPath;
@@ -549,16 +586,70 @@ public class CleanSweep {
         return batteryLevel;
     }
 
+    private void followPathtochargingstation(List<Tile> tiles, Tile goal) {
+        for (Tile tile : tiles) {
+            if (tile == currentTile) continue;
+            if (currentTile.getBottom() == tile) {
+                if (tile.traversable()) {
+                    cleanSweepLogger.info("Moving down to tile: ({}, {})", tile.xPos, tile.yPos);
+                    traverseDown(tile);
+                } else {
+                    cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
+                    continue;
+                }
+            } else if (currentTile.getRight() == tile) {
+                if (tile.traversable()) {
+                    cleanSweepLogger.info("Moving right to tile: ({}, {})", tile.xPos, tile.yPos);
+                    traverseRight(tile);
+                } else {
+                    cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
+                    continue;
+                }
+            } else if (currentTile.getTop() == tile) {
+                if (tile.traversable()) {
+                    cleanSweepLogger.info("Moving up to tile: ({}, {})", tile.xPos, tile.yPos);
+                    traverseUp(tile);
+                } else {
+                    cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
+                    continue;
+                }
+            } else if (currentTile.getLeft() == tile) {
+                if (tile.traversable()) {
+                    cleanSweepLogger.info("Moving left to tile: ({}, {})", tile.xPos, tile.yPos);
+                    traverseLeft(tile);
+                } else {
+                    cleanSweepLogger.error("Tile at ({}, {}) is not traversable.", tile.xPos, tile.yPos);
+                    continue;
+                }
+            }
+            if (currentTile == goal) {
+                cleanSweepLogger.info("Successfully reached the charging station at ({}, {}).", goal.xPos, goal.yPos);
+                return;
+            }
+        }
+        cleanSweepLogger.error("Failed to reach the charging station after following the path.");
+    }
+
+
     private void returnToChargingStation() {
-        if(findChargingStation(currentTile) == null){
+        Tile chargingStation = findChargingStation(currentTile);
+        if (chargingStation == null) {
             cleanSweepLogger.info("There is no charging station on this floor");
             return;
         }
-        List<Tile> guide = pathTo(currentTile);
-
-
+        List<Tile> guide = pathTo(chargingStation);
+        if (guide == null || guide.isEmpty()) {
+            cleanSweepLogger.error("Failed to calculate a path to the charging station.");
+            return;
+        }
+        cleanSweepLogger.debug("Path to charging station: " + guide);
         cleanSweepLogger.info("Returning to charging station...");
-        batteryLevel = MAX_BATTERY;
-        cleanSweepLogger.info("Recharged to full battery capacity.");
+        followPathtochargingstation(guide, chargingStation);
+        if (currentTile == chargingStation) {
+            batteryLevel = MAX_BATTERY;
+            cleanSweepLogger.info("Recharged to full battery capacity.");
+        } else {
+            cleanSweepLogger.error("Failed to reach the charging station.");
+        }
     }
 }
