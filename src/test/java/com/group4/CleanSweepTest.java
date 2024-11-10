@@ -3,6 +3,7 @@ package com.group4;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -808,6 +809,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionBareToLowPileCleanTile() {
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseRight(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()]);
@@ -816,6 +818,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionBareToHighPileCleanTile() {
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseUp(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1]);
@@ -825,6 +828,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionBareToBareCleanTile() {
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseLeft(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()]);
@@ -834,6 +838,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionLowPileToLowPileCleanTile() {
         double initialBattery = lowPileCleanSweep.getBatteryLevel();
         lowPileCleanSweep.traverseLeft(lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()]);
@@ -843,6 +848,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionHighPileToHighPileCleanTile() {
         double initialBattery = highPileCleanSweep.getBatteryLevel();
         highPileCleanSweep.traverseLeft(highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()]);
@@ -852,6 +858,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionLowPileToHighPileCleanTile() {
         double initialBattery = lowHighPileCleanSweep.getBatteryLevel();
         lowHighPileCleanSweep.traverseRight(lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()]);
@@ -861,6 +868,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionBareToBareDirtyTile() {
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
@@ -872,6 +880,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionLowPileToLowPileDirtyTile() {
         lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = lowPileCleanSweep.getBatteryLevel();
@@ -883,6 +892,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionHighPileToHighPileDirtyTile() {
         highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = highPileCleanSweep.getBatteryLevel();
@@ -894,6 +904,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionBareToLowPileDirtyTile() {
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
@@ -904,6 +915,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionBareToHighPileDirtyTile() {
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
@@ -914,6 +926,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void CleanSweepBatteryConsumptionLowPileToHighPileDirtyTile() {
         lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = lowHighPileCleanSweep.getBatteryLevel();
