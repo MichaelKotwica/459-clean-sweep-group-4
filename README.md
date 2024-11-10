@@ -7,6 +7,71 @@
 - Manish
 - Michael​
 - Yash
+  
+### Floor Plan
+![FP](https://github.com/user-attachments/assets/c21824a5-56f4-4650-98dc-7bac1ed994d1)
+### Terminal output (Clean Sweep Actions Excluded)
+```
+22:06:58.580 [main] INFO  com.group4.FloorPlan - Guest Bedroom B
+22:06:58.583 [main] INFO  com.group4.FloorPlan - Top Middle Bathroom
+22:06:58.583 [main] INFO  com.group4.FloorPlan - Top Right Closet
+22:06:58.583 [main] INFO  com.group4.FloorPlan - End of Hallway Bathroom
+22:06:58.583 [main] INFO  com.group4.FloorPlan - Master Bedroom
+22:06:58.583 [main] INFO  com.group4.FloorPlan - Hallway
+22:06:58.584 [main] INFO  com.group4.FloorPlan - Left Closet on Left Side
+22:06:58.584 [main] INFO  com.group4.FloorPlan - Right Closet on Left Side
+22:06:58.586 [main] INFO  com.group4.FloorPlan - Left Closet Between Guest Bedroom A and Smaller Closets
+22:06:58.586 [main] INFO  com.group4.FloorPlan - Guest Bedroom A
+22:06:58.587 [main] INFO  com.group4.FloorPlan - createSampleFloorPlan Complete
+========================================================================
+                 Floor Plan:              
+ /  /  /  /  /  O  B  B  B  B  B  B  B  B 
+ O  O  /  /  /  /  B  B  B  B  B  B  B  B 
+ /  /  /  /  /  /  B  B  B  B  B  B  B  B 
+ B  B  B  B  B  B  B  C  B  B  B  B  B  B 
+ B  B  B  B  B  B  B  B  B  B  \  \  \  B 
+ C  /  /  /  /  /  B  B  B  B  \  \  \  B 
+ /  /  /  /  /  /  B  B  B  B  \  \  \  B 
+ /  /  /  /  /  /  B  B  B  B  \  \  \  B 
+ /  /  /  /  /  /  B  B  B  B  \  \  \  B 
+ /  /  /  /  /  /  S  B  B  B  B  B  B  B 
+
+                     Key:                        
+    B = Bare Floor          / = Low Pile Carpet  
+    S = Stairs              \ = High Pile Carpet
+    O = Obstacle            C = Charging Station
+
+========================================================================
+                       Dirt Amount Before Cleaning:                       
+    2    0    1    2    1    X    2    0    3    2    3    3    0    0
+    X    X    1    1    2    0    0    3    3    2    2    0    1    2
+    3    0    3    2    0    2    2    0    1    3    2    1    0    2
+    3    2    3    0    2    2    3    0    0    3    2    0    1    3
+    0    3    0    2    0    3    1    1    1    1    0    0    2    2
+    2    3    3    0    1    3    2    2    1    0    1    0    1    0
+    2    3    3    1    0    3    1    1    2    0    2    0    0    1
+
+    0    3    1    3    3    0    1    0    3    3    2    3    3    0
+    2    2    3    2    0    0    3    1    1    1    1    2    2    3
+    2    2    2    1    1    0    X    1    3    2    3    0    3    0
+
+========================================================================
+                Floor Plan Dirt Remaining After Cleaning:               
+    2    0    0    0    0    X    2    0    0    0    0    3    0    0
+    X    X    0    0    2    0    0    3    3    0    0    0    0    0
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0
+    3    2    3    0    1    0    0    0    0    0    0    0    0    0
+    0    3    0    2    0    3    0    0    0    0    0    0    0    0
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0
+    0    0    0    0    0    0    0    0    0    0    1    0    0    0
+    0    0    2    1    1    0    X    0    0    0    0    0    0    0
+
+========================================================================
+                    Clean Sweep Info After Cleaning:                      
+  Powered On: false   Dirt Capacity: 16/50   Battery Level: 250.0/250.0
+```
 
 ## Clean Sweep Robotic Vacuum Cleaner & Sensor Simulator
 Your company has assembled a small team of developers and business people to work on the
