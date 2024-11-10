@@ -7,10 +7,9 @@
 - Manish
 - Michael​
 - Yash
-  
 ### Floor Plan
-![FP](https://github.com/user-attachments/assets/c21824a5-56f4-4650-98dc-7bac1ed994d1)
-### Terminal output (Clean Sweep Actions Excluded)
+![FP2](https://github.com/user-attachments/assets/7cd9d8ef-1179-4a4f-bde9-f22c810e7952)
+### Terminal output (Clean Sweep Actions Ommited for Brevity)
 ```
 22:06:58.580 [main] INFO  com.group4.FloorPlan - Guest Bedroom B
 22:06:58.583 [main] INFO  com.group4.FloorPlan - Top Middle Bathroom
