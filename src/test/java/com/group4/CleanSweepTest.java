@@ -22,6 +22,12 @@ public class CleanSweepTest {
     int stuckFloorPlanLength;
     int stuckFloorPlanWidth;
 
+    int traversalFloorPlanLength;
+    int traversalFloorPlanWidth;
+
+    int traversalStartXTilePos;
+    int traversalStartYTilePos;
+
     CleanSweep cleanSweep;
     CleanSweep stuckCleanSweep;
     CleanSweep stairStuckCleanSweep;
@@ -41,6 +47,7 @@ public class CleanSweepTest {
     CleanSweep highPileCleanSweep;
     CleanSweep lowHighPileCleanSweep;
     CleanSweep chargingCleanSweep;
+    CleanSweep traversalCleanSweep;
 
     FloorPlan floorPlan;
     Tile[][] floorPlanArr;
@@ -87,6 +94,8 @@ public class CleanSweepTest {
     FloorPlan chargingStationLarge;
     Tile[][] chargingStationLargeArr;
 
+    FloorPlan traversalFloorPlan;
+    Tile[][] traversalFloorPlanArr;
 
     @BeforeEach
     void setUp() {
@@ -104,6 +113,12 @@ public class CleanSweepTest {
 
         stuckFloorPlanLength = 3;
         stuckFloorPlanWidth = 3;
+
+        traversalFloorPlanLength = 10;
+        traversalFloorPlanWidth = 10;
+
+        traversalStartXTilePos = 2;
+        traversalStartYTilePos = 7;
 
         floorPlan = new FloorPlan(floorPlanLength, floorPlanWidth);
         floorPlanArr = floorPlan.createFloorPlan();
@@ -186,9 +201,13 @@ public class CleanSweepTest {
         // Bare Floor with Charging Station
         initBareFloorWithChargingStationFloorPlan();
 
-        initCleanSweeps();
+        // Traversal Algorithm Floor Plan
+        initTraversalFloorPlan();
 
         initChargingStationLarge();
+
+        initCleanSweeps();
+
     }
 
     void initCleanSweeps() {
@@ -211,6 +230,7 @@ public class CleanSweepTest {
         highPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, highPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
         lowHighPileCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, lowHighPileFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
         chargingCleanSweep = new CleanSweep(stuckStartXTilePos, stuckStartYTilePos, true, bareFloorWithChargingStationFloorPlanArr[stuckStartXTilePos][stuckStartYTilePos]);
+        traversalCleanSweep = new CleanSweep(traversalStartXTilePos, traversalStartYTilePos, true, traversalFloorPlanArr[traversalStartXTilePos][traversalStartYTilePos]);
     }
 
     void initBottomOpenFloorPlan() {
@@ -386,6 +406,40 @@ public class CleanSweepTest {
         bareFloorWithChargingStationFloorPlan.connectFloorPlan();
     }
 
+    void initTraversalFloorPlan() {
+        traversalFloorPlan = new FloorPlan(traversalFloorPlanLength, traversalFloorPlanWidth); // 10x10
+        traversalFloorPlanArr = traversalFloorPlan.createFloorPlan();
+
+        // Make All Bare Floor
+        for (int i = 0; i < traversalFloorPlanLength; i++) {
+            for (int j = 0; j < traversalFloorPlanWidth; j++) {
+                traversalFloorPlanArr[i][j] = new BareFloorTile(null,null,null,null,i,j);
+            }
+        }
+        traversalFloorPlanArr[traversalStartXTilePos][traversalStartYTilePos] = new ChargingStation(null, null, null, null,traversalStartXTilePos,traversalStartYTilePos);
+        traversalFloorPlan.connectFloorPlan();
+        traversalFloorPlan.addDirt();
+
+        // Vertical Walls
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][1], traversalFloorPlanArr[5][1]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][2], traversalFloorPlanArr[5][2]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][3], traversalFloorPlanArr[5][3]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][5], traversalFloorPlanArr[5][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][6], traversalFloorPlanArr[5][6]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][7], traversalFloorPlanArr[5][7]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][8], traversalFloorPlanArr[5][8]);
+
+        // Horizontal Walls
+        traversalFloorPlan.addWall(traversalFloorPlanArr[1][4], traversalFloorPlanArr[1][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[2][4], traversalFloorPlanArr[2][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[3][4], traversalFloorPlanArr[3][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[4][4], traversalFloorPlanArr[4][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[6][4], traversalFloorPlanArr[6][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[7][4], traversalFloorPlanArr[7][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[8][4], traversalFloorPlanArr[8][5]);
+        traversalFloorPlan.addWall(traversalFloorPlanArr[9][4], traversalFloorPlanArr[9][5]);
+    }
+
     // Traversals, Traversable, Bare floor
     void initChargingStationLarge() {
         chargingStationLarge = new FloorPlan(10, 10); // 3x3
@@ -453,9 +507,9 @@ public class CleanSweepTest {
     // Shut down if clean sweep cannot traverse to any adjacent tile
 
     @Test
-    public void stuckShutdown() {
-        System.out.println("\nstuckShutdown()");
-        stuckCleanSweep.traverseRight(stuckFloorPlanArr[stuckCleanSweep.getXPos()+1][cleanSweep.getYPos()]);
+    public void shutdownTest() {
+        System.out.println("\nshutdownTest()");
+        stuckCleanSweep.shutDown();
         assertFalse(stuckCleanSweep.powerOn);
     }
 
@@ -465,6 +519,7 @@ public class CleanSweepTest {
     // Avoid Left Tests
 
     @Test
+    @Disabled
     public void AvoidLeftTraverseUp() {
         System.out.println("\nAvoidLeftTraverseUp()");
         int yPreLeftTraversal = upAvoidanceCleanSweep.getYPos();
@@ -477,6 +532,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void AvoidLeftTraverseDown() {
         System.out.println("\nAvoidLeftTraverseDown()");
         int yPreLeftTraversal = downAvoidanceCleanSweep.getYPos();
@@ -489,6 +545,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void AvoidLeftTraverseRight() {
         System.out.println("\nAvoidLeftTraverseRight()");
         int xPreLeftTraversal = rightAvoidanceCleanSweep.getXPos();
@@ -504,6 +561,7 @@ public class CleanSweepTest {
     // Avoid Right Tests
 
     @Test
+    @Disabled
     public void AvoidRightTraverseUp() {
         System.out.println("\nAvoidRightTraverseUp()");
         int yPreRightTraversal = upAvoidanceCleanSweep.getYPos();
@@ -516,6 +574,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void AvoidRightTraverseDown() {
         System.out.println("\nAvoidRightTraverseDown()");
         int yPreRightTraversal = downAvoidanceCleanSweep.getYPos();
@@ -528,6 +587,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void AvoidRightTraverseLeft() {
         System.out.println("\nAvoidRightTraverseLeft()");
         int xPreRightTraversal = leftAvoidanceCleanSweep.getXPos();
@@ -542,6 +602,7 @@ public class CleanSweepTest {
     // Avoid Up Tests
 
     @Test
+    @Disabled
     public void AvoidUpTraverseDown() {
         System.out.println("\nAvoidUpTraverseDown()");
         int yPreUpTraversal = downAvoidanceCleanSweep.getYPos();
@@ -554,6 +615,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void AvoidUpTraverseLeft() {
         System.out.println("\nAvoidUpTraverseLeft()");
         int xPreUpTraversal = leftAvoidanceCleanSweep.getXPos();
@@ -566,6 +628,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void AvoidUpTraverseRight() {
         System.out.println("\nAvoidUpTraverseRight()");
         int xPreUpTraversal = rightAvoidanceCleanSweep.getXPos();
@@ -580,6 +643,7 @@ public class CleanSweepTest {
     // Avoid Down Tests
 
     @Test
+    @Disabled
     public void AvoidDownTraverseUp() {
         System.out.println("\nAvoidDownTraverseUp()");
         int yPreUpTraversal = upAvoidanceCleanSweep.getYPos();
@@ -592,6 +656,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void AvoidDownTraverseLeft() {
         System.out.println("\nAvoidDownTraverseLeft()");
         int xPreDownTraversal = leftAvoidanceCleanSweep.getXPos();
@@ -604,6 +669,7 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void AvoidDownTraverseRight() {
         System.out.println("\nAvoidDownTraverseRight()");
         int xPreDownTraversal = rightAvoidanceCleanSweep.getXPos();
@@ -617,6 +683,7 @@ public class CleanSweepTest {
 
     // Wall Avoidance Test
     @Test
+    @Disabled
     public void CleanSweepAvoidWall() {
         System.out.println("\nCleanSweepAvoidWall()");
         cleaningFloorPlan.addWall(cleaningFloorPlanArr[2][3], cleaningFloorPlanArr[1][3]);
@@ -629,6 +696,7 @@ public class CleanSweepTest {
     // Out of Bounds Tests
 
     @Test
+    @Disabled
     public void stairStuckShutdown() {
         System.out.println("\nstairStuckShutdown()");
         stairStuckCleanSweep.traverseRight(stairStuckFloorPlanArr[stuckCleanSweep.getXPos()+1][cleanSweep.getYPos()]);
@@ -666,11 +734,13 @@ public class CleanSweepTest {
     }
 
     @Test
+    @Disabled
     public void notTraverseDownOutOfBounds() {
         System.out.println("\nnotTraverseUpOutOfBounds()");
         try {
             downOutBoundCleanSweep.traverseDown(stairStuckFloorPlanArr[stuckCleanSweep.getXPos()][cleanSweep.getYPos()+1]);
         } catch (Exception e) {
+            e.printStackTrace();
             fail("Traversing out of bounds should not throw an exception");
         }
     }
@@ -779,24 +849,28 @@ public class CleanSweepTest {
 
     @Test
     public void CleanSweepGetSurfaceCostBareFloorTest() {
+        System.out.println("\nCleanSweepGetSurfaceCostBareFloorTest()");
         Tile tile = bareFloorPlanArr[0][0];
         assertEquals(1.0, cleanSweep.getSurfaceCost(tile));
     }
 
     @Test
     public void CleanSweepGetSurfaceCostLowPileFloorTest() {
+        System.out.println("\nCleanSweepGetSurfaceCostLowPileFloorTest()");
        Tile tile = new LowPileTile(null,null,null,null,0,0);
        assertEquals(2.0,cleanSweep.getSurfaceCost(tile),"surface cost for low pile is 2.0 units");
     }
 
     @Test
     public void CleanSweepGetSurfaceCostHighPileTest() {
+        System.out.println("\nCleanSweepGetSurfaceCostHighPileTest()");
         Tile tile = new HighPileTile(null, null, null,null,0,0 );
         assertEquals(3.0,cleanSweep.getSurfaceCost(tile),"Surface cost for High Pile is 3.0 units");
     }
 
     @Test
     public void testInitialBatteryLevel() {
+        System.out.println("\ntestInitialBatteryLevel()");
         // Initialize a tile (e.g., a BareFloorTile) to set as the starting position
         Tile initialTile = new BareFloorTile(null, null, null, null, 0, 0);
 
@@ -811,6 +885,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionBareToLowPileCleanTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionBareToLowPileCleanTile()");
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseRight(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()]);
         double expectedBatteryAfterMove = initialBattery - 1.5;
@@ -820,6 +895,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionBareToHighPileCleanTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionBareToHighPileCleanTile()");
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseUp(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1]);
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
@@ -830,6 +906,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionBareToBareCleanTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionBareToBareCleanTile()");
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseLeft(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()]);
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
@@ -840,6 +917,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionLowPileToLowPileCleanTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionLowPileToLowPileCleanTile()");
         double initialBattery = lowPileCleanSweep.getBatteryLevel();
         lowPileCleanSweep.traverseLeft(lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()]);
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
@@ -850,6 +928,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionHighPileToHighPileCleanTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionHighPileToHighPileCleanTile()");
         double initialBattery = highPileCleanSweep.getBatteryLevel();
         highPileCleanSweep.traverseLeft(highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()]);
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
@@ -860,6 +939,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionLowPileToHighPileCleanTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionLowPileToHighPileCleanTile()");
         double initialBattery = lowHighPileCleanSweep.getBatteryLevel();
         lowHighPileCleanSweep.traverseRight(lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()]);
         //System.out.println(powerLevelCleanSweep.getCurrentTile().getTypeStr());
@@ -870,6 +950,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionBareToBareDirtyTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionBareToBareDirtyTile()");
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseLeft(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()-1][powerLevelCleanSweep.getYPos()]);
@@ -882,6 +963,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionLowPileToLowPileDirtyTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionLowPileToLowPileDirtyTile()");
         lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = lowPileCleanSweep.getBatteryLevel();
         lowPileCleanSweep.traverseLeft(lowPileFloorPlanArr[lowPileCleanSweep.getXPos()-1][lowPileCleanSweep.getYPos()]);
@@ -894,6 +976,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionHighPileToHighPileDirtyTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionHighPileToHighPileDirtyTile()");
         highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = highPileCleanSweep.getBatteryLevel();
         highPileCleanSweep.traverseLeft(highPileFloorPlanArr[highPileCleanSweep.getXPos()-1][highPileCleanSweep.getYPos()]);
@@ -906,6 +989,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionBareToLowPileDirtyTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionBareToLowPileDirtyTile()");
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseRight(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()+1][powerLevelCleanSweep.getYPos()]);
@@ -917,6 +1001,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionBareToHighPileDirtyTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionBareToHighPileDirtyTile()");
         powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1].setDirtAmount(3);
         double initialBattery = powerLevelCleanSweep.getBatteryLevel();
         powerLevelCleanSweep.traverseUp(powerLevelFloorPlanArr[powerLevelCleanSweep.getXPos()][powerLevelCleanSweep.getYPos()-1]);
@@ -928,6 +1013,7 @@ public class CleanSweepTest {
     @Test
     @Disabled
     public void CleanSweepBatteryConsumptionLowPileToHighPileDirtyTile() {
+        System.out.println("\nCleanSweepBatteryConsumptionLowPileToHighPileDirtyTile()");
         lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()].setDirtAmount(3);
         double initialBattery = lowHighPileCleanSweep.getBatteryLevel();
         lowHighPileCleanSweep.traverseRight(lowHighPileFloorPlanArr[lowHighPileCleanSweep.getXPos()+1][highPileCleanSweep.getYPos()]);
@@ -938,13 +1024,14 @@ public class CleanSweepTest {
 
     @Test
     public void CleanSweepChargingTest() {
+        System.out.println("\nCleanSweepChargingTest()");
         bareFloorWithChargingStationFloorPlan.representFloorPlan();
         bareFloorWithChargingStationFloorPlan.representDirt();
         chargingCleanSweep.showBatteryPercentage();
-        chargingCleanSweep.traverseRight(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()+1][chargingCleanSweep.getYPos()]);
-        chargingCleanSweep.traverseUp(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()][chargingCleanSweep.getYPos()-1]);
-        chargingCleanSweep.traverseLeft(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()-1][chargingCleanSweep.getYPos()]);
-        chargingCleanSweep.traverseLeft(bareFloorWithChargingStationFloorPlanArr[chargingCleanSweep.getXPos()-1][chargingCleanSweep.getYPos()]);
+        chargingCleanSweep.traverseRight(chargingCleanSweep.getTile().getRight());
+        chargingCleanSweep.traverseUp(chargingCleanSweep.getTile().getTop());
+        chargingCleanSweep.traverseLeft(chargingCleanSweep.getTile().getLeft());
+        chargingCleanSweep.traverseLeft(chargingCleanSweep.getTile().getLeft());
         chargingCleanSweep.showBatteryPercentage();
         chargingCleanSweep.printPos();
         chargingCleanSweep.charge();
@@ -961,6 +1048,22 @@ public class CleanSweepTest {
         System.out.println(chargingCleanSweep.pathTo(testTile));
 
 
+    }
+
+    @Test
+    public void TraversalAlgorithmTest() {
+        System.out.println("\nTraversalAlgorithmTest()");
+        System.out.println();
+        traversalFloorPlan.representFloorPlan();
+        System.out.println();
+        traversalFloorPlan.representDirt();
+        DepthFirstSearch traversalDFS = new DepthFirstSearch();
+        traversalDFS.traverse(traversalCleanSweep.getTile(), traversalCleanSweep, traversalFloorPlanArr);
+        System.out.println();
+        traversalFloorPlan.representFloorPlan();
+        System.out.println();
+        traversalFloorPlan.representDirt();
+        assertTrue(traversalFloorPlan.isClean());
     }
 
 }

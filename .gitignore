@@ -43,3 +43,4 @@ build/
 /logs/debug.log
 /logs/main.log
 /logs/
+/.idea/uiDesigner.xml

@@ -6,15 +6,6 @@ public class Obstacle extends Tile {
     }
 
     @Override
-    public String toString() {
-        return "Tile {\n" +
-                "\tTile Location: (" + xPos +"," + yPos + ")\n" +
-                "\tType: " + getTypeStr() + "\n" +
-                "\tDirt Amount: " + getDirtAmount() + "\n" +
-                "}";
-    }
-
-    @Override
     public void setDirtAmount(int dirtAmount) {
         this.dirtAmount = 0;
     }
@@ -25,7 +16,7 @@ public class Obstacle extends Tile {
     }
 
     @Override
-    public Boolean traversable(){
+    public Boolean traversable() {
         return false;
     }
 

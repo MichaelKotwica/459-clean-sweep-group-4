@@ -34,6 +34,7 @@ class FloorPlanTest {
 
     @Test
     public void addVerticalWallLeftRight() {
+        System.out.println("\naddVerticalWallLeftRight()");
         floorPlan.addWall(floorPlanArr[0][0],floorPlanArr[1][0]);
         //floorPlan.addWall(floorPlanArr[3][2],floorPlanArr[2][2]);
 
@@ -45,6 +46,7 @@ class FloorPlanTest {
 
     @Test
     public void addVerticalWallRightLeft() {
+        System.out.println("\naddVerticalWallRightLeft()");
         floorPlan.addWall(floorPlanArr[1][0],floorPlanArr[0][0]);
 
         assertAll(
@@ -55,6 +57,7 @@ class FloorPlanTest {
 
     @Test
     public void addVerticalWallsLeftRightTooFar() {
+        System.out.println("\naddVerticalWallsLeftRightTooFar()");
         floorPlan.addWall(floorPlanArr[0][0],floorPlanArr[2][0]);
         //floorPlan.addWall(floorPlanArr[3][2],floorPlanArr[2][2]);
 
@@ -66,6 +69,7 @@ class FloorPlanTest {
 
     @Test
     public void addVerticalWallRightLeftTooFar() {
+        System.out.println("\naddVerticalWallRightLeftTooFar()");
         floorPlan.addWall(floorPlanArr[2][0],floorPlanArr[0][0]);
 
         assertAll(
@@ -76,6 +80,7 @@ class FloorPlanTest {
 
     @Test
     public void addHorizontalWallTopBottom() {
+        System.out.println("\naddHorizontalWallTopBottom()");
         floorPlan.addWall(floorPlanArr[0][0],floorPlanArr[0][1]);
 
         assertAll(
@@ -86,6 +91,7 @@ class FloorPlanTest {
 
     @Test
     public void addHorizontalWallBottomTop() {
+        System.out.println("\naddHorizontalWallBottomTop()");
         floorPlan.addWall(floorPlanArr[0][1],floorPlanArr[0][0]);
 
         assertAll(
@@ -96,6 +102,7 @@ class FloorPlanTest {
 
     @Test
     public void addHorizontalWallTopBottomTooFar() {
+        System.out.println("\naddHorizontalWallTopBottomTooFar()");
         floorPlan.addWall(floorPlanArr[0][0],floorPlanArr[0][2]);
 
         assertAll(
@@ -106,6 +113,7 @@ class FloorPlanTest {
 
     @Test
     public void addHorizontalWallBottomTopTooFar() {
+        System.out.println("\naddHorizontalWallBottomTopTooFar()");
         floorPlan.addWall(floorPlanArr[0][2],floorPlanArr[0][0]);
 
         assertAll(
@@ -116,6 +124,7 @@ class FloorPlanTest {
 
     @Test
     public void addWallTopLeftBottomRight() {
+        System.out.println("\naddWallTopLeftBottomRight()");
         floorPlan.addWall(floorPlanArr[0][0],floorPlanArr[1][1]);
 
         assertAll(
@@ -132,6 +141,7 @@ class FloorPlanTest {
 
     @Test
     public void addWallTopRightBottomLeft() {
+        System.out.println("\naddWallTopRightBottomLeft()");
         floorPlan.addWall(floorPlanArr[1][0],floorPlanArr[0][1]);
 
         assertAll(
@@ -148,6 +158,7 @@ class FloorPlanTest {
 
     @Test
     public void addWallBottomRightTopLeft() {
+        System.out.println("\naddWallBottomRightTopLeft()");
         floorPlan.addWall(floorPlanArr[1][1], floorPlanArr[0][0]);
 
         assertAll(
@@ -164,6 +175,7 @@ class FloorPlanTest {
 
     @Test
     public void addWallBottomLeftTopRight() {
+        System.out.println("\naddWallBottomLeftTopRight()");
         floorPlan.addWall(floorPlanArr[0][1],floorPlanArr[1][0]);
 
         assertAll(

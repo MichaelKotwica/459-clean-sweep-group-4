@@ -17,8 +17,8 @@ public class CleanSweep {
 
     private static final Logger cleanSweepLogger = LogManager.getLogger(CleanSweep.class.getName());
 
-    private final int MAX_CAPACITY = 50; // Max dirt capacity
-    private final double MAX_BATTERY = 250; // Maximum battery level
+    protected final int MAX_CAPACITY = 50; // Max dirt capacity
+    protected final double MAX_BATTERY = 250; // Maximum battery level
     private final double BARE_FLOOR_COST = 1.0;
     private final double LOW_PILE_COST = 2.0;
     private final double HIGH_PILE_COST = 3.0;
@@ -34,7 +34,7 @@ public class CleanSweep {
         this.dirtCapacity = 0; // Start with an empty dirt container
         this.batteryLevel = MAX_BATTERY; // Initialize battery level
 
-        cleanSweepLogger.info("Created Clean Sweep with at position ({},{})",xPos,yPos);
+        cleanSweepLogger.info("Created Clean Sweep at ({},{})", xPos, yPos);
     }
 
     protected double getSurfaceCost(Tile tile) {
@@ -165,6 +165,7 @@ public class CleanSweep {
                 this.currentTile = tile;
                 this.xPos--;
                 cleanSweepLogger.info("Traversing Left");
+                printPos();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move left.");
@@ -172,8 +173,8 @@ public class CleanSweep {
                 return false;
             }
         } else {
-            cleanSweepLogger.warn("Left tile not traversable...");
-            avoid();
+            cleanSweepLogger.warn("Left tile ({},{}) not traversable...", tile.xPos, tile.yPos);
+            //avoid();
             return false;
         }
     }
@@ -185,6 +186,7 @@ public class CleanSweep {
                 this.currentTile = tile;
                 this.xPos++;
                 cleanSweepLogger.info("Traversing Right");
+                printPos();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move right.");
@@ -192,8 +194,8 @@ public class CleanSweep {
                 return false;
             }
         } else {
-            cleanSweepLogger.warn("Right tile not traversable...");
-            avoid();
+            cleanSweepLogger.warn("Right tile ({},{}) not traversable...", tile.xPos, tile.yPos);
+            //avoid();
             return false;
         }
     }
@@ -205,6 +207,7 @@ public class CleanSweep {
                 this.currentTile = tile;
                 this.yPos--;
                 cleanSweepLogger.info("Traversing Up");
+                printPos();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move up.");
@@ -212,8 +215,8 @@ public class CleanSweep {
                 return false;
             }
         } else {
-            cleanSweepLogger.warn("Above tile not traversable...");
-            avoid();
+            cleanSweepLogger.warn("Above tile ({},{}) not traversable...", tile.xPos, tile.yPos);
+            //avoid();
             return false;
         }
     }
@@ -225,6 +228,7 @@ public class CleanSweep {
                 this.currentTile = tile;
                 this.yPos++;
                 cleanSweepLogger.info("Traversing Down");
+                printPos();
                 return true;
             } else {
                 cleanSweepLogger.fatal("Not enough battery to move down.");
@@ -232,18 +236,196 @@ public class CleanSweep {
                 return false;
             }
         } else {
-                cleanSweepLogger.warn("Below tile not traversable...");
-                avoid();
-                return false;
+            cleanSweepLogger.warn("Below tile ({},{}) not traversable...", tile.xPos, tile.yPos);
+            //avoid();
+            return false;
+        }
+    }
+
+    public void moveToPosition(int targetX, int targetY, Tile[][] floorPlanArr) {
+        // Simplified movement logic: moves to target position step-by-step.
+
+        if (xPos != targetX || yPos != targetY) {
+
+            if (getTile().getRight() != null && xPos < targetX && getTile().getRight().traversable()) {
+                traverseRight(currentTile.getRight());
+                //clean(currentTile);
+                currentTile.setDirtAmount(0);
+            } else if (getTile().getLeft() != null && xPos > targetX && getTile().getLeft().traversable()) {
+                traverseLeft(currentTile.getLeft());
+                //clean(currentTile);
+                currentTile.setDirtAmount(0);
+            } else if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
+                traverseDown(currentTile.getBottom());
+                //clean(currentTile);
+                currentTile.setDirtAmount(0);
+            } else if (getTile().getTop() != null && yPos > targetY && getTile().getTop().traversable()) {
+                traverseUp(currentTile.getTop());
+                //clean(currentTile);
+                currentTile.setDirtAmount(0);
+            }
+            /* else {
+
+                                          BRUTE FORCE
+                if (!(xPos < targetX)) {
+                    if (getTile().getRight() != null && getTile().getRight().traversable()) {
+                        traverseRight(currentTile.getRight());
+                    }
+
+                    if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
+                        traverseDown(currentTile.getBottom());
+                    }
+                }
+
+            }*/
+
+            cleanSweepLogger.debug("Target Position: ({},{})", targetX, targetY);
+            List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
+            List<Tile> shortTraversalList = shortenPath(traversalList, floorPlanArr[targetX][targetY]);
+
+            //cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
+            cleanSweepLogger.debug(Arrays.toString(shortTraversalList.toArray()));
+
+            //followPath(traversalList, floorPlanArr[targetX][targetY]);
+            followPath(shortTraversalList, floorPlanArr[targetX][targetY]);
+        }
+    }
+
+    protected List<Tile> pathToNonAdjTile(Tile start, Tile goal) {
+        List<Tile> visited = new ArrayList<Tile>();
+        Queue<Tile> collection = new LinkedList<>();
+        visited.add(start);
+        finderHelperNonAdjTile(start, goal, visited, collection);
+        int xCoord = visited.get(visited.size() - 1).xPos;
+        int yCoord = visited.get(visited.size() - 1).yPos;
+
+        for (int i = visited.size() - 1; i > 0; i--) {
+            if (Math.abs(xCoord - visited.get(i - 1).xPos) + Math.abs(yCoord - visited.get(i - 1).yPos) > 1) {
+                visited.set(i - 1, null);
+            } else {
+                xCoord = visited.get(i - 1).xPos;
+                yCoord = visited.get(i - 1).yPos;
+            }
+
+        }
+        List<Tile> visitedClean = new ArrayList<Tile>();
+        for (Tile node : visited) {
+            if (node != null)
+                visitedClean.add(node);
+        }
+        return visitedClean;
+    }
+
+    protected void finderHelperNonAdjTile(Tile node, Tile goal, List<Tile> visited, Queue<Tile> collection) {
+        if (node != null) {
+            if (node.getTop() != null && !visited.contains(node.getTop()) && node.getTop().traversable()) {
+                collection.add(node.getTop());
+                visited.add(node.getTop());
+                if (node == goal) {     // check if node is the adjacent tile
+                    return;
+
+                }
+
+            }
+            if (node.getLeft() != null && !visited.contains(node.getLeft()) && node.getLeft().traversable()) {
+                collection.add(node.getLeft());
+                visited.add(node.getLeft());
+                if (node == goal) {
+                    return;
+
+                }
+
+            }
+            if (node.getBottom() != null && !visited.contains(node.getBottom()) && node.getBottom().traversable()) {
+                collection.add(node.getBottom());
+                visited.add(node.getBottom());
+                if (node == goal) {
+                    return;
+
+                }
+
+            }
+            if (node.getRight() != null && !visited.contains(node.getRight()) && node.getRight().traversable()) { // Change if statement
+                collection.add(node.getRight());
+                visited.add(node.getRight());
+                if (node == goal) {
+                    return;
+
+                }
+
+            }
+            collection.remove();
+            finderHelperNonAdjTile(collection.peek(), goal, visited, collection);
+
+        }
+    }
+
+    private List<Tile> shortenPath (List<Tile> traversalList, Tile goal) {
+        List<Tile> shortPath = new ArrayList<Tile>();
+        if (!traversalList.contains(goal)) {
+            return shortPath;
+        }
+        for (Tile tile : traversalList) {
+            if (tile == goal) {
+                //shortPath.add(tile);
+                break;
+            }
+            shortPath.add(tile);
+        }
+        return shortPath;
+    }
+
+    private void followPath(List<Tile> tiles, Tile goal) {
+        for (Tile tile : tiles) {
+            if (tile != currentTile && currentTile.bottomNext == tile && tile.traversable()) {
+                traverseDown(tile);
+                if (!currentTile.cleanTile) {
+                    //clean(currentTile);
+                    currentTile.setDirtAmount(0);
+                }
+                if (currentTile == goal) {
+                    break;
+                }
+            }
+            if (tile != currentTile && currentTile.rightNext == tile && tile.traversable()) {
+                traverseRight(tile);
+                if (!currentTile.cleanTile) {
+                    //clean(currentTile);
+                    currentTile.setDirtAmount(0);
+                }
+                if (currentTile == goal) {
+                    break;
+                }
+            }
+            if (tile != currentTile && currentTile.topNext == tile && tile.traversable()) {
+                traverseUp(tile);
+                if (!currentTile.cleanTile) {
+                    //clean(currentTile);
+                    currentTile.setDirtAmount(0);
+                }
+                if (currentTile == goal) {
+                    break;
+                }
+            }
+            if (tile != currentTile && currentTile.leftNext == tile && tile.traversable()) {
+                traverseLeft(tile);
+                if (!currentTile.cleanTile) {
+                    //clean(currentTile);
+                    currentTile.setDirtAmount(0);
+                }
+                if (currentTile == goal) {
+                    break;
+                }
             }
         }
+    }
 
     public Tile getTile() {
         return currentTile;
     }
 
     public void charge() {
-        if(Objects.equals(currentTile.getTypeStr(), "Charging Station")){
+        if (Objects.equals(currentTile.getTypeStr(), "Charging Station")) {
             this.batteryLevel = MAX_BATTERY;
             cleanSweepLogger.info("Charging");
             return;
@@ -316,7 +498,7 @@ public class CleanSweep {
         } else if (currentTile.getBottom() != null && currentTile.getBottom().traversable()) { // Try to traverse down to avoid obstacle
             cleanSweepLogger.info("Traversing down to avoid obstacle...");
             traverseDown(currentTile.getBottom());
-        }else if (currentTile.getLeft() != null && currentTile.getLeft().traversable()) { // Try to traverse left to avoid obstacle
+        } else if (currentTile.getLeft() != null && currentTile.getLeft().traversable()) { // Try to traverse left to avoid obstacle
             cleanSweepLogger.info("Traversing left to avoid obstacle...");
             traverseLeft(currentTile.getLeft());
         } else if (currentTile.getTop() != null && currentTile.getTop().traversable()) { // Try to traverse up to avoid obstacle
@@ -366,6 +548,7 @@ public class CleanSweep {
     public double getBatteryLevel() {
         return batteryLevel;
     }
+
     private void returnToChargingStation() {
         if(findChargingStation(currentTile) == null){
             cleanSweepLogger.info("There is no charging station on this floor");

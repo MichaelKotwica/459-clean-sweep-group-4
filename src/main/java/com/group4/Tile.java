@@ -1,5 +1,8 @@
 package com.group4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Tile {
     protected Tile leftNext;
     protected Tile rightNext;
@@ -8,6 +11,9 @@ public abstract class Tile {
 
     public final int xPos;
     public final int yPos;
+
+    public List<Tile> neighbors = new ArrayList<>();
+    public boolean visited;
 
     public int dirtAmount;
     public boolean cleanTile;
@@ -22,7 +28,11 @@ public abstract class Tile {
     }
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "[Tile Location: (" + xPos + "," + yPos + ")" +
+                " | Type: " + getTypeStr() +
+                " | Dirt Amount: " + getDirtAmount() + "]";
+    }
 
     public abstract void setDirtAmount(int dirtAmount);
 
@@ -66,6 +76,18 @@ public abstract class Tile {
 
     public void setBottomNext(Tile bottomNext) {
         this.bottomNext = bottomNext;
+    }
+
+    public List<Tile> getNeighbors() {
+        return neighbors;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 
 }

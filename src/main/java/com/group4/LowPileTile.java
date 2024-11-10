@@ -6,22 +6,13 @@ public class LowPileTile extends Tile {
     }
 
     @Override
-    public String toString() {
-        return "Tile {\n" +
-                "\tTile Location: (" + xPos +"," + yPos + ")\n" +
-                "\tType: " + getTypeStr() + "\n" +
-                "\tDirt Amount: " + getDirtAmount() + "\n" +
-                "}";
-    }
-
-    @Override
     public void setDirtAmount(int dirtAmount) {
         this.dirtAmount = dirtAmount;
         this.cleanTile = this.dirtAmount <= 0;
     }
 
     @Override
-    public void removeDirt(){
+    public void removeDirt() {
         this.dirtAmount -= 2;
         if (this.dirtAmount < 0) this.dirtAmount = 0;
     }
