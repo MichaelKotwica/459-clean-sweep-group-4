@@ -68,6 +68,7 @@ public class CleanSweep {
 
     protected void finderHelper(Tile node, List<Tile> visited, Queue<Tile> collection) {
         if (node != null) {
+
             if (node.getTop() != null && !visited.contains(node.getTop()) && node.getTop().traversable()) {
                 collection.add(node.getTop());
                 visited.add(node.getTop());
@@ -116,15 +117,14 @@ public class CleanSweep {
         Queue<Tile> collection = new LinkedList<>();
         visited.add(start);
         finderHelper(start, visited, collection);
-        int xCoord = visited.get(visited.size() - 1).xPos;
-        int yCoord = visited.get(visited.size() - 1).yPos;
+        Tile target = visited.get(visited.size()-1);
 
         for (int i = visited.size() - 1; i > 0; i--) {
-            if (Math.abs(xCoord - visited.get(i - 1).xPos) + Math.abs(yCoord - visited.get(i - 1).yPos) > 1) {
+            Boolean adjacent = visited.get(i-1).getTop() == target || visited.get(i-1).getBottom() == target || visited.get(i-1).getRight() == target || visited.get(i-1).getLeft() == target;
+            if (!adjacent) {
                 visited.set(i - 1, null);
             } else {
-                xCoord = visited.get(i - 1).xPos;
-                yCoord = visited.get(i - 1).yPos;
+                target = visited.get(i-1);
             }
 
         }
@@ -632,7 +632,7 @@ public class CleanSweep {
             cleanSweepLogger.info("There is no charging station on this floor");
             return;
         }
-        List<Tile> guide = pathTo(chargingStation);
+        List<Tile> guide = pathTo(currentTile);
 
         /*
         if(findChargingStation(currentTile) == null){
