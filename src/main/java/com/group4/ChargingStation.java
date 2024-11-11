@@ -12,12 +12,6 @@ public class ChargingStation extends Tile {
     }
 
     @Override
-    public void removeDirt() {
-        this.dirtAmount -= 1;
-        if (this.dirtAmount < 0) this.dirtAmount = 0;
-    }
-
-    @Override
     public Boolean traversable() {
         return true;
     }

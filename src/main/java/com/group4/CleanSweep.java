@@ -182,11 +182,7 @@ public class CleanSweep {
     public boolean traverseLeft(Tile tile) {
         if (currentTile.getLeft() != null && currentTile.getLeft() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
-                consumeBattery(tile);/*
-                if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
-                    returnToChargingStation();
-                    return false;
-                }*/
+                consumeBattery(tile);
                 this.currentTile = tile;
                 this.xPos--;
                 cleanSweepLogger.info("Traversing Left");
@@ -208,11 +204,7 @@ public class CleanSweep {
     public boolean traverseRight(Tile tile) {
         if (currentTile.getRight() != null && currentTile.getRight() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
-                consumeBattery(tile);/*
-                if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
-                    returnToChargingStation();
-                    return false;
-                }*/
+                consumeBattery(tile);
                 this.currentTile = tile;
                 this.xPos++;
                 cleanSweepLogger.info("Traversing Right");
@@ -234,11 +226,7 @@ public class CleanSweep {
     public boolean traverseUp(Tile tile) {
         if (currentTile.getTop() != null && currentTile.getTop() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
-                consumeBattery(tile);/*
-                if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
-                    returnToChargingStation();
-                    return false;
-                }*/
+                consumeBattery(tile);
                 this.currentTile = tile;
                 this.yPos--;
                 cleanSweepLogger.info("Traversing Up");
@@ -260,11 +248,7 @@ public class CleanSweep {
     public boolean traverseDown(Tile tile) {
         if (currentTile.getBottom() != null && currentTile.getBottom() == tile && tile.traversable()) {
             if (hasEnoughBattery(tile)) {
-                consumeBattery(tile);/*
-                if (batteryLevel <= LOW_BATTERY_THRESHOLD) {
-                    returnToChargingStation();
-                    return false;
-                }*/
+                consumeBattery(tile);
                 this.currentTile = tile;
                 this.yPos++;
                 cleanSweepLogger.info("Traversing Down");
@@ -291,43 +275,24 @@ public class CleanSweep {
             if (getTile().getRight() != null && xPos < targetX && getTile().getRight().traversable()) {
                 traverseRight(currentTile.getRight());
                 clean(currentTile);
-                //currentTile.setDirtAmount(0);
             } else if (getTile().getLeft() != null && xPos > targetX && getTile().getLeft().traversable()) {
                 traverseLeft(currentTile.getLeft());
                 clean(currentTile);
-                //currentTile.setDirtAmount(0);
             } else if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
                 traverseDown(currentTile.getBottom());
                 clean(currentTile);
-                //currentTile.setDirtAmount(0);
             } else if (getTile().getTop() != null && yPos > targetY && getTile().getTop().traversable()) {
                 traverseUp(currentTile.getTop());
                 clean(currentTile);
-                //currentTile.setDirtAmount(0);
             }
-            /* else {
-
-                                          BRUTE FORCE
-                if (!(xPos < targetX)) {
-                    if (getTile().getRight() != null && getTile().getRight().traversable()) {
-                        traverseRight(currentTile.getRight());
-                    }
-
-                    if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
-                        traverseDown(currentTile.getBottom());
-                    }
-                }
-
-            }*/
 
             cleanSweepLogger.debug("Target Position: ({},{})", targetX, targetY);
             List<Tile> traversalList = pathToNonAdjTile(floorPlanArr[xPos][yPos], floorPlanArr[targetX][targetY]);
             List<Tile> shortTraversalList = shortenPath(traversalList, floorPlanArr[targetX][targetY]);
 
-            //cleanSweepLogger.debug(Arrays.toString(traversalList.toArray()));
-            cleanSweepLogger.debug(Arrays.toString(shortTraversalList.toArray()));
+            cleanSweepLogger.debug("traversalList:{}", Arrays.toString(traversalList.toArray()));
+            cleanSweepLogger.debug("shortTraversalList: {}", Arrays.toString(shortTraversalList.toArray()));
 
-            //followPath(traversalList, floorPlanArr[targetX][targetY]);
             followPath(shortTraversalList, floorPlanArr[targetX][targetY]);
         }
     }
@@ -408,7 +373,6 @@ public class CleanSweep {
         }
         for (Tile tile : traversalList) {
             if (tile == goal) {
-                //shortPath.add(tile);
                 break;
             }
             shortPath.add(tile);
@@ -422,7 +386,6 @@ public class CleanSweep {
                 traverseDown(tile);
                 if (!currentTile.cleanTile) {
                     clean(currentTile);
-                    //currentTile.setDirtAmount(0);
                 }
                 if (currentTile == goal) {
                     break;
@@ -432,7 +395,6 @@ public class CleanSweep {
                 traverseRight(tile);
                 if (!currentTile.cleanTile) {
                     clean(currentTile);
-                    //currentTile.setDirtAmount(0);
                 }
                 if (currentTile == goal) {
                     break;
@@ -442,7 +404,6 @@ public class CleanSweep {
                 traverseUp(tile);
                 if (!currentTile.cleanTile) {
                     clean(currentTile);
-                    //currentTile.setDirtAmount(0);
                 }
                 if (currentTile == goal) {
                     break;
@@ -452,7 +413,6 @@ public class CleanSweep {
                 traverseLeft(tile);
                 if (!currentTile.cleanTile) {
                     clean(currentTile);
-                    //currentTile.setDirtAmount(0);
                 }
                 if (currentTile == goal) {
                     break;
@@ -474,34 +434,6 @@ public class CleanSweep {
         cleanSweepLogger.warn("The clean sweeper cannot be charged at this tile, please navigate to a charging station");
     }
 
-    /*
-
-    Yash's Implementation:
-
-        public boolean clean(Tile tile) {
-        if (dirtCapacity >= MAX_CAPACITY) {
-            System.out.println("Dirt container is full! Returning to the charging station.");
-            returnToChargingStation();
-            return false;
-        }
-
-        int dirtAmount = tile.getDirtAmount();
-        if (dirtAmount > 0) {
-            int dirtToCollect = Math.min(MAX_CAPACITY - dirtCapacity, dirtAmount);
-            dirtCapacity += dirtToCollect;
-            tile.setDirtAmount(dirtAmount - dirtToCollect);
-            System.out.println("Cleaned " + dirtToCollect + " dirt. Current Capacity: " + dirtCapacity + "/" + MAX_CAPACITY);
-        }
-
-        if (tile.getDirtAmount() == 0) {
-            tile.cleanTile = true;
-            System.out.println("Tile fully cleaned.");
-        }
-
-        return true;
-    }
-*/
-
     public void clean(Tile tile) {
 
         if (dirtCapacity < MAX_CAPACITY) {
@@ -509,12 +441,12 @@ public class CleanSweep {
                 cleanSweepLogger.info("Found Dirty Tile");
                 int dirtToCollect = Math.min(MAX_CAPACITY - dirtCapacity, tile.getDirtAmount());
                 while (dirtToCollect > 0) {
-                    //System.out.println("before set:" + tile.getDirtAmount());
+                    cleanSweepLogger.debug("before set:{}", tile.getDirtAmount());
                     dirtCapacity++;
                     tile.setDirtAmount(tile.getDirtAmount() - 1);
                     cleanSweepLogger.info("Cleaned 1 dirt. Current Capacity: {}/" + MAX_CAPACITY, dirtCapacity);
                     dirtToCollect--;
-                    //System.out.println("after set:" + tile.getDirtAmount());
+                    cleanSweepLogger.debug("after set:{}", tile.getDirtAmount());
                 }
                 if (tile.getDirtAmount() == 0) {
                     tile.cleanTile = true;
@@ -534,7 +466,7 @@ public class CleanSweep {
     }
 
     public void avoid() {
-        //System.out.println("in avoid");
+        cleanSweepLogger.debug("in avoid");
         if (currentTile.getRight() != null && currentTile.getRight().traversable()) { // Try to traverse right to avoid obstacle
             cleanSweepLogger.info("Traversing right to avoid obstacle...");
             traverseRight(currentTile.getRight());
@@ -638,18 +570,6 @@ public class CleanSweep {
         Tile preReturnTile = currentTile;
         List<Tile> returnPath = guide.reversed();
 
-        /*
-        if(findChargingStation(currentTile) == null){
-            cleanSweepLogger.info("There is no charging station on this floor");
-            return;
-        }
-        List<Tile> guide = pathTo(currentTile);
-        cleanSweepLogger.debug("Path to charging station: {}", guide);
-        followPathtochargingstation(guide, findChargingStation(currentTile));*/
-
-        //followPathtochargingstation(guide, findChargingStation(currentTile));
-
-
         if (guide == null || guide.isEmpty()) {
             cleanSweepLogger.error("Failed to calculate a path to the charging station.");
             return;
@@ -659,7 +579,6 @@ public class CleanSweep {
         followPathtochargingstation(guide, chargingStation);
         if (currentTile.getXPos() == chargingStation.getXPos() && currentTile.getYPos() == chargingStation.getYPos()) {
             if (currentTile instanceof ChargingStation) {
-                //batteryLevel = MAX_BATTERY; // Recharge the battery
                 charge();
                 cleanSweepLogger.info("Recharged to full battery capacity: {} units.", batteryLevel);
                 if (dirtCapacity == MAX_CAPACITY) {

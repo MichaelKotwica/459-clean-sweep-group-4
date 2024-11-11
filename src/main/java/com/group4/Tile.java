@@ -46,8 +46,6 @@ public abstract class Tile {
 
     public abstract String getTypeStr();
 
-    public abstract void removeDirt();
-
     public abstract Boolean traversable();
 
     public int getDirtAmount() {

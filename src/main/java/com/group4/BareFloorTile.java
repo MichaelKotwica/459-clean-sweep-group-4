@@ -13,12 +13,6 @@ public class BareFloorTile extends Tile {
     }
 
     @Override
-    public void removeDirt() {
-        this.dirtAmount -= 3;
-        if (this.dirtAmount < 0) this.dirtAmount = 0;
-    }
-
-    @Override
     public Boolean traversable() {
         return true;
     }
