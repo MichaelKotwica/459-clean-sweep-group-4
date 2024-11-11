@@ -70,6 +70,7 @@
                     Clean Sweep Info After Cleaning:                      
   Powered On: false   Dirt Capacity: 36/50   Battery Level: 131.5/250.0
 ```
+![FPTraversed](https://github.com/user-attachments/assets/8cf4664b-6bc9-4c1b-9822-cf572cfbb029)
 
 ## Clean Sweep Robotic Vacuum Cleaner & Sensor Simulator
 Your company has assembled a small team of developers and business people to work on the
