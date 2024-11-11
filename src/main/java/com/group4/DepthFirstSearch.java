@@ -26,45 +26,32 @@ public class DepthFirstSearch {
 
                         if (cleanSweep.getTile().bottomNext == current && current.traversable()) {
                             cleanSweep.traverseDown(current);
-                            //cleanSweep.clean(current);
-                            current.setDirtAmount(0);
+                            cleanSweep.clean(current);
                         }
 
                         if (cleanSweep.getTile().topNext == current && current.traversable()) {
                             cleanSweep.traverseUp(current);
-                            //cleanSweep.clean(current);
-                            current.setDirtAmount(0);
+                            cleanSweep.clean(current);
                         }
 
                         if (cleanSweep.getTile().leftNext == current && current.traversable()) {
                             cleanSweep.traverseLeft(current);
-                            //cleanSweep.clean(current);
-                            current.setDirtAmount(0);
+                            cleanSweep.clean(current);
                         }
                         if (cleanSweep.getTile().rightNext == current && current.traversable()) {
                             cleanSweep.traverseRight(current);
-                            //cleanSweep.clean(current);
-                            current.setDirtAmount(0);
+                            cleanSweep.clean(current);
                         }
                     } else {
-/*
-                        System.out.println("(" + current.xPos + "," + current.yPos + ") " +
-                                "not adjacent to (" + cleanSweep.getTile().xPos + "," + cleanSweep.getTile().yPos + ") ");
-*/
-                        //DFSLogger.info("({},{}) not adjacent to ({},{}) ", current.xPos, current.yPos, cleanSweep.getTile().xPos, cleanSweep.getTile().yPos);
-                        //cleanSweep.clean(current);
+                        DFSLogger.info("({},{}) not adjacent to ({},{}) ", current.xPos, current.yPos, cleanSweep.getTile().xPos, cleanSweep.getTile().yPos);
+
                         cleanSweep.moveToPosition(current.xPos, current.yPos, floorPlanArr);
 
-                        //current.setDirtAmount(0);
+                        cleanSweep.clean(current);
                     }
                 }
 
-//                System.out.println("========================================================================");
-//                floorPlan.representDirt();
-//                System.out.println("========================================================================");
-
-                //System.out.println(current.getxPos() + "," + current.getyPos());
-
+                DFSLogger.debug("DFS: Current Position({},{})", current.getXPos(), current.getYPos());
 
                 current.getNeighbors().forEach(stack::push);
             }

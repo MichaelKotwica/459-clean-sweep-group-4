@@ -16,11 +16,6 @@ public class StairDeclineTile extends Tile {
     }
 
     @Override
-    public void removeDirt() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public Boolean traversable() {
         return false;
     }

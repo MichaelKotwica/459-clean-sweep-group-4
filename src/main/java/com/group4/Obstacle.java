@@ -10,10 +10,6 @@ public class Obstacle extends Tile {
         this.dirtAmount = 0;
     }
 
-    @Override
-    public void removeDirt() {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public Boolean traversable() {
