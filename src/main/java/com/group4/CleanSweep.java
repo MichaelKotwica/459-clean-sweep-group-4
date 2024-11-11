@@ -633,6 +633,8 @@ public class CleanSweep {
             return;
         }
         List<Tile> guide = pathTo(currentTile);
+        Tile preReturnTile = currentTile;
+        List<Tile> returnPath = guide.reversed();
 
         /*
         if(findChargingStation(currentTile) == null){
@@ -655,8 +657,11 @@ public class CleanSweep {
         followPathtochargingstation(guide, chargingStation);
         if (currentTile.getXPos() == chargingStation.getXPos() && currentTile.getYPos() == chargingStation.getYPos()) {
             if (currentTile instanceof ChargingStation) {
-                batteryLevel = MAX_BATTERY; // Recharge the battery
+                //batteryLevel = MAX_BATTERY; // Recharge the battery
+                charge();
                 cleanSweepLogger.info("Recharged to full battery capacity: {} units.", batteryLevel);
+                emptyDirtContainer();
+                followPath(returnPath, preReturnTile);
             }
         } else {
             cleanSweepLogger.error("Failed to reach the charging station.");
