@@ -7,9 +7,13 @@
 - Manish
 - Michael​
 - Yash
+  
 ### Floor Plan
+
 ![FP2](https://github.com/user-attachments/assets/7cd9d8ef-1179-4a4f-bde9-f22c810e7952)
+
 ### Terminal output (Clean Sweep Actions Omitted for Brevity)
+
 ```
 22:06:58.580 [main] INFO  com.group4.FloorPlan - Guest Bedroom B
 22:06:58.583 [main] INFO  com.group4.FloorPlan - Top Middle Bathroom
@@ -70,7 +74,14 @@
                     Clean Sweep Info After Cleaning:                      
   Powered On: false   Dirt Capacity: 36/50   Battery Level: 131.5/250.0
 ```
+
+### Clean Sweep Traversals
+
 ![FPTraversed](https://github.com/user-attachments/assets/8cf4664b-6bc9-4c1b-9822-cf572cfbb029)
+- The blue path indicates the Clean Sweep's traversals.
+- The yellow path indicates the Clean Sweeps traversals to reach the nearest charging station.
+  
+---
 
 ## Clean Sweep Robotic Vacuum Cleaner & Sensor Simulator
 Your company has assembled a small team of developers and business people to work on the
