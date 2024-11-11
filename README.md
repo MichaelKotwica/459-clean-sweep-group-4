@@ -9,7 +9,7 @@
 - Yash
 ### Floor Plan
 ![FP2](https://github.com/user-attachments/assets/7cd9d8ef-1179-4a4f-bde9-f22c810e7952)
-### Terminal output (Clean Sweep Actions Ommited for Brevity)
+### Terminal output (Clean Sweep Actions Omitted for Brevity)
 ```
 22:06:58.580 [main] INFO  com.group4.FloorPlan - Guest Bedroom B
 22:06:58.583 [main] INFO  com.group4.FloorPlan - Top Middle Bathroom
