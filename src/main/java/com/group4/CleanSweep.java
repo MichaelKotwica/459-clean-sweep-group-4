@@ -290,20 +290,20 @@ public class CleanSweep {
 
             if (getTile().getRight() != null && xPos < targetX && getTile().getRight().traversable()) {
                 traverseRight(currentTile.getRight());
-                //clean(currentTile);
-                currentTile.setDirtAmount(0);
+                clean(currentTile);
+                //currentTile.setDirtAmount(0);
             } else if (getTile().getLeft() != null && xPos > targetX && getTile().getLeft().traversable()) {
                 traverseLeft(currentTile.getLeft());
-                //clean(currentTile);
-                currentTile.setDirtAmount(0);
+                clean(currentTile);
+                //currentTile.setDirtAmount(0);
             } else if (getTile().getBottom() != null && yPos < targetY && getTile().getBottom().traversable()) {
                 traverseDown(currentTile.getBottom());
-                //clean(currentTile);
-                currentTile.setDirtAmount(0);
+                clean(currentTile);
+                //currentTile.setDirtAmount(0);
             } else if (getTile().getTop() != null && yPos > targetY && getTile().getTop().traversable()) {
                 traverseUp(currentTile.getTop());
-                //clean(currentTile);
-                currentTile.setDirtAmount(0);
+                clean(currentTile);
+                //currentTile.setDirtAmount(0);
             }
             /* else {
 
@@ -421,8 +421,8 @@ public class CleanSweep {
             if (tile != currentTile && currentTile.bottomNext == tile && tile.traversable()) {
                 traverseDown(tile);
                 if (!currentTile.cleanTile) {
-                    //clean(currentTile);
-                    currentTile.setDirtAmount(0);
+                    clean(currentTile);
+                    //currentTile.setDirtAmount(0);
                 }
                 if (currentTile == goal) {
                     break;
@@ -431,8 +431,8 @@ public class CleanSweep {
             if (tile != currentTile && currentTile.rightNext == tile && tile.traversable()) {
                 traverseRight(tile);
                 if (!currentTile.cleanTile) {
-                    //clean(currentTile);
-                    currentTile.setDirtAmount(0);
+                    clean(currentTile);
+                    //currentTile.setDirtAmount(0);
                 }
                 if (currentTile == goal) {
                     break;
@@ -441,8 +441,8 @@ public class CleanSweep {
             if (tile != currentTile && currentTile.topNext == tile && tile.traversable()) {
                 traverseUp(tile);
                 if (!currentTile.cleanTile) {
-                    //clean(currentTile);
-                    currentTile.setDirtAmount(0);
+                    clean(currentTile);
+                    //currentTile.setDirtAmount(0);
                 }
                 if (currentTile == goal) {
                     break;
@@ -451,8 +451,8 @@ public class CleanSweep {
             if (tile != currentTile && currentTile.leftNext == tile && tile.traversable()) {
                 traverseLeft(tile);
                 if (!currentTile.cleanTile) {
-                    //clean(currentTile);
-                    currentTile.setDirtAmount(0);
+                    clean(currentTile);
+                    //currentTile.setDirtAmount(0);
                 }
                 if (currentTile == goal) {
                     break;
@@ -520,6 +520,7 @@ public class CleanSweep {
                     tile.cleanTile = true;
                 } else {
                     cleanSweepLogger.warn("Dirt container is full! Cannot clean more until emptied.");
+                    returnToChargingStation();
                 }
 
             } else {
@@ -528,6 +529,7 @@ public class CleanSweep {
 
         } else {
             cleanSweepLogger.warn("Dirt container is full! Cannot clean this tile.");
+            returnToChargingStation();
         }
     }
 
@@ -660,7 +662,9 @@ public class CleanSweep {
                 //batteryLevel = MAX_BATTERY; // Recharge the battery
                 charge();
                 cleanSweepLogger.info("Recharged to full battery capacity: {} units.", batteryLevel);
-                emptyDirtContainer();
+                if (dirtCapacity == MAX_CAPACITY) {
+                    emptyDirtContainer();
+                }
                 followPath(returnPath, preReturnTile);
             }
         } else {
