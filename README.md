@@ -1,5 +1,5 @@
 # Clean Sweep Robotic Vacuum Cleaner & Sensor Simulator
-## Github Actions Build Status:  [![Java CI with Maven](https://github.com/MichaelKotwica/459-clean-sweep-group-4/actions/workflows/maven.yml/badge.svg)](https://github.com/MichaelKotwica/459-clean-sweep-group-4/actions/workflows/maven.yml)
+## Maven Build Status:  [![Java CI with Maven](https://github.com/MichaelKotwica/459-clean-sweep-group-4/actions/workflows/maven.yml/badge.svg)](https://github.com/MichaelKotwica/459-clean-sweep-group-4/actions/workflows/maven.yml)
 ## Agile Software Development Fall 2024 Clean Sweep Project
 ### Group 4 Members
 - Daniel​
